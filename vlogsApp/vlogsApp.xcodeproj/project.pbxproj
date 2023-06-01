@@ -9,21 +9,26 @@
 /* Begin PBXBuildFile section */
 		56AB84A92A28B1E400A3C54C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AB84A82A28B1E400A3C54C /* AppDelegate.swift */; };
 		56AB84AB2A28B1E400A3C54C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AB84AA2A28B1E400A3C54C /* SceneDelegate.swift */; };
-		56AB84AD2A28B1E400A3C54C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AB84AC2A28B1E400A3C54C /* ViewController.swift */; };
+		56AB84AD2A28B1E400A3C54C /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AB84AC2A28B1E400A3C54C /* SignInViewController.swift */; };
 		56AB84B02A28B1E400A3C54C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56AB84AE2A28B1E400A3C54C /* Main.storyboard */; };
 		56AB84B22A28B1E500A3C54C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56AB84B12A28B1E500A3C54C /* Assets.xcassets */; };
 		56AB84B52A28B1E500A3C54C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56AB84B32A28B1E500A3C54C /* LaunchScreen.storyboard */; };
+		56F61C152A28C1E800383821 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 56F61C142A28C1E800383821 /* GoogleService-Info.plist */; };
+		56F61C182A28C3DD00383821 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 56F61C172A28C3DD00383821 /* FirebaseAuth */; };
+		56F61C1C2A28C4C900383821 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 56F61C1B2A28C4C900383821 /* SnapKit */; };
+		56F61C1F2A28C51A00383821 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 56F61C1E2A28C51A00383821 /* SDWebImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		56AB84A52A28B1E400A3C54C /* vlogsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vlogsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56AB84A82A28B1E400A3C54C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56AB84AA2A28B1E400A3C54C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		56AB84AC2A28B1E400A3C54C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		56AB84AC2A28B1E400A3C54C /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		56AB84AF2A28B1E400A3C54C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		56AB84B12A28B1E500A3C54C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56AB84B42A28B1E500A3C54C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		56AB84B62A28B1E500A3C54C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		56F61C142A28C1E800383821 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +36,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56F61C1F2A28C51A00383821 /* SDWebImage in Frameworks */,
+				56F61C182A28C3DD00383821 /* FirebaseAuth in Frameworks */,
+				56F61C1C2A28C4C900383821 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,13 +66,22 @@
 			children = (
 				56AB84A82A28B1E400A3C54C /* AppDelegate.swift */,
 				56AB84AA2A28B1E400A3C54C /* SceneDelegate.swift */,
-				56AB84AC2A28B1E400A3C54C /* ViewController.swift */,
+				56F61C192A28C45B00383821 /* Controller */,
 				56AB84AE2A28B1E400A3C54C /* Main.storyboard */,
 				56AB84B12A28B1E500A3C54C /* Assets.xcassets */,
 				56AB84B32A28B1E500A3C54C /* LaunchScreen.storyboard */,
 				56AB84B62A28B1E500A3C54C /* Info.plist */,
+				56F61C142A28C1E800383821 /* GoogleService-Info.plist */,
 			);
 			path = vlogsApp;
+			sourceTree = "<group>";
+		};
+		56F61C192A28C45B00383821 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				56AB84AC2A28B1E400A3C54C /* SignInViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +100,11 @@
 			dependencies = (
 			);
 			name = vlogsApp;
+			packageProductDependencies = (
+				56F61C172A28C3DD00383821 /* FirebaseAuth */,
+				56F61C1B2A28C4C900383821 /* SnapKit */,
+				56F61C1E2A28C51A00383821 /* SDWebImage */,
+			);
 			productName = vlogsApp;
 			productReference = 56AB84A52A28B1E400A3C54C /* vlogsApp.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +133,11 @@
 				Base,
 			);
 			mainGroup = 56AB849C2A28B1E400A3C54C;
+			packageReferences = (
+				56F61C162A28C3DD00383821 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				56F61C1A2A28C4C900383821 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				56F61C1D2A28C51A00383821 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = 56AB84A62A28B1E400A3C54C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -126,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56AB84B52A28B1E500A3C54C /* LaunchScreen.storyboard in Resources */,
+				56F61C152A28C1E800383821 /* GoogleService-Info.plist in Resources */,
 				56AB84B22A28B1E500A3C54C /* Assets.xcassets in Resources */,
 				56AB84B02A28B1E400A3C54C /* Main.storyboard in Resources */,
 			);
@@ -138,7 +166,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56AB84AD2A28B1E400A3C54C /* ViewController.swift in Sources */,
+				56AB84AD2A28B1E400A3C54C /* SignInViewController.swift in Sources */,
 				56AB84A92A28B1E400A3C54C /* AppDelegate.swift in Sources */,
 				56AB84AB2A28B1E400A3C54C /* SceneDelegate.swift in Sources */,
 			);
@@ -354,6 +382,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		56F61C162A28C3DD00383821 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+		56F61C1A2A28C4C900383821 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		56F61C1D2A28C51A00383821 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		56F61C172A28C3DD00383821 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 56F61C162A28C3DD00383821 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		56F61C1B2A28C4C900383821 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 56F61C1A2A28C4C900383821 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		56F61C1E2A28C51A00383821 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 56F61C1D2A28C51A00383821 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 56AB849D2A28B1E400A3C54C /* Project object */;
 }
