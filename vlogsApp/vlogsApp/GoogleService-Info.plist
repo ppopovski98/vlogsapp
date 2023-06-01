@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>503015006844-os63nghu9g6f36tipnb29o0kcbjs1t14.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.503015006844-os63nghu9g6f36tipnb29o0kcbjs1t14</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCsBrIccOu2rEwr8ZbNaBFPjrGumiZSwoM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>503015006844</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>petarpopovski.vlogsApp</string>
+	<key>PROJECT_ID</key>
+	<string>imgurapp-42694</string>
+	<key>STORAGE_BUCKET</key>
+	<string>imgurapp-42694.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:503015006844:ios:524796559ab87578c71ff9</string>
+</dict>
+</plist>
