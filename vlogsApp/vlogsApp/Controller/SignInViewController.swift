@@ -15,7 +15,12 @@ class SignInViewController: UIViewController {
     let emailTextField = UITextField()
     let passwordTextField = UITextField()
     let noCredentialsAlert = UILabel()
-    var timer: Timer?
+    let registerButton = UIButton(type: .roundedRect)
+    
+    let registerViewController = RegisterViewController()
+    
+    let backgroundColor = "backgroundColor"
+    let textFieldColor = "textFieldColor"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +37,10 @@ class SignInViewController: UIViewController {
         let emailAttributedTextField = NSAttributedString(string: emailTextField.placeholder ?? "E-mail", attributes: attributes)
         let passwordAttributedTextField = NSAttributedString(string: passwordTextField.placeholder ?? "Password", attributes: attributes)
         
-        view.backgroundColor = UIColor(named: "backgroundColor")
+        view.backgroundColor = UIColor(named: backgroundColor)
         
         loginButton.setTitle("Log In", for: .normal)
-        loginButton.backgroundColor = UIColor(named: "textFieldColor")
+        loginButton.backgroundColor = UIColor(named: textFieldColor)
         loginButton.layer.cornerRadius = 10
         loginButton.tintColor = .white
         loginButton.frame = CGRect(x: 100, y: 100, width: 350, height: 50)
@@ -43,12 +48,22 @@ class SignInViewController: UIViewController {
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loginButton)
         
+        registerButton.setTitle("Register", for: .normal)
+        registerButton.backgroundColor = UIColor(named: textFieldColor)
+        registerButton.layer.cornerRadius = 10
+        registerButton.tintColor = .white
+        registerButton.frame = CGRect(x: 100, y: 100, width: 350, height: 50)
+        registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
+        registerButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(registerButton)
+        
+        
         emailTextField.frame = CGRect(x: 100, y: 100, width: 350, height: 40)
         emailTextField.placeholder = "E-mail"
         emailTextField.attributedPlaceholder = emailAttributedTextField
         emailTextField.textColor = .white
         emailTextField.borderStyle = .roundedRect
-        emailTextField.backgroundColor = UIColor(named: "textFieldColor")
+        emailTextField.backgroundColor = UIColor(named: textFieldColor)
         view.addSubview(emailTextField)
         
         passwordTextField.frame = CGRect(x: 100, y: 150, width: 350, height: 40)
@@ -56,7 +71,7 @@ class SignInViewController: UIViewController {
         passwordTextField.attributedPlaceholder = passwordAttributedTextField
         passwordTextField.textColor = .white
         passwordTextField.borderStyle = .roundedRect
-        passwordTextField.backgroundColor = UIColor(named: "textFieldColor")
+        passwordTextField.backgroundColor = UIColor(named: textFieldColor)
         passwordTextField.isSecureTextEntry = true
         view.addSubview(passwordTextField)
         
@@ -70,7 +85,14 @@ class SignInViewController: UIViewController {
         
         loginButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(passwordTextField.snp.bottom).offset(10)
+            make.top.equalTo(passwordTextField.snp.bottom).offset(200)
+            make.width.equalTo(350)
+            make.height.equalTo(50)
+        }
+        
+        registerButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(loginButton.snp.bottom).offset(10)
             make.width.equalTo(350)
             make.height.equalTo(50)
         }
@@ -91,13 +113,17 @@ class SignInViewController: UIViewController {
         
         noCredentialsAlert.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(loginButton.snp.bottom).offset(5)
+            make.top.equalTo(passwordTextField.snp.bottom).offset(5)
             make.width.equalTo(350)
             make.height.equalTo(50)
         }
     }
     
     //Firebase Auth
+    
+    @objc func registerButtonTapped() {
+        self.present(self.registerViewController, animated: true)
+    }
     
     @objc func buttonTapped() {
         
@@ -117,6 +143,8 @@ class SignInViewController: UIViewController {
             }
         })
     }
+    
+    //Timer and alert message for no credentials.
     
     func startTimer() {
         
@@ -138,7 +166,6 @@ class SignInViewController: UIViewController {
         
     }
     
-    //To add: another view controller when you pass the log in screen, or when you sign up.
 }
 
 
