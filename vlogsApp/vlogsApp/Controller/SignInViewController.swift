@@ -15,6 +15,7 @@ class SignInViewController: UIViewController {
     let emailTextField = UITextField()
     let passwordTextField = UITextField()
     let noCredentialsAlert = UILabel()
+    var timer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +62,7 @@ class SignInViewController: UIViewController {
         
         noCredentialsAlert.isHidden = true
         noCredentialsAlert.textColor = .red
-        noCredentialsAlert.text = "Incorrect e-mail and/or password."
+        noCredentialsAlert.text = "Please enter an email and/or password."
         noCredentialsAlert.textAlignment = .center
         view.addSubview(noCredentialsAlert)
         
@@ -102,18 +103,39 @@ class SignInViewController: UIViewController {
         
         guard let email = emailTextField.text, !email.isEmpty,
               let password = passwordTextField.text, !password.isEmpty else {
-            self.noCredentialsAlert.isHidden = false
+            self.startTimer()
             return
         }
         
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { authResult, error in
             
         if error != nil {
+                self.alertMessage()
                 print(error?.localizedDescription ?? "Error")
             } else {
                 print("Success")
             }
         })
+    }
+    
+    func startTimer() {
+        
+        noCredentialsAlert.isHidden = false
+        
+        Timer.scheduledTimer(withTimeInterval: 5, repeats: false ) { [weak self] timer in
+            self?.noCredentialsAlert.isHidden = true
+            timer.invalidate()
+        }
+    }
+    
+    func alertMessage() {
+        
+        let alert = UIAlertController(title: "No account with these credentials.", message: "Please create or sign in with an existing account.", preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     //To add: another view controller when you pass the log in screen, or when you sign up.
