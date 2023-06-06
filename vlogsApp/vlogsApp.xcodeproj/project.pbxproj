@@ -13,7 +13,8 @@
 		56AB84B02A28B1E400A3C54C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56AB84AE2A28B1E400A3C54C /* Main.storyboard */; };
 		56AB84B22A28B1E500A3C54C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56AB84B12A28B1E500A3C54C /* Assets.xcassets */; };
 		56AB84B52A28B1E500A3C54C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56AB84B32A28B1E500A3C54C /* LaunchScreen.storyboard */; };
-		56F61C152A28C1E800383821 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 56F61C142A28C1E800383821 /* GoogleService-Info.plist */; };
+		56B5F7732A2F5307006F3E49 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B5F7722A2F5307006F3E49 /* RegisterViewController.swift */; };
+		56B5F7752A2F670A006F3E49 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 56B5F7742A2F670A006F3E49 /* GoogleService-Info.plist */; };
 		56F61C182A28C3DD00383821 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 56F61C172A28C3DD00383821 /* FirebaseAuth */; };
 		56F61C1C2A28C4C900383821 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 56F61C1B2A28C4C900383821 /* SnapKit */; };
 		56F61C1F2A28C51A00383821 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 56F61C1E2A28C51A00383821 /* SDWebImage */; };
@@ -28,7 +29,8 @@
 		56AB84B12A28B1E500A3C54C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56AB84B42A28B1E500A3C54C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		56AB84B62A28B1E500A3C54C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		56F61C142A28C1E800383821 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		56B5F7722A2F5307006F3E49 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		56B5F7742A2F670A006F3E49 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +73,7 @@
 				56AB84B12A28B1E500A3C54C /* Assets.xcassets */,
 				56AB84B32A28B1E500A3C54C /* LaunchScreen.storyboard */,
 				56AB84B62A28B1E500A3C54C /* Info.plist */,
-				56F61C142A28C1E800383821 /* GoogleService-Info.plist */,
+				56B5F7742A2F670A006F3E49 /* GoogleService-Info.plist */,
 			);
 			path = vlogsApp;
 			sourceTree = "<group>";
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				56AB84AC2A28B1E400A3C54C /* SignInViewController.swift */,
+				56B5F7722A2F5307006F3E49 /* RegisterViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -153,7 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56AB84B52A28B1E500A3C54C /* LaunchScreen.storyboard in Resources */,
-				56F61C152A28C1E800383821 /* GoogleService-Info.plist in Resources */,
+				56B5F7752A2F670A006F3E49 /* GoogleService-Info.plist in Resources */,
 				56AB84B22A28B1E500A3C54C /* Assets.xcassets in Resources */,
 				56AB84B02A28B1E400A3C54C /* Main.storyboard in Resources */,
 			);
@@ -169,6 +172,7 @@
 				56AB84AD2A28B1E400A3C54C /* SignInViewController.swift in Sources */,
 				56AB84A92A28B1E400A3C54C /* AppDelegate.swift in Sources */,
 				56AB84AB2A28B1E400A3C54C /* SceneDelegate.swift in Sources */,
+				56B5F7732A2F5307006F3E49 /* RegisterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
