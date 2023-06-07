@@ -34,6 +34,8 @@ class RegisterViewController: UIViewController {
         
         view.backgroundColor = UIColor(named: backgroundColor)
         
+        navigationController?.navigationBar.tintColor = UIColor(named: textFieldColor)
+        
         registerButton.setTitle("Register", for: .normal)
         registerButton.backgroundColor = UIColor(named: textFieldColor)
         registerButton.layer.cornerRadius = 10

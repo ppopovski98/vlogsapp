@@ -122,7 +122,7 @@ class SignInViewController: UIViewController {
     //Firebase Auth
     
     @objc func registerButtonTapped() {
-        self.present(self.registerViewController, animated: true)
+        navigationController?.pushViewController(RegisterViewController(), animated: true)
     }
     
     @objc func buttonTapped() {
@@ -139,6 +139,8 @@ class SignInViewController: UIViewController {
                 self.alertMessage()
                 print(error?.localizedDescription ?? "Error")
             } else {
+                let mainScreenViewController = MainScreenViewController()
+                self.navigationController?.pushViewController(mainScreenViewController, animated: true)
                 print("Success")
             }
         })
