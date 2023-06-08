@@ -24,14 +24,12 @@ class MainScreenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         mainScreenConfigUI()
     }
     
     func mainScreenConfigUI() {
-        
-        view.backgroundColor = .white
             
         self.navigationItem.setHidesBackButton(true, animated: true)
 
@@ -39,39 +37,18 @@ class MainScreenViewController: UIViewController {
         collectionView.delegate = self
         view.addSubview(collectionView)
         
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = UIColor(named: "backgroundColor")
         
         collectionView.snp.makeConstraints { make in
-                    make.edges.equalToSuperview()
-            }
-        
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
-        navigationItem.rightBarButtonItem = addButton
-                
-        let tab1 = UIViewController()
-        tab1.title = "Tab 1"
-        tab1.view.backgroundColor = .red
-        
-        let tab2 = UIViewController()
-        tab1.title = "Tab 2"
-        tab1.view.backgroundColor = .green
-        
-        let tabBarController = UITabBarController()
-        tabBarController.setViewControllers([tab1, tab2], animated: false)
-        
-        let navigationController = UINavigationController(rootViewController: self)
-        navigationController.navigationBar.prefersLargeTitles = true
-        
-        navigationController.setViewControllers([self, tabBarController], animated: false)
-        
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.window?.rootViewController = navigationController
+            make.left.right.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
 
     }
     
     @objc func addButtonTapped() {
-        
+        navigationController?.pushViewController(AddABlogViewController(), animated: true)
     }
 
 }

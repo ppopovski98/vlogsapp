@@ -17,8 +17,6 @@ class SignInViewController: UIViewController {
     let noCredentialsAlert = UILabel()
     let registerButton = UIButton(type: .roundedRect)
     
-    let registerViewController = RegisterViewController()
-    
     let backgroundColor = "backgroundColor"
     let textFieldColor = "textFieldColor"
     
@@ -139,8 +137,8 @@ class SignInViewController: UIViewController {
                 self.alertMessage()
                 print(error?.localizedDescription ?? "Error")
             } else {
-                let mainScreenViewController = MainScreenViewController()
-                self.navigationController?.pushViewController(mainScreenViewController, animated: true)
+                let tabBarViewController = TabBarViewController()
+                self.navigationController?.pushViewController(tabBarViewController, animated: true)
                 print("Success")
             }
         })

@@ -1,18 +1,18 @@
 //
-//  AddABlogViewController.swift
+//  ProfileViewController.swift
 //  vlogsApp
 //
-//  Created by Petar Popovski on 8.6.23.
+//  Created by Petar Popovski on 7.6.23.
 //
 
 import UIKit
 
-class AddABlogViewController: UIViewController {
+class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .red
+        view.backgroundColor = .blue
     }
     
 
