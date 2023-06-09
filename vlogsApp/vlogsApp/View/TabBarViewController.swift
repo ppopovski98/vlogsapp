@@ -37,5 +37,12 @@ class TabBarViewController: UITabBarController {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: mainScreen, action: #selector(mainScreen.addButtonTapped))
         mainScreen.navigationItem.rightBarButtonItem = addButton
         mainScreen.navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "textFieldColor")
+        
+        guard let items = tabBar.items else { return }
+        let images =  ["house.circle", "person.circle", "star.circle"]
+        
+        for x in 0..<items.count {
+            items[x].image = UIImage(systemName: images[x])
+        }
     }
 }

@@ -24,7 +24,7 @@ class MainScreenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         mainScreenConfigUI()
     }
@@ -49,6 +49,9 @@ class MainScreenViewController: UIViewController {
     
     @objc func addButtonTapped() {
         navigationController?.pushViewController(AddABlogViewController(), animated: true)
+        if let tabBarVC = tabBarController as? TabBarViewController {
+                    tabBarVC.tabBar.isHidden = true
+                }
     }
 
 }
