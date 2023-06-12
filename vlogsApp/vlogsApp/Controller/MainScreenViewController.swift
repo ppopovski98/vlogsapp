@@ -25,12 +25,15 @@ class MainScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-        collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
         mainScreenConfigUI()
     }
     
     func mainScreenConfigUI() {
             
+        title = "Blogs"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         self.navigationItem.setHidesBackButton(true, animated: true)
 
         collectionView.dataSource = self
@@ -53,6 +56,13 @@ class MainScreenViewController: UIViewController {
                     tabBarVC.tabBar.isHidden = true
                 }
     }
+    
+    @objc func alertButtonTapped() {
+        navigationController?.pushViewController(AlertScreenViewController(), animated: true)
+        if let tabBarVC = tabBarController as? TabBarViewController {
+                    tabBarVC.tabBar.isHidden = true
+                }
+    }
 
 }
 
@@ -61,18 +71,21 @@ class MainScreenViewController: UIViewController {
 extension MainScreenViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
-        cell.backgroundColor = .yellow
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BlogCollectionViewCell.identifier, for: indexPath)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return blogs.count
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width - 20
-        return CGSize(width: width, height: 100)
+        let width = collectionView.bounds.width - 40
+        return CGSize(width: width, height: 300)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.navigationController?.pushViewController(DetailScreenViewController(), animated: true)
     }
     
 }

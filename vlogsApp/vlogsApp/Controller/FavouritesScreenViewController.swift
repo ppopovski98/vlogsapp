@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class FavouritesScreenViewController: UIViewController {
     
@@ -14,8 +15,16 @@ class FavouritesScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .blue
+        favouritesScreenConfigUI()
+    }
+    
+    func favouritesScreenConfigUI() {
+        
+        title = "Favourites"
+        
         view.addSubview(blogDescription)
+        
+        view.backgroundColor = UIColor(named: "backgroundColor")
     }
 
 }

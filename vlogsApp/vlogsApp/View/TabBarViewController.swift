@@ -17,6 +17,8 @@ class TabBarViewController: UITabBarController {
     
     func tabBarConfigUI() {
         
+        let vlogImage = UIImage(systemName: "bell")
+        
         self.navigationItem.setHidesBackButton(true, animated: true)
         
         tabBar.backgroundColor = .white
@@ -30,16 +32,21 @@ class TabBarViewController: UITabBarController {
         
         let mainScreenNavController = UINavigationController(rootViewController: mainScreen)
         
-        let viewControllers = [mainScreenNavController, profileScreen, favouriteScreen]
+        let viewControllers = [profileScreen, mainScreenNavController, favouriteScreen]
         mainScreenNavController.title = "Main"
         self.setViewControllers(viewControllers, animated: false)
+        self.selectedViewController = mainScreenNavController
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: mainScreen, action: #selector(mainScreen.addButtonTapped))
         mainScreen.navigationItem.rightBarButtonItem = addButton
         mainScreen.navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "textFieldColor")
         
+        let alertButton = UIBarButtonItem(image: vlogImage, style: .done, target: mainScreen, action: #selector(mainScreen.alertButtonTapped))
+        mainScreen.navigationItem.leftBarButtonItem = alertButton
+        mainScreen.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "textFieldColor")
+        
         guard let items = tabBar.items else { return }
-        let images =  ["house.circle", "person.circle", "star.circle"]
+        let images =  ["person.circle", "house.circle", "star.circle"]
         
         for x in 0..<items.count {
             items[x].image = UIImage(systemName: images[x])
