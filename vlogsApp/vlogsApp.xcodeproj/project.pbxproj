@@ -21,6 +21,7 @@
 		56AB84B52A28B1E500A3C54C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56AB84B32A28B1E500A3C54C /* LaunchScreen.storyboard */; };
 		56AD9F3C2A373D3B001DA577 /* DetailScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AD9F3B2A373D3B001DA577 /* DetailScreenViewController.swift */; };
 		56AD9F3E2A37463E001DA577 /* AlertScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AD9F3D2A37463E001DA577 /* AlertScreenViewController.swift */; };
+		56AD9F412A3751F3001DA577 /* Extension+UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AD9F402A3751F3001DA577 /* Extension+UIStackView.swift */; };
 		56B5F7732A2F5307006F3E49 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B5F7722A2F5307006F3E49 /* RegisterViewController.swift */; };
 		56B5F7752A2F670A006F3E49 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 56B5F7742A2F670A006F3E49 /* GoogleService-Info.plist */; };
 		56B81B8D2A31FDD6001341CF /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B81B8C2A31FDD6001341CF /* TabBarViewController.swift */; };
@@ -44,6 +45,7 @@
 		56AB84B62A28B1E500A3C54C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		56AD9F3B2A373D3B001DA577 /* DetailScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenViewController.swift; sourceTree = "<group>"; };
 		56AD9F3D2A37463E001DA577 /* AlertScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertScreenViewController.swift; sourceTree = "<group>"; };
+		56AD9F402A3751F3001DA577 /* Extension+UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIStackView.swift"; sourceTree = "<group>"; };
 		56B5F7722A2F5307006F3E49 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		56B5F7742A2F670A006F3E49 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		56B81B8C2A31FDD6001341CF /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 		56AB84A72A28B1E400A3C54C /* vlogsApp */ = {
 			isa = PBXGroup;
 			children = (
+				56AD9F3F2A3751C8001DA577 /* Helpers */,
 				56AB84A82A28B1E400A3C54C /* AppDelegate.swift */,
 				56AB84AA2A28B1E400A3C54C /* SceneDelegate.swift */,
 				56A29E142A30BE9B00D866F1 /* View */,
@@ -113,6 +116,14 @@
 				56B5F7742A2F670A006F3E49 /* GoogleService-Info.plist */,
 			);
 			path = vlogsApp;
+			sourceTree = "<group>";
+		};
+		56AD9F3F2A3751C8001DA577 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				56AD9F402A3751F3001DA577 /* Extension+UIStackView.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		56F61C192A28C45B00383821 /* Controller */ = {
@@ -215,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56B81B8F2A320B55001341CF /* AddABlogViewController.swift in Sources */,
+				56AD9F412A3751F3001DA577 /* Extension+UIStackView.swift in Sources */,
 				56AD9F3E2A37463E001DA577 /* AlertScreenViewController.swift in Sources */,
 				56A29E062A309AB100D866F1 /* MainScreenViewController.swift in Sources */,
 				56AB84AD2A28B1E400A3C54C /* SignInViewController.swift in Sources */,

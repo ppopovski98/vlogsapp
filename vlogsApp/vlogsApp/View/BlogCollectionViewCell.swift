@@ -67,7 +67,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
 
     }
     
-    func blogCellConfigUI() {
+    func blogCellConfigUI(_ model: Model) {
         contentView.layer.cornerRadius = 20
         contentView.backgroundColor = .white
         

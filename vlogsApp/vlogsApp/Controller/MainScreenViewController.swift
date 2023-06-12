@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 class MainScreenViewController: UIViewController {
     
-    var blogs: [String] = []
+    var dataSource: [Model] = []
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -76,7 +76,7 @@ extension MainScreenViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

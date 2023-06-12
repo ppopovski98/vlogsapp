@@ -4,15 +4,31 @@
 //
 //  Created by Petar Popovski on 8.6.23.
 //
-
+//Scrollview
 import UIKit
 import SnapKit
 
 class AddABlogViewController: UIViewController {
     
-    let titleTextField = UITextField()
-    let descritptionTextField = UITextField()
+    lazy var titleTextField: UITextField = {
+        let title = UITextField()
+        title.backgroundColor = UIColor(named: "textFieldColor")
+        title.textColor = .white
+        title.layer.cornerRadius = 10
+        return title
+    }()
+    
+    lazy var descritptionTextField: UITextField = {
+        let title = UITextField()
+        title.backgroundColor = UIColor(named: "textFieldColor")
+        title.contentVerticalAlignment = UIControl.ContentVerticalAlignment.top
+        title.textColor = .white
+        title.layer.cornerRadius = 10
+        return title
+    }()
+    
     let postButton = UIButton()
+    lazy var stackView = UIStackView(arrangedSubviews: [titleTextField, descritptionTextField, UIView()], spacing: 12, axis: .vertical, distribution: .fill, alignment: .center, layoutMargins: UIEdgeInsets(top: 100, left: 12, bottom: 0, right: 12))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,18 +47,9 @@ class AddABlogViewController: UIViewController {
     func configUI() {
         
         view.backgroundColor = UIColor(named: "backgroundColor")
-        view.addSubview(titleTextField)
-        view.addSubview(descritptionTextField)
+        view.addSubview(stackView)
         view.addSubview(postButton)
         
-        titleTextField.backgroundColor = UIColor(named: "textFieldColor")
-        titleTextField.textColor = .white
-        titleTextField.layer.cornerRadius = 10
-
-        descritptionTextField.backgroundColor = UIColor(named: "textFieldColor")
-        descritptionTextField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.top
-        descritptionTextField.textColor = .white
-        descritptionTextField.layer.cornerRadius = 10
         
         postButton.backgroundColor = UIColor(named: "textFieldColor")
         postButton.setTitle("Post", for: .normal)
@@ -56,18 +63,17 @@ class AddABlogViewController: UIViewController {
             make.height.equalTo(50)
         }
         
+        stackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         titleTextField.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(descritptionTextField.snp.top).offset(-10)
-            make.width.equalTo(350)
-            make.height.equalTo(40)
+            make.leading.trailing.equalToSuperview().inset(12)
         }
         
         descritptionTextField.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(-100)
-            make.width.equalTo(350)
-            make.height.equalTo(200)
+            make.leading.trailing.equalToSuperview().inset(12)
+            make.height.equalTo(85)
         }
     }
 }
