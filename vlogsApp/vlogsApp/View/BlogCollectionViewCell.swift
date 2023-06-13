@@ -11,7 +11,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "CustomCollectionViewCell"
     
-    let imageView: UIImageView = {
+    lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 20
         imageView.image = UIImage(named: "vlogPicExample")
@@ -21,15 +21,14 @@ class BlogCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    let titleLabel: UILabel = {
+    public let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Custom"
+        label.font = UIFont(name:"HelveticaNeue-Bold", size: 18.0)
         return label
     }()
     
-    let descriptionLabel: UILabel = {
+    public let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Custom Description"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -67,7 +66,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
 
     }
     
-    func blogCellConfigUI(_ model: Model) {
+    func blogCellConfigUI() {
         contentView.layer.cornerRadius = 20
         contentView.backgroundColor = .white
         

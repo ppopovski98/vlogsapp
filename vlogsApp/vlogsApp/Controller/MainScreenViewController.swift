@@ -18,13 +18,14 @@ class MainScreenViewController: UIViewController {
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
         return collectionView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
                 
+        view.backgroundColor = UIColor(named: "backgroundColor")
         collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
         mainScreenConfigUI()
     }
@@ -32,7 +33,16 @@ class MainScreenViewController: UIViewController {
     func mainScreenConfigUI() {
             
         title = "Blogs"
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        navBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        navBarAppearance.backgroundColor = UIColor.white
+        
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         
         self.navigationItem.setHidesBackButton(true, animated: true)
 
@@ -51,10 +61,12 @@ class MainScreenViewController: UIViewController {
     }
     
     @objc func addButtonTapped() {
-        navigationController?.pushViewController(AddABlogViewController(), animated: true)
+        let addBlogVC = AddABlogViewController()
+        addBlogVC.delegate = self
+        navigationController?.pushViewController(addBlogVC, animated: true)
         if let tabBarVC = tabBarController as? TabBarViewController {
-                    tabBarVC.tabBar.isHidden = true
-                }
+            tabBarVC.tabBar.isHidden = true
+        }
     }
     
     @objc func alertButtonTapped() {
@@ -71,7 +83,12 @@ class MainScreenViewController: UIViewController {
 extension MainScreenViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BlogCollectionViewCell.identifier, for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BlogCollectionViewCell.identifier, for: indexPath) as? BlogCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        let blog = dataSource[indexPath.item]
+            cell.titleLabel.text = blog.title
+            cell.descriptionLabel.text = blog.description
         return cell
     }
     
@@ -88,4 +105,11 @@ extension MainScreenViewController: UICollectionViewDataSource, UICollectionView
         self.navigationController?.pushViewController(DetailScreenViewController(), animated: true)
     }
     
+}
+
+extension MainScreenViewController: AddABlogDelegate {
+    func addBlog(_ blog: Model) {
+        dataSource.insert(blog, at: 0)
+            collectionView.reloadData()
+    }
 }

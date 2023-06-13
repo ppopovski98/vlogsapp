@@ -12,7 +12,7 @@ class AlertScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        alertConfigUI()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -21,5 +21,9 @@ class AlertScreenViewController: UIViewController {
         if let tabBarVC = tabBarController as? TabBarViewController {
             tabBarVC.tabBar.isHidden = false
         }
+    }
+    
+    func alertConfigUI() {
+        view.backgroundColor = .white
     }
 }

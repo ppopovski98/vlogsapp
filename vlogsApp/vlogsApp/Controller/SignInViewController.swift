@@ -17,6 +17,9 @@ class SignInViewController: UIViewController {
     let noCredentialsAlert = UILabel()
     let registerButton = UIButton(type: .roundedRect)
     
+    let emailPlaceholder = UILabel()
+    let passwordPlaceholder = UILabel()
+    
     let backgroundColor = "backgroundColor"
     let textFieldColor = "textFieldColor"
     
@@ -32,8 +35,8 @@ class SignInViewController: UIViewController {
     func configUI() {
         
         let attributes: [NSAttributedString.Key: Any] = [ NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.3)]
-        let emailAttributedTextField = NSAttributedString(string: emailTextField.placeholder ?? "E-mail", attributes: attributes)
-        let passwordAttributedTextField = NSAttributedString(string: passwordTextField.placeholder ?? "Password", attributes: attributes)
+        let emailAttributedTextField = NSAttributedString(string: emailTextField.placeholder ?? "Enter E-mail", attributes: attributes)
+        let passwordAttributedTextField = NSAttributedString(string: passwordTextField.placeholder ?? "Enter Password", attributes: attributes)
         
         view.backgroundColor = UIColor(named: backgroundColor)
         
@@ -55,9 +58,8 @@ class SignInViewController: UIViewController {
         registerButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(registerButton)
         
-        
         emailTextField.frame = CGRect(x: 100, y: 100, width: 350, height: 40)
-        emailTextField.placeholder = "E-mail"
+        emailTextField.placeholder = "Enter E-mail"
         emailTextField.attributedPlaceholder = emailAttributedTextField
         emailTextField.textColor = .white
         emailTextField.borderStyle = .roundedRect
@@ -65,7 +67,7 @@ class SignInViewController: UIViewController {
         view.addSubview(emailTextField)
         
         passwordTextField.frame = CGRect(x: 100, y: 150, width: 350, height: 40)
-        passwordTextField.placeholder = "Password"
+        passwordTextField.placeholder = "Enter Password"
         passwordTextField.attributedPlaceholder = passwordAttributedTextField
         passwordTextField.textColor = .white
         passwordTextField.borderStyle = .roundedRect
@@ -79,7 +81,29 @@ class SignInViewController: UIViewController {
         noCredentialsAlert.textAlignment = .center
         view.addSubview(noCredentialsAlert)
         
+        emailPlaceholder.text = "E-mail"
+        emailPlaceholder.textColor = .gray
+        view.addSubview(emailPlaceholder)
+        
+        passwordPlaceholder.text = "Password"
+        passwordPlaceholder.textColor = .gray
+        view.addSubview(passwordPlaceholder)
+        
         // These are the constraints for the mail, password and log in button using snapkit.
+        
+        passwordPlaceholder.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(passwordTextField.snp.top).offset(10)
+            make.width.equalTo(350)
+            make.height.equalTo(50)
+        }
+        
+        emailPlaceholder.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(emailTextField.snp.top).offset(10)
+            make.width.equalTo(350)
+            make.height.equalTo(50)
+        }
         
         loginButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -97,16 +121,17 @@ class SignInViewController: UIViewController {
         
         emailTextField.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(passwordTextField.snp.top).offset(-10)
+            make.bottom.equalTo(passwordTextField.snp.top).offset(-50)
             make.width.equalTo(350)
-            make.height.equalTo(40)
+            make.height.equalTo(50)
         }
         
         passwordTextField.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
+            make.top.equalTo(passwordPlaceholder.snp.bottom)
             make.width.equalTo(350)
-            make.height.equalTo(40)
+            make.height.equalTo(50)
         }
         
         noCredentialsAlert.snp.makeConstraints { make in

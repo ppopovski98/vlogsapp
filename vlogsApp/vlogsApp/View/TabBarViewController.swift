@@ -12,6 +12,8 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.barTintColor = .white
+        tabBarController?.tabBar.tintColor = .white
         tabBarConfigUI()
     }
     
@@ -47,7 +49,7 @@ class TabBarViewController: UITabBarController {
         
         guard let items = tabBar.items else { return }
         let images =  ["person.circle", "house.circle", "star.circle"]
-        
+                
         for x in 0..<items.count {
             items[x].image = UIImage(systemName: images[x])
         }
