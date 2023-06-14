@@ -115,10 +115,10 @@
 		56AB84A72A28B1E400A3C54C /* vlogsApp */ = {
 			isa = PBXGroup;
 			children = (
-				56A160D82A385B8000C0B0A9 /* Model */,
-				56AD9F3F2A3751C8001DA577 /* Helpers */,
 				56AB84A82A28B1E400A3C54C /* AppDelegate.swift */,
 				56AB84AA2A28B1E400A3C54C /* SceneDelegate.swift */,
+				56A160D82A385B8000C0B0A9 /* Model */,
+				56AD9F3F2A3751C8001DA577 /* Helpers */,
 				56A29E142A30BE9B00D866F1 /* View */,
 				56F61C192A28C45B00383821 /* Controller */,
 				56AB84B12A28B1E500A3C54C /* Assets.xcassets */,

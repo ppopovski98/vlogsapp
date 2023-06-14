@@ -23,10 +23,15 @@ class SignInViewController: UIViewController {
     let backgroundColor = "backgroundColor"
     let textFieldColor = "textFieldColor"
     
+    var lineView = UIView()
+    var secondLineView = UIView()
+    let signUpLabel = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configUI()
+        textFieldConfigUI()
     }
     
     
@@ -34,60 +39,10 @@ class SignInViewController: UIViewController {
     
     func configUI() {
         
-        let attributes: [NSAttributedString.Key: Any] = [ NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.3)]
-        let emailAttributedTextField = NSAttributedString(string: emailTextField.placeholder ?? "Enter E-mail", attributes: attributes)
-        let passwordAttributedTextField = NSAttributedString(string: passwordTextField.placeholder ?? "Enter Password", attributes: attributes)
+        title = "Log In"
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         view.backgroundColor = UIColor(named: backgroundColor)
-        
-        loginButton.setTitle("Log In", for: .normal)
-        loginButton.backgroundColor = UIColor(named: textFieldColor)
-        loginButton.layer.cornerRadius = 10
-        loginButton.tintColor = .white
-        loginButton.frame = CGRect(x: 100, y: 100, width: 350, height: 50)
-        loginButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(loginButton)
-        
-        registerButton.setTitle("Register", for: .normal)
-        registerButton.backgroundColor = UIColor(named: textFieldColor)
-        registerButton.layer.cornerRadius = 10
-        registerButton.tintColor = .white
-        registerButton.frame = CGRect(x: 100, y: 100, width: 350, height: 50)
-        registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
-        registerButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(registerButton)
-        
-        emailTextField.frame = CGRect(x: 100, y: 100, width: 350, height: 40)
-        emailTextField.placeholder = "Enter E-mail"
-        emailTextField.attributedPlaceholder = emailAttributedTextField
-        emailTextField.textColor = .white
-        emailTextField.borderStyle = .roundedRect
-        emailTextField.backgroundColor = UIColor(named: textFieldColor)
-        view.addSubview(emailTextField)
-        
-        passwordTextField.frame = CGRect(x: 100, y: 150, width: 350, height: 40)
-        passwordTextField.placeholder = "Enter Password"
-        passwordTextField.attributedPlaceholder = passwordAttributedTextField
-        passwordTextField.textColor = .white
-        passwordTextField.borderStyle = .roundedRect
-        passwordTextField.backgroundColor = UIColor(named: textFieldColor)
-        passwordTextField.isSecureTextEntry = true
-        view.addSubview(passwordTextField)
-        
-        noCredentialsAlert.isHidden = true
-        noCredentialsAlert.textColor = .red
-        noCredentialsAlert.text = "Please enter an email and/or password."
-        noCredentialsAlert.textAlignment = .center
-        view.addSubview(noCredentialsAlert)
-        
-        emailPlaceholder.text = "E-mail"
-        emailPlaceholder.textColor = .gray
-        view.addSubview(emailPlaceholder)
-        
-        passwordPlaceholder.text = "Password"
-        passwordPlaceholder.textColor = .gray
-        view.addSubview(passwordPlaceholder)
         
         // These are the constraints for the mail, password and log in button using snapkit.
         
@@ -107,16 +62,16 @@ class SignInViewController: UIViewController {
         
         loginButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(passwordTextField.snp.bottom).offset(200)
-            make.width.equalTo(350)
-            make.height.equalTo(50)
+            make.top.equalTo(passwordTextField.snp.bottom).offset(70)
+            make.width.equalTo(250)
+            make.height.equalTo(60)
         }
         
         registerButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(loginButton.snp.bottom).offset(10)
+            make.top.equalTo(loginButton.snp.bottom).offset(140)
             make.width.equalTo(350)
-            make.height.equalTo(50)
+            make.height.equalTo(60)
         }
         
         emailTextField.snp.makeConstraints { make in
@@ -140,6 +95,105 @@ class SignInViewController: UIViewController {
             make.width.equalTo(350)
             make.height.equalTo(50)
         }
+        
+        lineView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview().offset(-120)
+            make.top.equalTo(loginButton.snp.bottom).offset(100)
+            make.width.equalTo(100)
+            make.height.equalTo(1)
+        }
+        
+        secondLineView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview().offset(120)
+            make.top.equalTo(loginButton.snp.bottom).offset(100)
+            make.width.equalTo(100)
+            make.height.equalTo(1)
+        }
+        
+        signUpLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview().offset(18)
+            make.top.equalTo(loginButton.snp.bottom).offset(75)
+            make.width.equalTo(120)
+            make.height.equalTo(50)
+        }
+    }
+    
+    func textFieldConfigUI() {
+        
+        let attributes: [NSAttributedString.Key: Any] = [ NSAttributedString.Key.foregroundColor: UIColor.black.withAlphaComponent(0.3)]
+        let emailAttributedTextField = NSAttributedString(string: emailTextField.placeholder ?? "Enter E-mail", attributes: attributes)
+        let passwordAttributedTextField = NSAttributedString(string: passwordTextField.placeholder ?? "Enter Password", attributes: attributes)
+        
+        let emailPaddingView = UIView(frame: CGRectMake(0, 0, 15, self.emailTextField.frame.height))
+        emailTextField.leftView = emailPaddingView
+        emailTextField.leftViewMode = UITextField.ViewMode.always
+        let passwordPaddingView = UIView(frame: CGRectMake(0, 0, 15, self.passwordTextField.frame.height))
+        passwordTextField.leftView = passwordPaddingView
+        passwordTextField.leftViewMode = UITextField.ViewMode.always
+        
+        loginButton.setTitle("LOG IN", for: .normal)
+        loginButton.backgroundColor = UIColor(named: textFieldColor)
+        loginButton.layer.cornerRadius = 20
+        loginButton.tintColor = .black
+        loginButton.frame = CGRect(x: 100, y: 100, width: 350, height: 50)
+        loginButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(loginButton)
+        
+        registerButton.setTitle("CREATE AN ACCOUNT", for: .normal)
+        registerButton.backgroundColor = UIColor(named: textFieldColor)
+        registerButton.layer.cornerRadius = 20
+        registerButton.tintColor = .black
+        registerButton.frame = CGRect(x: 100, y: 100, width: 350, height: 50)
+        registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
+        registerButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(registerButton)
+        
+        emailTextField.frame = CGRect(x: 100, y: 100, width: 350, height: 40)
+        emailTextField.placeholder = "Enter E-mail"
+        emailTextField.attributedPlaceholder = emailAttributedTextField
+        emailTextField.textColor = .black
+        emailTextField.layer.cornerRadius = 15
+        emailTextField.layer.borderColor = UIColor.gray.cgColor
+        emailTextField.backgroundColor = UIColor(named: textFieldColor)
+        view.addSubview(emailTextField)
+        
+        passwordTextField.frame = CGRect(x: 100, y: 150, width: 350, height: 40)
+        passwordTextField.placeholder = "Enter Password"
+        passwordTextField.attributedPlaceholder = passwordAttributedTextField
+        passwordTextField.textColor = .black
+        passwordTextField.layer.cornerRadius = 15
+        passwordTextField.layer.borderColor = UIColor.gray.cgColor
+        passwordTextField.backgroundColor = UIColor(named: textFieldColor)
+        passwordTextField.isSecureTextEntry = true
+        view.addSubview(passwordTextField)
+        
+        noCredentialsAlert.isHidden = true
+        noCredentialsAlert.textColor = .red
+        noCredentialsAlert.text = "Please enter an email and/or password."
+        noCredentialsAlert.textAlignment = .center
+        view.addSubview(noCredentialsAlert)
+        
+        emailPlaceholder.text = "E-mail"
+        emailPlaceholder.textColor = .gray
+        view.addSubview(emailPlaceholder)
+        
+        passwordPlaceholder.text = "Password"
+        passwordPlaceholder.textColor = .gray
+        view.addSubview(passwordPlaceholder)
+        
+        lineView.layer.borderWidth = 1.0
+        lineView.layer.borderColor = UIColor.gray.cgColor
+        view.addSubview(lineView)
+        
+        secondLineView.layer.borderWidth = 1.0
+        secondLineView.layer.borderColor = UIColor.gray.cgColor
+        view.addSubview(secondLineView)
+        
+        signUpLabel.text = "Or Sign Up"
+        signUpLabel.textColor = .gray
+        view.addSubview(signUpLabel)
+        
     }
     
     //Firebase Auth
@@ -163,6 +217,8 @@ class SignInViewController: UIViewController {
                 print(error?.localizedDescription ?? "Error")
             } else {
                 let tabBarViewController = TabBarViewController()
+                self.navigationController?.isNavigationBarHidden = true
+                self.navigationController?.navigationBar.isHidden = true
                 self.navigationController?.pushViewController(tabBarViewController, animated: true)
                 print("Success")
             }

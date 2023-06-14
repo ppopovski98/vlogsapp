@@ -41,8 +41,9 @@ class BlogCollectionViewCell: UICollectionViewCell {
     
     let favouritesButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "star"), for: .normal)
-        button.tintColor = .red
+        button.backgroundColor = .red
+        button.tintColor = .black
+        button.setTitle("Favourites", for: .normal)
         return button
     }()
     
@@ -62,13 +63,13 @@ class BlogCollectionViewCell: UICollectionViewCell {
         imageView.frame = CGRect(x: 5, y: 5, width: contentView.frame.size.width-10, height: contentView.frame.size.height-80)
         descriptionLabel.frame = CGRect(x: 5, y: contentView.frame.size.height-80, width: contentView.frame.size.width-10, height: 100)
         dateAndTimeLabel.frame = CGRect(x: 250, y: contentView.frame.size.height-80, width: contentView.frame.size.width-10, height: 50)
-        favouritesButton.frame = CGRect(x: 250, y: contentView.frame.size.height-50, width: contentView.frame.size.width-10, height: 50)
+        favouritesButton.frame = CGRect(x: 250, y: contentView.frame.size.height-50, width: contentView.frame.size.width-10, height: 20)
 
     }
     
     func blogCellConfigUI() {
         contentView.layer.cornerRadius = 20
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = UIColor(named: "textFieldColor")
         
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)

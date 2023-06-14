@@ -19,7 +19,7 @@ class AddABlogViewController: UIViewController {
     lazy var titleTextField: UITextField = {
         let title = UITextField()
         title.backgroundColor = UIColor(named: "textFieldColor")
-        title.textColor = .white
+        title.textColor = .black
         title.layer.cornerRadius = 10
         return title
     }()
@@ -28,7 +28,7 @@ class AddABlogViewController: UIViewController {
         let title = UITextField()
         title.backgroundColor = UIColor(named: "textFieldColor")
         title.contentVerticalAlignment = UIControl.ContentVerticalAlignment.top
-        title.textColor = .white
+        title.textColor = .black
         title.layer.cornerRadius = 10
         return title
     }()
@@ -64,15 +64,17 @@ class AddABlogViewController: UIViewController {
     
     func configUI() {
         
+        title = "New Blog"
+        
         view.backgroundColor = UIColor(named: "backgroundColor")
         view.addSubview(stackView)
         view.addSubview(postButton)
                 
         postButton.backgroundColor = UIColor(named: "textFieldColor")
         postButton.addTarget(self, action: #selector(postButtonTapped), for: .touchUpInside)
-        postButton.setTitle("Post", for: .normal)
-        postButton.tintColor = .white
-        postButton.layer.cornerRadius = 10
+        postButton.setTitle("POST", for: .normal)
+        postButton.tintColor = .black
+        postButton.layer.cornerRadius = 20
         
         postButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()

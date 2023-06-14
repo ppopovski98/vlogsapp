@@ -20,6 +20,8 @@ class DetailScreenViewController: UIViewController {
     
     func configUI() {
         
+        view.addSubview(vlogImageView)
+        
         view.backgroundColor = .white
 
         vlogImageView.image = imageEnlarged

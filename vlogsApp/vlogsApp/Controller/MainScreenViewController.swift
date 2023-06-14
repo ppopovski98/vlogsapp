@@ -38,7 +38,7 @@ class MainScreenViewController: UIViewController {
         navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navBarAppearance.backgroundColor = UIColor.white
-        
+                
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.standardAppearance = navBarAppearance

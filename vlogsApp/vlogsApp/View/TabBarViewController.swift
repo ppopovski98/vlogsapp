@@ -11,7 +11,7 @@ class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         navigationController?.navigationBar.barTintColor = .white
         tabBarController?.tabBar.tintColor = .white
         tabBarConfigUI()
@@ -33,19 +33,21 @@ class TabBarViewController: UITabBarController {
         favouriteScreen.title = "Favourites"
         
         let mainScreenNavController = UINavigationController(rootViewController: mainScreen)
+        let profileScreenNavController = UINavigationController(rootViewController: profileScreen)
+        let favouriteScreenNavController = UINavigationController(rootViewController: favouriteScreen)
         
-        let viewControllers = [profileScreen, mainScreenNavController, favouriteScreen]
+        let viewControllers = [profileScreenNavController, mainScreenNavController, favouriteScreenNavController]
         mainScreenNavController.title = "Main"
         self.setViewControllers(viewControllers, animated: false)
         self.selectedViewController = mainScreenNavController
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: mainScreen, action: #selector(mainScreen.addButtonTapped))
         mainScreen.navigationItem.rightBarButtonItem = addButton
-        mainScreen.navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "textFieldColor")
+        mainScreen.navigationItem.rightBarButtonItem?.tintColor = .black
         
         let alertButton = UIBarButtonItem(image: vlogImage, style: .done, target: mainScreen, action: #selector(mainScreen.alertButtonTapped))
         mainScreen.navigationItem.leftBarButtonItem = alertButton
-        mainScreen.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "textFieldColor")
+        mainScreen.navigationItem.leftBarButtonItem?.tintColor = .black
         
         guard let items = tabBar.items else { return }
         let images =  ["person.circle", "house.circle", "star.circle"]
