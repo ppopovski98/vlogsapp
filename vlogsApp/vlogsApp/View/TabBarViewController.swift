@@ -25,7 +25,7 @@ class TabBarViewController: UITabBarController {
         
         tabBar.backgroundColor = .white
         
-        let mainScreen = MainScreenViewController()
+        let mainScreen = MainScreenViewController(firebaseManager: FirebaseManager())
         let profileScreen = ProfileViewController()
         let favouriteScreen = FavouritesScreenViewController()
             

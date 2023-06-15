@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import SnapKit
 
 class DetailScreenViewController: UIViewController {
     
+    
     let vlogImageView = UIImageView()
     var imageEnlarged: UIImage?
+    weak var delegate: AddABlogDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,15 +25,27 @@ class DetailScreenViewController: UIViewController {
         
         view.addSubview(vlogImageView)
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "backgroundColor")
 
-        vlogImageView.image = imageEnlarged
         vlogImageView.contentMode = .scaleAspectFit
         vlogImageView.clipsToBounds = true
         
         vlogImageView.layer.cornerRadius = 20
-        vlogImageView.layer.borderWidth = 5
+        vlogImageView.layer.borderWidth = 1
+        
+        vlogImageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(20)
+            make.width.equalTo(350)
+            make.height.equalTo(250)
+        }
         
     }
+}
 
+extension DetailScreenViewController: AddABlogDelegate {
+    func addBlog(_ blog: Model, image: UIImage) {
+        vlogImageView.image = image
+
+    }
 }

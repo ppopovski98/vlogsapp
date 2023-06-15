@@ -15,10 +15,13 @@ class RegisterViewController: UIViewController {
     let registerPassword = UITextField()
     let registerButton = UIButton()
     
+    let enterEmailLabel = UILabel()
+    let enterPasswordLabel = UILabel()
+    
     let textFieldColor = "textFieldColor"
     let backgroundColor = "backgroundColor"
     
-    lazy var stackView = UIStackView(arrangedSubviews: [registerEmail, registerPassword, UIView()], spacing: 12, axis: .vertical, distribution: .fill, alignment: .center, layoutMargins: UIEdgeInsets(top: 100, left: 12, bottom: 0, right: 12))
+    lazy var stackView = UIStackView(arrangedSubviews: [registerEmail, registerPassword, UIView()], spacing: 50, axis: .vertical, distribution: .fill, alignment: .center, layoutMargins: UIEdgeInsets(top: 100, left: 12, bottom: 0, right: 12))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +34,8 @@ class RegisterViewController: UIViewController {
     
     func registerConfigUI() {
         
+        view.addSubview(enterEmailLabel)
+        view.addSubview(enterPasswordLabel)
         view.addSubview(stackView)
         view.addSubview(registerButton)
         
@@ -38,39 +43,60 @@ class RegisterViewController: UIViewController {
         
         navigationController?.navigationBar.tintColor = .black
         
+        enterEmailLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(registerEmail.snp.top).offset(10)
+            make.width.equalTo(350)
+            make.height.equalTo(50)
+        }
+        
+        enterPasswordLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(registerPassword.snp.top).offset(10)
+            make.width.equalTo(350)
+            make.height.equalTo(50)
+        }
+        
         registerButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(registerPassword.snp.bottom).offset(250)
+            make.bottom.equalToSuperview().inset(300)
             make.width.equalTo(350)
             make.height.equalTo(60)
         }
         
         stackView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(-100)
-            make.width.equalToSuperview().inset(12)
+            make.edges.equalToSuperview()
         }
         
         registerEmail.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(stackView.snp.bottom).offset(20)
-            make.height.equalTo(40)
             make.leading.trailing.equalToSuperview().inset(12)
+            make.height.equalTo(60)
         }
         
         registerPassword.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(registerEmail.snp.bottom).offset(12)
             make.leading.trailing.equalToSuperview().inset(12)
-            make.height.equalTo(40)
+            make.height.equalTo(60)
         }
     }
     
     func buttonConfigUI() {
         
+        let emailPaddingView = UIView(frame: CGRectMake(0, 0, 15, self.registerEmail.frame.height))
+        registerEmail.leftView = emailPaddingView
+        registerEmail.leftViewMode = UITextField.ViewMode.always
+        let passwordPaddingView = UIView(frame: CGRectMake(0, 0, 15, self.registerPassword.frame.height))
+        registerPassword.leftView = passwordPaddingView
+        registerPassword.leftViewMode = UITextField.ViewMode.always
+        
         let attributes: [NSAttributedString.Key: Any] = [ NSAttributedString.Key.foregroundColor: UIColor.black.withAlphaComponent(0.3)]
         let emailAttributedTextField = NSAttributedString(string: registerEmail.placeholder ?? "E-mail", attributes: attributes)
         let passwordAttributedTextField = NSAttributedString(string: registerPassword.placeholder ?? "Password", attributes: attributes)
+        
+        enterEmailLabel.text = "E-mail"
+        enterEmailLabel.textColor = .gray
+        
+        enterPasswordLabel.text = "Password"
+        enterPasswordLabel.textColor = .gray
         
         registerButton.setTitle("CREATE AN ACCOUNT", for: .normal)
         registerButton.backgroundColor = .black
@@ -82,16 +108,18 @@ class RegisterViewController: UIViewController {
         
         registerEmail.placeholder = "E-mail"
         registerEmail.attributedPlaceholder = emailAttributedTextField
-        registerEmail.backgroundColor = UIColor(named: textFieldColor)
-        registerEmail.borderStyle = .roundedRect
+        registerEmail.backgroundColor = .white
+        registerEmail.layer.cornerRadius = 15
         registerEmail.tintColor = .black
+        registerEmail.layer.borderWidth = 0.5
         registerEmail.frame = CGRect(x: 100, y: 100, width: 350, height: 50)
         
         registerPassword.placeholder = "Password"
         registerPassword.attributedPlaceholder = passwordAttributedTextField
         registerPassword.textColor = .black
-        registerPassword.borderStyle = .roundedRect
-        registerPassword.backgroundColor = UIColor(named: textFieldColor)
+        registerPassword.layer.cornerRadius = 15
+        registerPassword.backgroundColor = .white
+        registerPassword.layer.borderWidth = 0.5
         registerPassword.frame = CGRect(x: 100, y: 150, width: 350, height: 40)
         registerPassword.isSecureTextEntry = true
         

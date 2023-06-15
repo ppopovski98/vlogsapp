@@ -9,12 +9,12 @@ import UIKit
 
 class BlogCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "CustomCollectionViewCell"
+    static let identifier = "BlogCollectionViewCell"
     
-    lazy var imageView: UIImageView = {
+    lazy var postImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 20
-        imageView.image = UIImage(named: "vlogPicExample")
         imageView.backgroundColor = .white
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
@@ -60,7 +60,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
         
         titleLabel.frame = CGRect(x: 5, y: contentView.frame.size.height-80, width: contentView.frame.size.width-10, height: 50)
-        imageView.frame = CGRect(x: 5, y: 5, width: contentView.frame.size.width-10, height: contentView.frame.size.height-80)
+        postImageView.frame = CGRect(x: 5, y: 5, width: contentView.frame.size.width-10, height: contentView.frame.size.height-80)
         descriptionLabel.frame = CGRect(x: 5, y: contentView.frame.size.height-80, width: contentView.frame.size.width-10, height: 100)
         dateAndTimeLabel.frame = CGRect(x: 250, y: contentView.frame.size.height-80, width: contentView.frame.size.width-10, height: 50)
         favouritesButton.frame = CGRect(x: 250, y: contentView.frame.size.height-50, width: contentView.frame.size.width-10, height: 20)
@@ -71,7 +71,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 20
         contentView.backgroundColor = UIColor(named: "textFieldColor")
         
-        contentView.addSubview(imageView)
+        contentView.addSubview(postImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(dateAndTimeLabel)

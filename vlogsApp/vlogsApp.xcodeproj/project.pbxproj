@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		569E82962A3B2FDE0014BF2B /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569E82952A3B2FDE0014BF2B /* FirebaseManager.swift */; };
 		56A160DA2A385B9700C0B0A9 /* BlogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A160D92A385B9700C0B0A9 /* BlogModel.swift */; };
 		56A29E062A309AB100D866F1 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A29E052A309AB100D866F1 /* MainScreenViewController.swift */; };
 		56A29E0B2A309E0C00D866F1 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 56A29E0A2A309E0C00D866F1 /* FirebaseDatabaseSwift */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		569E82952A3B2FDE0014BF2B /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		56A160D92A385B9700C0B0A9 /* BlogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogModel.swift; sourceTree = "<group>"; };
 		56A29E052A309AB100D866F1 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		56A29E102A30A62900D866F1 /* FavouritesScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesScreenViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +73,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		569E82942A3B2FCF0014BF2B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				569E82952A3B2FDE0014BF2B /* FirebaseManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		56A160D82A385B8000C0B0A9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +125,7 @@
 		56AB84A72A28B1E400A3C54C /* vlogsApp */ = {
 			isa = PBXGroup;
 			children = (
+				569E82942A3B2FCF0014BF2B /* Services */,
 				56AB84A82A28B1E400A3C54C /* AppDelegate.swift */,
 				56AB84AA2A28B1E400A3C54C /* SceneDelegate.swift */,
 				56A160D82A385B8000C0B0A9 /* Model */,
@@ -248,6 +259,7 @@
 				56A160DA2A385B9700C0B0A9 /* BlogModel.swift in Sources */,
 				56A29E112A30A62900D866F1 /* FavouritesScreenViewController.swift in Sources */,
 				56A29E182A30C72A00D866F1 /* ProfileViewController.swift in Sources */,
+				569E82962A3B2FDE0014BF2B /* FirebaseManager.swift in Sources */,
 				56B5F7732A2F5307006F3E49 /* RegisterViewController.swift in Sources */,
 				56A29E132A30AA4000D866F1 /* BlogCollectionViewCell.swift in Sources */,
 			);

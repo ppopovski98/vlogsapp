@@ -11,6 +11,8 @@ import FirebaseFirestore
 
 class MainScreenViewController: UIViewController {
     
+    let firebaseManager: FirebaseManager?
+    
     var dataSource: [Model] = []
     
     let collectionView: UICollectionView = {
@@ -75,7 +77,17 @@ class MainScreenViewController: UIViewController {
                     tabBarVC.tabBar.isHidden = true
                 }
     }
-
+    
+    init(firebaseManager: FirebaseManager) {
+        self.firebaseManager = firebaseManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
 
 //MARK: -
@@ -89,6 +101,7 @@ extension MainScreenViewController: UICollectionViewDataSource, UICollectionView
         let blog = dataSource[indexPath.item]
             cell.titleLabel.text = blog.title
             cell.descriptionLabel.text = blog.description
+            cell.postImageView.image = blog.image
         return cell
     }
     
@@ -108,7 +121,7 @@ extension MainScreenViewController: UICollectionViewDataSource, UICollectionView
 }
 
 extension MainScreenViewController: AddABlogDelegate {
-    func addBlog(_ blog: Model) {
+    func addBlog(_ blog: Model, image: UIImage) {
         dataSource.insert(blog, at: 0)
             collectionView.reloadData()
     }
