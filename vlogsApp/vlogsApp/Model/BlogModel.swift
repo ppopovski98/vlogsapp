@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestoreSwift
 
-struct Model {
-    let title: String
-    let description: String
-    let image: UIImage
-    let isFavourite: Bool?
-    let category: String
-    let timestamp: Double
+struct Model: Codable {
+    var id: String?
+    var title: String
+    var description: String
+    var image: String?
+    var isFavourite: Bool?
+    var category: String?
+    var timestamp: Double?
 }

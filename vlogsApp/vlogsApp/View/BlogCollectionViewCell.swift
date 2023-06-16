@@ -13,6 +13,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
     
     lazy var postImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = UIImage(named: "circle.fill")
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 20
         imageView.backgroundColor = .white
@@ -41,9 +42,8 @@ class BlogCollectionViewCell: UICollectionViewCell {
     
     let favouritesButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .red
         button.tintColor = .black
-        button.setTitle("Favourites", for: .normal)
+        button.setImage(UIImage(systemName: "star"), for: .normal)
         return button
     }()
     
@@ -63,7 +63,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
         postImageView.frame = CGRect(x: 5, y: 5, width: contentView.frame.size.width-10, height: contentView.frame.size.height-80)
         descriptionLabel.frame = CGRect(x: 5, y: contentView.frame.size.height-80, width: contentView.frame.size.width-10, height: 100)
         dateAndTimeLabel.frame = CGRect(x: 250, y: contentView.frame.size.height-80, width: contentView.frame.size.width-10, height: 50)
-        favouritesButton.frame = CGRect(x: 250, y: contentView.frame.size.height-50, width: contentView.frame.size.width-10, height: 20)
+        favouritesButton.frame = CGRect(x: 250, y: contentView.frame.size.height-50, width: 150, height: 50)
 
     }
     

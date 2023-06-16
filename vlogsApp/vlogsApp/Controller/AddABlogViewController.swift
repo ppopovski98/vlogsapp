@@ -62,7 +62,7 @@ class AddABlogViewController: UIViewController {
             return
         }
         
-        let newBlog = Model(title: "Something", description: "Something", image: image, isFavourite: true, category: "Something", timestamp: 43824237946239)
+        let newBlog = Model(title: title, description: description)
         delegate?.addBlog(newBlog, image: image)
         navigationController?.popViewController(animated: true)
     }

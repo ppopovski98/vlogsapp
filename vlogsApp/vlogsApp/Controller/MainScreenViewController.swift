@@ -30,6 +30,11 @@ class MainScreenViewController: UIViewController {
         view.backgroundColor = UIColor(named: "backgroundColor")
         collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
         mainScreenConfigUI()
+        
+        firebaseManager?.getDataFromFirebase(completion: { dataSourceForTableView in
+            self.dataSource = dataSourceForTableView
+            self.collectionView.reloadData()
+        })
     }
     
     func mainScreenConfigUI() {
@@ -101,7 +106,6 @@ extension MainScreenViewController: UICollectionViewDataSource, UICollectionView
         let blog = dataSource[indexPath.item]
             cell.titleLabel.text = blog.title
             cell.descriptionLabel.text = blog.description
-            cell.postImageView.image = blog.image
         return cell
     }
     
