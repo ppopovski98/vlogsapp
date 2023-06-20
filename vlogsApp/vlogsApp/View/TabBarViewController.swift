@@ -25,18 +25,21 @@ class TabBarViewController: UITabBarController {
         
         tabBar.backgroundColor = .white
         
-        let mainScreen = MainScreenViewController(firebaseManager: FirebaseManager())
+        let mainScreen = RacingScreenViewController(firebaseManager: FirebaseManager())
         let profileScreen = ProfileViewController()
         let favouriteScreen = FavouritesScreenViewController()
-            
+        let gamingScreen = GamingScreenViewController(firebaseManager: FirebaseManager())
+
         profileScreen.title = "Profile"
         favouriteScreen.title = "Favourites"
+        gamingScreen.title = "Gaming"
         
         let mainScreenNavController = UINavigationController(rootViewController: mainScreen)
         let profileScreenNavController = UINavigationController(rootViewController: profileScreen)
         let favouriteScreenNavController = UINavigationController(rootViewController: favouriteScreen)
+        let gamingScreenNavController = UINavigationController(rootViewController: gamingScreen)
         
-        let viewControllers = [profileScreenNavController, mainScreenNavController, favouriteScreenNavController]
+        let viewControllers = [profileScreenNavController, gamingScreenNavController, mainScreenNavController, favouriteScreenNavController]
         mainScreenNavController.title = "Main"
         self.setViewControllers(viewControllers, animated: false)
         self.selectedViewController = mainScreenNavController
@@ -50,7 +53,7 @@ class TabBarViewController: UITabBarController {
         mainScreen.navigationItem.leftBarButtonItem?.tintColor = .black
         
         guard let items = tabBar.items else { return }
-        let images =  ["person.circle", "house.circle", "star.circle"]
+        let images =  ["person.circle", "theatermasks.circle", "flag.checkered.circle", "star.circle"]
                 
         for x in 0..<items.count {
             items[x].image = UIImage(systemName: images[x])

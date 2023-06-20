@@ -21,21 +21,21 @@ class FirebaseManager {
     }
     
     
-    func getDataFromFirebase(completion: @escaping ([Model]) -> Void) {
+    func getDataFromFirebase(completion: @escaping ([AddABlogModel]) -> Void) {
         db.collection("Posts").getDocuments { querySnapshot, err in
             guard let querySnapshot = querySnapshot else { return }
+            var dataSource = [AddABlogModel]()
             for document in querySnapshot.documents {
                 let data = document.data()
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-                    let blogPost = try JSONDecoder().decode(Model.self, from: jsonData)
-                    var dataSource = [Model]()
+                    let blogPost = try JSONDecoder().decode(AddABlogModel.self, from: jsonData)
                     dataSource.append(blogPost)
-                    completion(dataSource)
                 } catch {
                     print("Error")
                 }
             }
+            completion(dataSource)
         }
     }
 }

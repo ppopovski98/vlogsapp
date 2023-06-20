@@ -7,13 +7,16 @@
 //Scrollview
 import UIKit
 import SnapKit
+import FirebaseFirestore
 
 protocol AddABlogDelegate: AnyObject {
-    func addBlog(_ blog: Model, image: UIImage)
+    func addBlog(_ blog: AddABlogModel, image: UIImage)
 }
 
 class AddABlogViewController: UIViewController {
     
+    let db = Firestore.firestore()
+
     weak var delegate: AddABlogDelegate?
     
     lazy var photoPickerButton = UIButton()
@@ -56,13 +59,26 @@ class AddABlogViewController: UIViewController {
     }
     
     @objc func postButtonTapped() {
+        
         guard let title = titleTextField.text,
               let description = descritptionTextField.text,
               let image = selectedImage else {
             return
         }
         
-        let newBlog = Model(title: title, description: description)
+        db.collection("Posts").addDocument(data: [
+            "title": title,
+            "description": description,
+            "image": "\(imageView)"
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document added with ID")
+            }
+        }
+        
+        let newBlog = AddABlogModel(title: title, description: description, image: "image")
         delegate?.addBlog(newBlog, image: image)
         navigationController?.popViewController(animated: true)
     }
@@ -137,15 +153,14 @@ class AddABlogViewController: UIViewController {
 }
 
 extension AddABlogViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let image = info[.editedImage] as? UIImage {
             imageView.image = image
             selectedImage = image
         }
-        
         picker.dismiss(animated: true, completion: nil)
-
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

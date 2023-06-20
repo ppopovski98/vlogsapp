@@ -1,19 +1,20 @@
 //
-//  MainScreenViewController.swift
+//  GamingScreenViewController.swift
 //  vlogsApp
 //
-//  Created by Petar Popovski on 7.6.23.
+//  Created by Petar Popovski on 19.6.23.
 //
 
 import UIKit
 import SnapKit
 import FirebaseFirestore
 
-class MainScreenViewController: UIViewController {
+class GamingScreenViewController: UIViewController {
     
     let firebaseManager: FirebaseManager?
+    let category = "Gaming"
     
-    var dataSource: [Model] = []
+    var dataSource: [AddABlogModel] = []
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -26,10 +27,10 @@ class MainScreenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         view.backgroundColor = UIColor(named: "backgroundColor")
         collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
-        mainScreenConfigUI()
+        configUI()
         
         firebaseManager?.getDataFromFirebase(completion: { dataSourceForTableView in
             self.dataSource = dataSourceForTableView
@@ -37,10 +38,11 @@ class MainScreenViewController: UIViewController {
         })
     }
     
-    func mainScreenConfigUI() {
-            
-        title = "Blogs"
+
+    func configUI() {
         
+        title = "Gaming"
+
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
@@ -52,7 +54,7 @@ class MainScreenViewController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         
         self.navigationItem.setHidesBackButton(true, animated: true)
-
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         view.addSubview(collectionView)
@@ -64,23 +66,6 @@ class MainScreenViewController: UIViewController {
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-
-    }
-    
-    @objc func addButtonTapped() {
-        let addBlogVC = AddABlogViewController()
-        addBlogVC.delegate = self
-        navigationController?.pushViewController(addBlogVC, animated: true)
-        if let tabBarVC = tabBarController as? TabBarViewController {
-            tabBarVC.tabBar.isHidden = true
-        }
-    }
-    
-    @objc func alertButtonTapped() {
-        navigationController?.pushViewController(AlertScreenViewController(), animated: true)
-        if let tabBarVC = tabBarController as? TabBarViewController {
-                    tabBarVC.tabBar.isHidden = true
-                }
     }
     
     init(firebaseManager: FirebaseManager) {
@@ -92,13 +77,11 @@ class MainScreenViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 //MARK: -
 
-extension MainScreenViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+extension GamingScreenViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BlogCollectionViewCell.identifier, for: indexPath) as? BlogCollectionViewCell else {
             return UICollectionViewCell()
@@ -121,12 +104,11 @@ extension MainScreenViewController: UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.navigationController?.pushViewController(DetailScreenViewController(), animated: true)
     }
-    
 }
 
-extension MainScreenViewController: AddABlogDelegate {
-    func addBlog(_ blog: Model, image: UIImage) {
+extension GamingScreenViewController: AddABlogDelegate {
+    func addBlog(_ blog: AddABlogModel, image: UIImage) {
         dataSource.insert(blog, at: 0)
-            collectionView.reloadData()
+        collectionView.reloadData()
     }
 }

@@ -44,7 +44,7 @@ class DetailScreenViewController: UIViewController {
 }
 
 extension DetailScreenViewController: AddABlogDelegate {
-    func addBlog(_ blog: Model, image: UIImage) {
+    func addBlog(_ blog: AddABlogModel, image: UIImage) {
         vlogImageView.image = image
 
     }

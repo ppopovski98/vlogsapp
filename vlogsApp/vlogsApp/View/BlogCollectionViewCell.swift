@@ -13,7 +13,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
     
     lazy var postImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "circle.fill")
+//        imageView.image = UIImage(named: "circle.fill")
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 20
         imageView.backgroundColor = .white
