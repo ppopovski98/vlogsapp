@@ -5,9 +5,12 @@
 //  Created by Petar Popovski on 8.6.23.
 //
 //Scrollview
+
 import UIKit
 import SnapKit
+import Firebase
 import FirebaseFirestore
+import FirebaseStorage
 
 protocol AddABlogDelegate: AnyObject {
     func addBlog(_ blog: AddABlogModel, image: UIImage)
@@ -16,12 +19,12 @@ protocol AddABlogDelegate: AnyObject {
 class AddABlogViewController: UIViewController {
     
     let db = Firestore.firestore()
-
+    
     weak var delegate: AddABlogDelegate?
     
     lazy var photoPickerButton = UIButton()
     lazy var imageView = UIImageView()
-         var selectedImage: UIImage?
+    var selectedImage: UIImage?
     
     lazy var titleTextField: UITextField = {
         let title = UITextField()
@@ -43,10 +46,10 @@ class AddABlogViewController: UIViewController {
     lazy var postButton = UIButton()
     
     lazy var stackView = UIStackView(arrangedSubviews: [titleTextField, descritptionTextField, UIView()], spacing: 12, axis: .vertical, distribution: .fill, alignment: .center, layoutMargins: UIEdgeInsets(top: 100, left: 12, bottom: 0, right: 12))
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configUI()
     }
     
@@ -60,27 +63,7 @@ class AddABlogViewController: UIViewController {
     
     @objc func postButtonTapped() {
         
-        guard let title = titleTextField.text,
-              let description = descritptionTextField.text,
-              let image = selectedImage else {
-            return
-        }
-        
-        db.collection("Posts").addDocument(data: [
-            "title": title,
-            "description": description,
-            "image": "\(imageView)"
-        ]) { err in
-            if let err = err {
-                print("Error adding document: \(err)")
-            } else {
-                print("Document added with ID")
-            }
-        }
-        
-        let newBlog = AddABlogModel(title: title, description: description, image: "image")
-        delegate?.addBlog(newBlog, image: image)
-        navigationController?.popViewController(animated: true)
+        uploadPhoto()
     }
     
     func configUI() {
@@ -92,7 +75,7 @@ class AddABlogViewController: UIViewController {
         view.addSubview(postButton)
         view.addSubview(photoPickerButton)
         view.addSubview(imageView)
-                
+        
         postButton.backgroundColor = UIColor(named: "textFieldColor")
         postButton.addTarget(self, action: #selector(postButtonTapped), for: .touchUpInside)
         postButton.setTitle("POST", for: .normal)
@@ -149,6 +132,62 @@ class AddABlogViewController: UIViewController {
         vc.delegate = self
         vc.allowsEditing = true
         present(vc, animated: true)
+    }
+    
+    func uploadPhoto() {
+        
+        guard let title = titleTextField.text,
+              let description = descritptionTextField.text,
+              let image = selectedImage else {
+            return
+        }
+        
+        let storageRef = Storage.storage().reference()
+        guard let imageData = selectedImage?.jpegData(compressionQuality: 0.8) else {
+            return
+        }
+        
+        let path = "Posts/\(UUID().uuidString).jpg"
+        let fileRef = storageRef.child(path)
+        let uploadTask = fileRef.putData(imageData, metadata: nil) { metadata, error in
+            if error == nil && metadata != nil {
+            }
+        }
+        
+        db.collection("Posts").addDocument(data: [
+            "title": title,
+            "description": description,
+            "image": path
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document added with ID")
+            }
+        }
+        
+        let newBlog = AddABlogModel(title: title, description: description, image: path)
+        delegate?.addBlog(newBlog, image: image)
+        navigationController?.popViewController(animated: true)
+        
+        let imageBase64String = imageData.base64EncodedString()
+        
+        let newImageData = Data(base64Encoded: imageBase64String)
+        if let newImageData = newImageData {
+            imageView.image = UIImage(data: newImageData)
+        }
+    }
+    
+    func retrievePhotos() {
+        let fileRef = Storage.storage().reference(withPath: "Posts/\(UUID().uuidString).jpg")
+        fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+            if error == nil && data != nil {
+                let image = UIImage(data: data!)
+                DispatchQueue.main.async {
+                    self.imageView.image = image
+                }
+            }
+        }
     }
 }
 

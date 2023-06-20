@@ -116,7 +116,6 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
                 }
             }.resume()
         }
-        
             cell.titleLabel.text = blog.title
             cell.descriptionLabel.text = blog.description
         return cell

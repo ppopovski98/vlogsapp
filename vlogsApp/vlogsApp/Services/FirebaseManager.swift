@@ -38,4 +38,9 @@ class FirebaseManager {
             completion(dataSource)
         }
     }
+    
+    func uplaodPhotoToDataBase(_ title: String,_ description: String,_ image: String, completion: @escaping (Bool) -> Void) {
+        
+        
+    }
 }
