@@ -8,13 +8,14 @@
 import UIKit
 import SnapKit
 import FirebaseFirestore
+import SDWebImage
 
-class RacingScreenViewController: UIViewController {
+class RacingScreenViewController: UIViewController, UIScrollViewDelegate {
     
     let firebaseManager: FirebaseManager?
-    let category = "Racing"
     
     var dataSource: [AddABlogModel] = []
+    var isFetchingData = false
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -23,6 +24,12 @@ class RacingScreenViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
         return collectionView
+    }()
+    
+    let activityIndicatorView: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView(style: .medium)
+        indicatorView.hidesWhenStopped = true
+        return indicatorView
     }()
 
     override func viewDidLoad() {
@@ -56,9 +63,15 @@ class RacingScreenViewController: UIViewController {
 
         collectionView.dataSource = self
         collectionView.delegate = self
+        view.addSubview(activityIndicatorView)
         view.addSubview(collectionView)
         
         collectionView.backgroundColor = UIColor(named: "backgroundColor")
+        
+        activityIndicatorView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-16)
+        }
         
         collectionView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
@@ -104,22 +117,22 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BlogCollectionViewCell.identifier, for: indexPath) as? BlogCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
         let blog = dataSource[indexPath.item]
         
-        if let imageURL = URL(string: blog.image) {
-            URLSession.shared.dataTask(with: imageURL) { data, _, _ in
-                if let data = data {
-                    DispatchQueue.main.async {
-                        let image = UIImage(data: data)
-                        cell.postImageView.image = image
-                    }
-                }
-            }.resume()
+        if let imageData = Data(base64Encoded: blog.image) {
+            let image = UIImage(data: imageData)
+            cell.postImageView.image = image
+        } else {
+            cell.postImageView.image = nil
         }
-            cell.titleLabel.text = blog.title
-            cell.descriptionLabel.text = blog.description
+        
+        cell.titleLabel.text = blog.title
+        cell.descriptionLabel.text = blog.description
+        
         return cell
     }
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
@@ -134,6 +147,33 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
         self.navigationController?.pushViewController(DetailScreenViewController(), animated: true)
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let scrollViewHeight = scrollView.frame.size.height
+        let contentHeight = scrollView.contentSize.height
+        let position = scrollView.contentOffset.y
+
+        let threshold: CGFloat = 100.0
+
+            if position + scrollViewHeight >= contentHeight - threshold && !isFetchingData {
+                fetchMoreData()
+            }
+    }
+    
+    func fetchMoreData() {
+        
+        isFetchingData = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.activityIndicatorView.startAnimating()
+            
+            self.firebaseManager?.getDataFromFirebase(completion: { dataSourceForTableView in
+                self.dataSource.append(contentsOf: dataSourceForTableView)
+                self.collectionView.reloadData()
+                self.isFetchingData = false
+                self.activityIndicatorView.stopAnimating()
+            })
+        }
+    }
 }
 
 extension RacingScreenViewController: AddABlogDelegate {

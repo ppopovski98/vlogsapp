@@ -19,12 +19,14 @@ protocol AddABlogDelegate: AnyObject {
 class AddABlogViewController: UIViewController {
     
     let db = Firestore.firestore()
+    let firebaseManager = FirebaseManager()
     
     weak var delegate: AddABlogDelegate?
     
     lazy var photoPickerButton = UIButton()
     lazy var imageView = UIImageView()
     var selectedImage: UIImage?
+    var selectedImageURL: String?
     
     lazy var titleTextField: UITextField = {
         let title = UITextField()
@@ -63,7 +65,21 @@ class AddABlogViewController: UIViewController {
     
     @objc func postButtonTapped() {
         
-        uploadPhoto()
+        guard let title = titleTextField.text,
+                  let description = descritptionTextField.text,
+                  let imageURL = selectedImageURL else {
+                return
+            }
+
+            firebaseManager.uploadPhoto(title: title, description: description, image: imageURL) { success in
+                if success {
+                    let newBlog = AddABlogModel(title: title, description: description, image: imageURL)
+                    self.delegate?.addBlog(newBlog, image: self.selectedImage!)
+                    self.navigationController?.popViewController(animated: true)
+                } else {
+                    print("Failed to upload photo.")
+                }
+        }
     }
     
     func configUI() {
@@ -134,50 +150,6 @@ class AddABlogViewController: UIViewController {
         present(vc, animated: true)
     }
     
-    func uploadPhoto() {
-        
-        guard let title = titleTextField.text,
-              let description = descritptionTextField.text,
-              let image = selectedImage else {
-            return
-        }
-        
-        let storageRef = Storage.storage().reference()
-        guard let imageData = selectedImage?.jpegData(compressionQuality: 0.8) else {
-            return
-        }
-        
-        let path = "Posts/\(UUID().uuidString).jpg"
-        let fileRef = storageRef.child(path)
-        let uploadTask = fileRef.putData(imageData, metadata: nil) { metadata, error in
-            if error == nil && metadata != nil {
-            }
-        }
-        
-        db.collection("Posts").addDocument(data: [
-            "title": title,
-            "description": description,
-            "image": path
-        ]) { err in
-            if let err = err {
-                print("Error adding document: \(err)")
-            } else {
-                print("Document added with ID")
-            }
-        }
-        
-        let newBlog = AddABlogModel(title: title, description: description, image: path)
-        delegate?.addBlog(newBlog, image: image)
-        navigationController?.popViewController(animated: true)
-        
-        let imageBase64String = imageData.base64EncodedString()
-        
-        let newImageData = Data(base64Encoded: imageBase64String)
-        if let newImageData = newImageData {
-            imageView.image = UIImage(data: newImageData)
-        }
-    }
-    
     func retrievePhotos() {
         let fileRef = Storage.storage().reference(withPath: "Posts/\(UUID().uuidString).jpg")
         fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
@@ -198,11 +170,16 @@ extension AddABlogViewController: UIImagePickerControllerDelegate, UINavigationC
         if let image = info[.editedImage] as? UIImage {
             imageView.image = image
             selectedImage = image
+            
+            if let imageData = image.jpegData(compressionQuality: 0.8) {
+                selectedImageURL = imageData.base64EncodedString()
+            }
+            picker.dismiss(animated: true, completion: nil)
         }
-        picker.dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
+    
 }
