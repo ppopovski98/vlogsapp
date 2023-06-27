@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import SDWebImage
 import FirebaseFirestoreSwift
 import FirebaseCore
 import FirebaseStorage
@@ -14,50 +15,57 @@ import FirebaseStorage
 class FirebaseManager {
     
     let db = Firestore.firestore()
+    var dataSource = [AddABlogModel]()
+    let reference = Storage.storage()
     
-    func writeData(text: String) {
-        let docRef = db.document("example/testexample")
-        docRef.setData(["text": text])
+    func dowloadPhoto(path: String, completion: @escaping (Data) -> Void) {
+        reference.reference(withPath: path).getData(maxSize: (1 * 1024 * 1024)) { data, error in
+            if let err = error {
+                print(err)
+            } else {
+                if let image  = data {
+                    completion(image)
+                }
+            }
+        }
     }
-    
     
     func getDataFromFirebase(completion: @escaping ([AddABlogModel]) -> Void) {
         
         db.collection("Posts").getDocuments { querySnapshot, err in
             guard let querySnapshot = querySnapshot else { return }
-            var dataSource = [AddABlogModel]()
             for document in querySnapshot.documents {
                 let data = document.data()
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
                     let blogPost = try JSONDecoder().decode(AddABlogModel.self, from: jsonData)
-                    dataSource.append(blogPost)
+                    self.dataSource.append(blogPost)
                 } catch {
                     print("Error")
                 }
             }
-            completion(dataSource)
+            completion(self.dataSource)
         }
     }
     
     func uploadPhoto(title: String, description: String, image: String, completion: @escaping (Bool) -> Void) {
         let storageRef = Storage.storage().reference()
+        let path = "Posts/\(UUID().uuidString).jpg"
+        let fileRef = storageRef.child(path)
         
         guard let imageData = Data(base64Encoded: image) else {
             print("Invalid image data.")
             completion(false)
             return
         }
-
-        let path = "Posts/\(UUID().uuidString).jpg"
-        let fileRef = storageRef.child(path)
+        
         let uploadTask = fileRef.putData(imageData, metadata: nil) { metadata, error in
             if let error = error {
                 print("Error uploading photo: \(error)")
                 completion(false)
                 return
             }
-
+            
             self.db.collection("Posts").addDocument(data: [
                 "title": title,
                 "description": description,
@@ -73,10 +81,10 @@ class FirebaseManager {
             }
         }
     }
-
-
     
-    func retrievePhotos(completion: @escaping ([AddABlogModel]) -> Void) {
+    
+    
+    func retrieveData(completion: @escaping ([AddABlogModel]) -> Void) {
         
         db.collection("Posts").getDocuments { querySnapshot, error in
             if let error = error {
@@ -85,10 +93,8 @@ class FirebaseManager {
                 return
             }
             
-            var dataSource = [AddABlogModel]()
-            
             guard let querySnapshot = querySnapshot else {
-                completion(dataSource)
+                completion(self.dataSource)
                 return
             }
             
@@ -101,11 +107,11 @@ class FirebaseManager {
                         description: data["description"] as? String ?? "",
                         image: base64Image
                     )
-                    dataSource.append(blogPost)
+                    self.dataSource.append(blogPost)
                 }
             }
             
-            completion(dataSource)
+            completion(self.dataSource)
         }
     }
 }

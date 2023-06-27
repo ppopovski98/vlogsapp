@@ -120,12 +120,16 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
         
         let blog = dataSource[indexPath.item]
         
-        if let imageData = Data(base64Encoded: blog.image) {
-            let image = UIImage(data: imageData)
-            cell.postImageView.image = image
-        } else {
-            cell.postImageView.image = nil
-        }
+//        if let imageData = Data(base64Encoded: blog.image) {
+//            let image = UIImage(data: imageData)
+//            cell.postImageView.image = image
+//        } else {
+//            cell.postImageView.image = nil
+//        }
+        firebaseManager?.dowloadPhoto(path: blog.image, completion: { imageData in
+            cell.postImageView.image = UIImage(data: imageData)
+        })
+        
         
         cell.titleLabel.text = blog.title
         cell.descriptionLabel.text = blog.description
@@ -146,39 +150,10 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.navigationController?.pushViewController(DetailScreenViewController(), animated: true)
     }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let scrollViewHeight = scrollView.frame.size.height
-        let contentHeight = scrollView.contentSize.height
-        let position = scrollView.contentOffset.y
-
-        let threshold: CGFloat = 100.0
-
-            if position + scrollViewHeight >= contentHeight - threshold && !isFetchingData {
-                fetchMoreData()
-            }
-    }
-    
-    func fetchMoreData() {
-        
-        isFetchingData = true
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.activityIndicatorView.startAnimating()
-            
-            self.firebaseManager?.getDataFromFirebase(completion: { dataSourceForTableView in
-                self.dataSource.append(contentsOf: dataSourceForTableView)
-                self.collectionView.reloadData()
-                self.isFetchingData = false
-                self.activityIndicatorView.stopAnimating()
-            })
-        }
-    }
 }
 
 extension RacingScreenViewController: AddABlogDelegate {
     func addBlog(_ blog: AddABlogModel, image: UIImage) {
         dataSource.insert(blog, at: 0)
-            collectionView.reloadData()
     }
 }
