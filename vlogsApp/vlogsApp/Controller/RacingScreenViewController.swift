@@ -44,7 +44,7 @@ class RacingScreenViewController: UIViewController, UIScrollViewDelegate {
             self.collectionView.reloadData()
         })
     }
-    
+        
     func mainScreenConfigUI() {
             
         title = "Racing"
@@ -91,7 +91,7 @@ class RacingScreenViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @objc func alertButtonTapped() {
-        navigationController?.pushViewController(AlertScreenViewController(), animated: true)
+        navigationController?.pushViewController(NotificationsScreenViewController(), animated: true)
         if let tabBarVC = tabBarController as? TabBarViewController {
                     tabBarVC.tabBar.isHidden = true
                 }
@@ -114,23 +114,17 @@ class RacingScreenViewController: UIViewController, UIScrollViewDelegate {
 extension RacingScreenViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BlogCollectionViewCell.identifier, for: indexPath) as? BlogCollectionViewCell else {
             return UICollectionViewCell()
         }
         
         let blog = dataSource[indexPath.item]
         
-//        if let imageData = Data(base64Encoded: blog.image) {
-//            let image = UIImage(data: imageData)
-//            cell.postImageView.image = image
-//        } else {
-//            cell.postImageView.image = nil
-//        }
         firebaseManager?.dowloadPhoto(path: blog.image, completion: { imageData in
             cell.postImageView.image = UIImage(data: imageData)
         })
-        
-        
+
         cell.titleLabel.text = blog.title
         cell.descriptionLabel.text = blog.description
         

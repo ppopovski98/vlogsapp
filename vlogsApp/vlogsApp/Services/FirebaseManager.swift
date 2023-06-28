@@ -18,18 +18,6 @@ class FirebaseManager {
     var dataSource = [AddABlogModel]()
     let reference = Storage.storage()
     
-    func dowloadPhoto(path: String, completion: @escaping (Data) -> Void) {
-        reference.reference(withPath: path).getData(maxSize: (1 * 1024 * 1024)) { data, error in
-            if let err = error {
-                print(err)
-            } else {
-                if let image  = data {
-                    completion(image)
-                }
-            }
-        }
-    }
-    
     func getDataFromFirebase(completion: @escaping ([AddABlogModel]) -> Void) {
         
         db.collection("Posts").getDocuments { querySnapshot, err in
@@ -82,7 +70,18 @@ class FirebaseManager {
         }
     }
     
-    
+    func dowloadPhoto(path: String, completion: @escaping (Data) -> Void) {
+        
+        reference.reference(withPath: path).getData(maxSize: (1 * 512 * 512)) { data, error in
+            if let err = error {
+                print(err)
+            } else {
+                if let image  = data {
+                    completion(image)
+                }
+            }
+        }
+    }
     
     func retrieveData(completion: @escaping ([AddABlogModel]) -> Void) {
         

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class BlogCollectionViewCell: UICollectionViewCell {
     
@@ -24,12 +25,16 @@ class BlogCollectionViewCell: UICollectionViewCell {
     public let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name:"HelveticaNeue-Bold", size: 18.0)
+        label.numberOfLines = 1
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
     
     public let descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 2
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
     
@@ -55,14 +60,47 @@ class BlogCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    lazy var stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, UIView()], spacing: 50, axis: .vertical, distribution: .fill, alignment: .center, layoutMargins: UIEdgeInsets(top: 100, left: 12, bottom: 0, right: 12))
+
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        titleLabel.frame = CGRect(x: 5, y: contentView.frame.size.height-80, width: contentView.frame.size.width-10, height: 50)
-        postImageView.frame = CGRect(x: 5, y: 5, width: contentView.frame.size.width-10, height: contentView.frame.size.height-80)
-        descriptionLabel.frame = CGRect(x: 5, y: contentView.frame.size.height-80, width: contentView.frame.size.width-10, height: 100)
-        dateAndTimeLabel.frame = CGRect(x: 250, y: contentView.frame.size.height-80, width: contentView.frame.size.width-10, height: 50)
-        favouritesButton.frame = CGRect(x: 250, y: contentView.frame.size.height-50, width: 150, height: 50)
+        titleLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(5)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-60)
+            make.right.equalTo(dateAndTimeLabel.snp.left).offset(-10)
+            make.height.equalTo(50)
+        }
+
+        postImageView.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(5)
+            make.top.equalToSuperview().offset(5)
+            make.right.equalToSuperview().offset(-5)
+            make.bottom.equalTo(titleLabel.snp.top).offset(-5)
+        }
+
+        descriptionLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(5)
+            make.bottom.equalTo(contentView.snp.bottom).offset(1)
+            make.right.equalTo(favouritesButton.snp.left).offset(5)
+            make.height.equalTo(100)
+        }
+
+        dateAndTimeLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(250)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-60)
+            make.right.equalToSuperview().offset(-5)
+            make.height.equalTo(50)
+        }
+
+        favouritesButton.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(250)
+            make.bottom.equalTo(contentView.snp.bottom).offset(0)
+            make.width.equalTo(150)
+            make.height.equalTo(100)
+        }
+
 
     }
     
@@ -75,5 +113,6 @@ class BlogCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(dateAndTimeLabel)
         contentView.addSubview(favouritesButton)
+        
     }
 }
