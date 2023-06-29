@@ -8,13 +8,14 @@
 import UIKit
 import SnapKit
 import FirebaseFirestore
+import SDWebImage
 
-class RacingScreenViewController: UIViewController {
+class RacingScreenViewController: UIViewController, UIScrollViewDelegate {
     
     let firebaseManager: FirebaseManager?
-    let category = "Racing"
     
     var dataSource: [AddABlogModel] = []
+    var isFetchingData = false
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -23,6 +24,12 @@ class RacingScreenViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
         return collectionView
+    }()
+    
+    let activityIndicatorView: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView(style: .medium)
+        indicatorView.hidesWhenStopped = true
+        return indicatorView
     }()
 
     override func viewDidLoad() {
@@ -37,7 +44,7 @@ class RacingScreenViewController: UIViewController {
             self.collectionView.reloadData()
         })
     }
-    
+        
     func mainScreenConfigUI() {
             
         title = "Racing"
@@ -56,9 +63,15 @@ class RacingScreenViewController: UIViewController {
 
         collectionView.dataSource = self
         collectionView.delegate = self
+        view.addSubview(activityIndicatorView)
         view.addSubview(collectionView)
         
         collectionView.backgroundColor = UIColor(named: "backgroundColor")
+        
+        activityIndicatorView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-16)
+        }
         
         collectionView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
@@ -78,7 +91,7 @@ class RacingScreenViewController: UIViewController {
     }
     
     @objc func alertButtonTapped() {
-        navigationController?.pushViewController(AlertScreenViewController(), animated: true)
+        navigationController?.pushViewController(NotificationsScreenViewController(), animated: true)
         if let tabBarVC = tabBarController as? TabBarViewController {
                     tabBarVC.tabBar.isHidden = true
                 }
@@ -101,25 +114,23 @@ class RacingScreenViewController: UIViewController {
 extension RacingScreenViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BlogCollectionViewCell.identifier, for: indexPath) as? BlogCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
         let blog = dataSource[indexPath.item]
         
-        if let imageURL = URL(string: blog.image) {
-            URLSession.shared.dataTask(with: imageURL) { data, _, _ in
-                if let data = data {
-                    DispatchQueue.main.async {
-                        let image = UIImage(data: data)
-                        cell.postImageView.image = image
-                    }
-                }
-            }.resume()
-        }
-            cell.titleLabel.text = blog.title
-            cell.descriptionLabel.text = blog.description
+        firebaseManager?.dowloadPhoto(path: blog.image, completion: { imageData in
+            cell.postImageView.image = UIImage(data: imageData)
+        })
+
+        cell.titleLabel.text = blog.title
+        cell.descriptionLabel.text = blog.description
+        
         return cell
     }
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
@@ -133,12 +144,10 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.navigationController?.pushViewController(DetailScreenViewController(), animated: true)
     }
-    
 }
 
 extension RacingScreenViewController: AddABlogDelegate {
     func addBlog(_ blog: AddABlogModel, image: UIImage) {
         dataSource.insert(blog, at: 0)
-            collectionView.reloadData()
     }
 }
