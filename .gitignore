@@ -100,3 +100,7 @@ iOSInjectionProject/
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode
 vlogsApp/.DS_Store
+.DS_Store
+vlogsApp/vlogsApp.xcodeproj/xcuserdata
+vlogsApp/vlogsApp.xcodeproj/project.xcworkspace/xcuserdata/petarpopovski.xcuserdatad/UserInterfaceState.xcuserstate
+vlogsApp/vlogsApp.xcodeproj/xcuserdata
