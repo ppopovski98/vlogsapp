@@ -2,19 +2,20 @@
 //  GamingScreenViewController.swift
 //  vlogsApp
 //
-//  Created by Petar Popovski on 19.6.23.
+//  Created by Petar Popovski on 7.6.23.
 //
 
 import UIKit
 import SnapKit
 import FirebaseFirestore
+import SDWebImage
 
-class GamingScreenViewController: UIViewController {
+class GamingScreenViewController: UIViewController, UIScrollViewDelegate {
     
     let firebaseManager: FirebaseManager?
-    let category = "Gaming"
     
     var dataSource: [AddABlogModel] = []
+    var isFetchingData = false
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -24,25 +25,30 @@ class GamingScreenViewController: UIViewController {
         collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
         return collectionView
     }()
+    
+    let activityIndicatorView: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView(style: .medium)
+        indicatorView.hidesWhenStopped = true
+        return indicatorView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         view.backgroundColor = UIColor(named: "backgroundColor")
         collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
-        configUI()
+        mainScreenConfigUI()
         
         firebaseManager?.getDataFromFirebase(completion: { dataSourceForTableView in
             self.dataSource = dataSourceForTableView
             self.collectionView.reloadData()
         })
     }
-    
-
-    func configUI() {
         
+    func mainScreenConfigUI() {
+            
         title = "Gaming"
-
+        
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
@@ -54,18 +60,41 @@ class GamingScreenViewController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         
         self.navigationItem.setHidesBackButton(true, animated: true)
-        
+
         collectionView.dataSource = self
         collectionView.delegate = self
+        view.addSubview(activityIndicatorView)
         view.addSubview(collectionView)
         
         collectionView.backgroundColor = UIColor(named: "backgroundColor")
+        
+        activityIndicatorView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-16)
+        }
         
         collectionView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+
+    }
+    
+    @objc func addButtonTapped() {
+        let addBlogVC = AddABlogViewController()
+        addBlogVC.delegate = self
+        navigationController?.pushViewController(addBlogVC, animated: true)
+        if let tabBarVC = tabBarController as? TabBarViewController {
+            tabBarVC.tabBar.isHidden = true
+        }
+    }
+    
+    @objc func alertButtonTapped() {
+        navigationController?.pushViewController(NotificationsScreenViewController(), animated: true)
+        if let tabBarVC = tabBarController as? TabBarViewController {
+                    tabBarVC.tabBar.isHidden = true
+                }
     }
     
     init(firebaseManager: FirebaseManager) {
@@ -77,20 +106,31 @@ class GamingScreenViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }
 
 //MARK: -
 
 extension GamingScreenViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BlogCollectionViewCell.identifier, for: indexPath) as? BlogCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
         let blog = dataSource[indexPath.item]
-            cell.titleLabel.text = blog.title
-            cell.descriptionLabel.text = blog.description
+        
+        firebaseManager?.dowloadPhoto(path: blog.image, completion: { imageData in
+            cell.postImageView.image = UIImage(data: imageData)
+        })
+
+        cell.titleLabel.text = blog.title
+        cell.descriptionLabel.text = blog.description
+        
         return cell
     }
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
@@ -109,6 +149,5 @@ extension GamingScreenViewController: UICollectionViewDataSource, UICollectionVi
 extension GamingScreenViewController: AddABlogDelegate {
     func addBlog(_ blog: AddABlogModel, image: UIImage) {
         dataSource.insert(blog, at: 0)
-        collectionView.reloadData()
     }
 }

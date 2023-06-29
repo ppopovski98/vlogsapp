@@ -31,10 +31,10 @@ class RacingScreenViewController: UIViewController, UIScrollViewDelegate {
         indicatorView.hidesWhenStopped = true
         return indicatorView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         view.backgroundColor = UIColor(named: "backgroundColor")
         collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
         mainScreenConfigUI()
@@ -44,23 +44,23 @@ class RacingScreenViewController: UIViewController, UIScrollViewDelegate {
             self.collectionView.reloadData()
         })
     }
-        
+    
     func mainScreenConfigUI() {
-            
+        
         title = "Racing"
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navBarAppearance.backgroundColor = UIColor.white
-                
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         
         self.navigationItem.setHidesBackButton(true, animated: true)
-
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         view.addSubview(activityIndicatorView)
@@ -78,7 +78,7 @@ class RacingScreenViewController: UIViewController, UIScrollViewDelegate {
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-
+        
     }
     
     @objc func addButtonTapped() {
@@ -93,8 +93,8 @@ class RacingScreenViewController: UIViewController, UIScrollViewDelegate {
     @objc func alertButtonTapped() {
         navigationController?.pushViewController(NotificationsScreenViewController(), animated: true)
         if let tabBarVC = tabBarController as? TabBarViewController {
-                    tabBarVC.tabBar.isHidden = true
-                }
+            tabBarVC.tabBar.isHidden = true
+        }
     }
     
     init(firebaseManager: FirebaseManager) {
@@ -124,13 +124,13 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
         firebaseManager?.dowloadPhoto(path: blog.image, completion: { imageData in
             cell.postImageView.image = UIImage(data: imageData)
         })
-
+        
         cell.titleLabel.text = blog.title
         cell.descriptionLabel.text = blog.description
         
         return cell
     }
-
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count

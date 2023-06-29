@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5636EFEE2A406036005A3859 /* GamingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636EFED2A406036005A3859 /* GamingScreenViewController.swift */; };
 		565B7CA82A4C47F40027947D /* NotifTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565B7CA72A4C47F40027947D /* NotifTableViewCell.swift */; };
+		565B7CAB2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */; };
 		569E82962A3B2FDE0014BF2B /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569E82952A3B2FDE0014BF2B /* FirebaseManager.swift */; };
 		56A160DA2A385B9700C0B0A9 /* AddABlog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A160D92A385B9700C0B0A9 /* AddABlog.swift */; };
 		56A29E062A309AB100D866F1 /* RacingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A29E052A309AB100D866F1 /* RacingScreenViewController.swift */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		5636EFED2A406036005A3859 /* GamingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamingScreenViewController.swift; sourceTree = "<group>"; };
 		565B7CA72A4C47F40027947D /* NotifTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifTableViewCell.swift; sourceTree = "<group>"; };
+		565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+RoundedProfilePic.swift"; sourceTree = "<group>"; };
 		569E82952A3B2FDE0014BF2B /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		56A160D92A385B9700C0B0A9 /* AddABlog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddABlog.swift; sourceTree = "<group>"; };
 		56A29E052A309AB100D866F1 /* RacingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RacingScreenViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +125,10 @@
 			isa = PBXGroup;
 			children = (
 				56AB84A72A28B1E400A3C54C /* vlogsApp */,
+				56AB84B32A28B1E500A3C54C /* LaunchScreen.storyboard */,
+				56AB84B62A28B1E500A3C54C /* Info.plist */,
+				56B5F7742A2F670A006F3E49 /* GoogleService-Info.plist */,
+				56AB84B12A28B1E500A3C54C /* Assets.xcassets */,
 				56AB84A62A28B1E400A3C54C /* Products */,
 				56A29E072A309DDF00D866F1 /* Frameworks */,
 			);
@@ -147,10 +153,6 @@
 				565B7CA62A4C476D0027947D /* Custom Cells */,
 				56A29E142A30BE9B00D866F1 /* View */,
 				56F61C192A28C45B00383821 /* Controller */,
-				56AB84B12A28B1E500A3C54C /* Assets.xcassets */,
-				56AB84B32A28B1E500A3C54C /* LaunchScreen.storyboard */,
-				56AB84B62A28B1E500A3C54C /* Info.plist */,
-				56B5F7742A2F670A006F3E49 /* GoogleService-Info.plist */,
 			);
 			path = vlogsApp;
 			sourceTree = "<group>";
@@ -159,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				56AD9F402A3751F3001DA577 /* Extension+UIStackView.swift */,
+				565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				56AB84AD2A28B1E400A3C54C /* SignInViewController.swift in Sources */,
 				56AB84A92A28B1E400A3C54C /* AppDelegate.swift in Sources */,
 				56AB84AB2A28B1E400A3C54C /* SceneDelegate.swift in Sources */,
+				565B7CAB2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift in Sources */,
 				56B81B8D2A31FDD6001341CF /* TabBarViewController.swift in Sources */,
 				56AD9F3C2A373D3B001DA577 /* DetailScreenViewController.swift in Sources */,
 				56A160DA2A385B9700C0B0A9 /* AddABlog.swift in Sources */,
