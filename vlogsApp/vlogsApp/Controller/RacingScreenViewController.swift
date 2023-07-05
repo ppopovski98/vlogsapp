@@ -15,7 +15,6 @@ class RacingScreenViewController: UIViewController, UIScrollViewDelegate {
     let firebaseManager: FirebaseManager?
     
     var dataSource: [AddABlogModel] = []
-    var isFetchingData = false
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
