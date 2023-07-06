@@ -31,6 +31,11 @@ class GamingScreenViewController: UIViewController, UIScrollViewDelegate {
         indicatorView.hidesWhenStopped = true
         return indicatorView
     }()
+    
+    let placeholderImage: UIImage = {
+        let image = UIImage()
+        return image
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,7 +147,14 @@ extension GamingScreenViewController: UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(DetailScreenViewController(), animated: true)
+            let selectedBlog = dataSource[indexPath.item]
+            if let cell = collectionView.cellForItem(at: indexPath) as? BlogCollectionViewCell {
+                let detailVC = DetailScreenViewController()
+                detailVC.blogTitle = selectedBlog.title
+                detailVC.blogDescription = selectedBlog.description
+                detailVC.blogImage = cell.postImageView.image ?? placeholderImage
+                self.navigationController?.pushViewController(detailVC, animated: true)
+        }
     }
 }
 

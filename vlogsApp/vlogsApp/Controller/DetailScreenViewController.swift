@@ -10,11 +10,14 @@ import SnapKit
 
 class DetailScreenViewController: UIViewController {
     
-    
+    var blogTitle: String!
+    var blogDescription: String!
+    var blogImage = UIImage()
+    let titleLabel = UILabel()
+    let descriptionLabel = UILabel()
     let vlogImageView = UIImageView()
-    var imageEnlarged: UIImage?
     weak var delegate: AddABlogDelegate?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,29 +25,50 @@ class DetailScreenViewController: UIViewController {
     }
     
     func configUI() {
+//
+//        titleLabel = UILabel()
+//        descriptionLabel = UILabel()
+//
+        titleLabel.text = blogTitle
+        titleLabel.textColor = .black
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 0
         
+        descriptionLabel.text = blogDescription
+        descriptionLabel.textColor = .black
+        descriptionLabel.font = UIFont.systemFont(ofSize: 14)
+        descriptionLabel.textAlignment = .center
+        descriptionLabel.numberOfLines = 0
+        
+        view.addSubview(titleLabel)
+        view.addSubview(descriptionLabel)
         view.addSubview(vlogImageView)
         
         view.backgroundColor = UIColor(named: "backgroundColor")
-
-        vlogImageView.contentMode = .scaleAspectFit
-        vlogImageView.clipsToBounds = true
         
+        vlogImageView.image = blogImage
+        vlogImageView.contentMode = .scaleToFill
+        vlogImageView.clipsToBounds = true
         vlogImageView.layer.cornerRadius = 20
         vlogImageView.layer.borderWidth = 1
         
-        vlogImageView.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(20)
-            make.width.equalTo(350)
-            make.height.equalTo(250)
+            make.top.equalTo(vlogImageView.snp.bottom).offset(20)
+            make.leading.trailing.equalToSuperview().inset(12)
         }
-        
+        descriptionLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview().inset(12)
+        }
+            vlogImageView.snp.makeConstraints { make in
+                make.centerX.equalToSuperview()
+                make.top.equalToSuperview().offset(20)
+                make.width.equalTo(350)
+                make.height.equalTo(250)
+            }
+        }
     }
-}
 
-extension DetailScreenViewController: AddABlogDelegate {
-    func addBlog(_ blog: AddABlogModel, image: UIImage) {
-        vlogImageView.image = image
-    }
-}

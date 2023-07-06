@@ -72,7 +72,7 @@ class FirebaseManager {
     
     func dowloadPhoto(path: String, completion: @escaping (Data) -> Void) {
         
-        reference.reference(withPath: path).getData(maxSize: (1 * 512 * 512)) { data, error in
+        reference.reference(withPath: path).getData(maxSize: (3 * 512 * 512)) { data, error in
             if let err = error {
                 print(err)
             } else {
