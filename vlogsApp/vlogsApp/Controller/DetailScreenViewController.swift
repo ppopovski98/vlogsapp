@@ -25,10 +25,7 @@ class DetailScreenViewController: UIViewController {
     }
     
     func configUI() {
-//
-//        titleLabel = UILabel()
-//        descriptionLabel = UILabel()
-//
+        
         titleLabel.text = blogTitle
         titleLabel.textColor = .black
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
