@@ -148,7 +148,7 @@ extension GamingScreenViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedBlog = dataSource[indexPath.item]
         if let cell = collectionView.cellForItem(at: indexPath) as? BlogCollectionViewCell {
-            let detailVC = DetailScreenViewController()
+            let detailVC = DetailScreenViewController(firebaseManager: FirebaseManager())
             detailVC.blog = selectedBlog
             self.navigationController?.pushViewController(detailVC, animated: true)
         }
