@@ -11,7 +11,7 @@ class TabBarViewController: UITabBarController {
     
     let mainScreen = RacingScreenViewController(firebaseManager: FirebaseManager())
     let profileScreen = ProfileViewController()
-    let favouriteScreen = FavouritesScreenViewController()
+    let favouriteScreen = FavouritesScreenViewController(firebaseManager: FirebaseManager())
     let gamingScreen = GamingScreenViewController(firebaseManager: FirebaseManager())
     
     override func viewDidLoad() {

@@ -18,34 +18,50 @@ class ProfileViewController: UIViewController {
         return imageView
     }()
     
-    let youtubeButton: UIButton = {
+    lazy var youtubeButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "youtubeButton"), for: .normal)
         button.addTarget(self, action: #selector(didTapYoutube), for: .touchUpInside)
         return button
     }()
     
-    let twitterButton: UIButton = {
+    lazy var twitterButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "twitterButton"), for: .normal)
         button.addTarget(self, action: #selector(didTapTwitter), for: .touchUpInside)
         return button
     }()
     
-    let facebookButton: UIButton = {
+    lazy var facebookButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "facebookButton"), for: .normal)
         button.addTarget(self, action: #selector(didTapFacebook), for: .touchUpInside)
         return button
     }()
     
-    let aboutMeDescription = UILabel()
-    let aboutMeTitle = UILabel()
+    lazy var aboutMeTitle: UILabel = {
+        let label = UILabel()
+        label.text = "ABOUT ME"
+        label.numberOfLines = 1
+        label.layer.cornerRadius = 20
+        label.tintColor = .black
+        label.textAlignment = .left
+        return label
+    }()
+    
+    lazy var aboutMeDescription: UILabel = {
+        let label = UILabel()
+        label.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer interdum maximus sem, in elementum ex gravida a. Etiam eget laoreet felis, ac condimentum nisi. Pellentesque maximus, massa vitae faucibus mattis, libero lacus porttitor nisl, a tincidunt justo dolor id augue. Aenean sit amet nisi enim. Sed sit amet mi sem. Nulla placerat nec quam nec malesuada. Phasellus nibh arcu, commodo placerat sodales in, cursus in velit. Phasellus varius suscipit nisl, et euismod metus lobortis at."
+        label.numberOfLines = 20
+        label.layer.cornerRadius = 20
+        label.tintColor = .black
+        label.textAlignment = .left
+        return label
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        aboutMeConfigUI()
         configUI()
     }
     
@@ -69,6 +85,8 @@ class ProfileViewController: UIViewController {
         
         view.addSubview(buttonStackView)
         view.addSubview(profilePic)
+        view.addSubview(aboutMeTitle)
+        view.addSubview(aboutMeDescription)
         
         buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(aboutMeDescription.snp.bottom).offset(-200)
@@ -100,23 +118,6 @@ class ProfileViewController: UIViewController {
             make.bottom.equalToSuperview()
             make.width.height.equalTo(20)
         }
-    }
-    
-    func aboutMeConfigUI() {
-        
-        aboutMeTitle.text = "ABOUT ME"
-        aboutMeTitle.numberOfLines = 1
-        aboutMeTitle.layer.cornerRadius = 20
-        aboutMeTitle.tintColor = .black
-        aboutMeTitle.textAlignment = .left
-        view.addSubview(aboutMeTitle)
-        
-        aboutMeDescription.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer interdum maximus sem, in elementum ex gravida a. Etiam eget laoreet felis, ac condimentum nisi. Pellentesque maximus, massa vitae faucibus mattis, libero lacus porttitor nisl, a tincidunt justo dolor id augue. Aenean sit amet nisi enim. Sed sit amet mi sem. Nulla placerat nec quam nec malesuada. Phasellus nibh arcu, commodo placerat sodales in, cursus in velit. Phasellus varius suscipit nisl, et euismod metus lobortis at."
-        aboutMeDescription.numberOfLines = 20
-        aboutMeDescription.layer.cornerRadius = 20
-        aboutMeDescription.tintColor = .black
-        aboutMeDescription.textAlignment = .left
-        view.addSubview(aboutMeDescription)
     }
     
     @objc func didTapYoutube() {

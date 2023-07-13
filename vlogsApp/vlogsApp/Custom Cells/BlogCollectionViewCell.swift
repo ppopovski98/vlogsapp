@@ -8,9 +8,16 @@
 import UIKit
 import SnapKit
 
+protocol BlogCollectionViewCellDelegate: AnyObject {
+    func didTapFavouritesButton(cell: BlogCollectionViewCell, indexPath: IndexPath, isFavourite: Bool)
+}
+
 class BlogCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "BlogCollectionViewCell"
+    weak var delegate: BlogCollectionViewCellDelegate?
+    var indexPath: IndexPath?
+    private let dataSource: [Blog] = []
     
     lazy var placeholderView: UIView = {
         let uiView = UIView()
@@ -59,7 +66,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let postDateIcon: UIImageView = {
+    lazy var postDateIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "calendar")
         imageView.tintColor = .systemBlue
@@ -68,16 +75,16 @@ class BlogCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    let favouritesButton: UIButton = {
+    lazy var favouritesButton: UIButton = {
         let button = UIButton()
         button.tintColor = .red
         button.setImage(UIImage(systemName: "star"), for: .normal)
+        button.addTarget(self, action: #selector(favouritesButtonTapped), for: .touchUpInside)
         return button
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        blogCellConfigUI()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -94,6 +101,15 @@ class BlogCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        contentView.layer.cornerRadius = 20
+        contentView.backgroundColor = UIColor(named: "textFieldColor")
+
+        contentView.addSubview(postImageView)
+        contentView.addSubview(dateAndTitleStackView)
+        contentView.addSubview(combinedStackView)
+        contentView.addSubview(descriptionStackView)
+        contentView.addSubview(favouritesButton)
         
         descriptionStackView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(8)
@@ -132,14 +148,18 @@ class BlogCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func blogCellConfigUI() {
-        contentView.layer.cornerRadius = 20
-        contentView.backgroundColor = UIColor(named: "textFieldColor")
+    func blogCellConfigUI(title: String, description: String, image: Data) {
         
-        contentView.addSubview(postImageView)
-        contentView.addSubview(dateAndTitleStackView)
-        contentView.addSubview(combinedStackView)
-        contentView.addSubview(descriptionStackView)
-        contentView.addSubview(favouritesButton)
+        self.titleLabel.text = title
+        self.descriptionLabel.text = description
+        self.postImageView.image = UIImage(data: image)
+    }
+    
+    @objc func favouritesButtonTapped() {
+        guard let indexPath = indexPath else {
+            return
+        }
+        let isFavourite = !dataSource[indexPath.item].isFavourite
+        delegate?.didTapFavouritesButton(cell: self, indexPath: indexPath, isFavourite: isFavourite)
     }
 }

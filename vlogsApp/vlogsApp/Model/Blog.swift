@@ -9,11 +9,11 @@ import UIKit
 import Firebase
 import FirebaseFirestoreSwift
 
-struct AddABlogModel: Codable {
+struct Blog: Codable {
     var title: String
     var description: String
     var image: String
-    var isFavourite: Bool?
+    var isFavourite: Bool
     var category: String?
     var timestamp: Double?
 }

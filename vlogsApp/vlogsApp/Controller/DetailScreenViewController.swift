@@ -7,65 +7,83 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 class DetailScreenViewController: UIViewController {
     
-    var blogTitle: String!
-    var blogDescription: String!
-    var blogImage = UIImage()
-    let titleLabel = UILabel()
-    let descriptionLabel = UILabel()
-    let vlogImageView = UIImageView()
-    weak var delegate: AddABlogDelegate?
+    var firebaseManager: FirebaseManager?
+    
+    var blog: Blog?
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.text = blog?.title
+        return label
+    }()
+    
+    lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.text = blog?.description
+        return label
+    }()
+    
+    lazy var vlogImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 20
+        imageView.layer.borderWidth = 1
+        imageView.contentMode = .scaleToFill
+        return imageView
+    }()
+    
+    lazy var vlogImage: UIImage = {
+        let image = UIImage()
+        return image
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        firebaseManager?.dowloadPhoto(path: blog?.image ?? "", completion: { imageData in
+            self.vlogImageView.image = UIImage(data: imageData)
+        })
+        
+        view.backgroundColor = UIColor(named: "backgroundColor")
         configUI()
     }
     
     func configUI() {
         
-        titleLabel.text = blogTitle
-        titleLabel.textColor = .black
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        titleLabel.textAlignment = .center
-        titleLabel.numberOfLines = 0
-        
-        descriptionLabel.text = blogDescription
-        descriptionLabel.textColor = .black
-        descriptionLabel.font = UIFont.systemFont(ofSize: 14)
-        descriptionLabel.textAlignment = .center
-        descriptionLabel.numberOfLines = 0
-        
         view.addSubview(titleLabel)
         view.addSubview(descriptionLabel)
         view.addSubview(vlogImageView)
-        
-        view.backgroundColor = UIColor(named: "backgroundColor")
-        
-        vlogImageView.image = blogImage
-        vlogImageView.contentMode = .scaleToFill
-        vlogImageView.clipsToBounds = true
-        vlogImageView.layer.cornerRadius = 20
-        vlogImageView.layer.borderWidth = 1
         
         titleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(vlogImageView.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(12)
         }
+        
         descriptionLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(12)
         }
-            vlogImageView.snp.makeConstraints { make in
-                make.centerX.equalToSuperview()
-                make.top.equalToSuperview().offset(20)
-                make.width.equalTo(350)
-                make.height.equalTo(250)
-            }
+        
+        vlogImageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(20)
+            make.width.equalTo(350)
+            make.height.equalTo(250)
         }
     }
+}
 

@@ -7,31 +7,31 @@
 
 import UIKit
 import SnapKit
-import FirebaseFirestore
 import SDWebImage
 
 class RacingScreenViewController: UIViewController, UIScrollViewDelegate {
     
-    let firebaseManager: FirebaseManager?
+    var firebaseManager: FirebaseManager?
     
-    var dataSource: [AddABlogModel] = []
+    lazy var dataSource: [Blog] = []
     
-    let collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
+        collectionView.backgroundColor = UIColor(named: "backgroundColor")
         return collectionView
     }()
     
-    let activityIndicatorView: UIActivityIndicatorView = {
+    lazy var activityIndicatorView: UIActivityIndicatorView = {
         let indicatorView = UIActivityIndicatorView(style: .medium)
         indicatorView.hidesWhenStopped = true
         return indicatorView
     }()
     
-    let placeholderImage: UIImage = {
+    lazy var placeholderImage: UIImage = {
         let image = UIImage()
         return image
     }()
@@ -39,9 +39,8 @@ class RacingScreenViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(named: "backgroundColor")
-        collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
         mainScreenConfigUI()
+        view.backgroundColor = UIColor(named: "backgroundColor")
         
         firebaseManager?.getDataFromFirebase(completion: { dataSourceForTableView in
             self.dataSource = dataSourceForTableView
@@ -67,25 +66,25 @@ class RacingScreenViewController: UIViewController, UIScrollViewDelegate {
         
         collectionView.dataSource = self
         collectionView.delegate = self
-        view.addSubview(activityIndicatorView)
+        
         view.addSubview(collectionView)
-        
-        collectionView.backgroundColor = UIColor(named: "backgroundColor")
-        
-        activityIndicatorView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-16)
-        }
+        view.addSubview(activityIndicatorView)
         
         collectionView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+                
+        activityIndicatorView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-16)
+        }
         
     }
     
     @objc func addButtonTapped() {
+        
         let addBlogVC = AddABlogViewController()
         addBlogVC.delegate = self
         navigationController?.pushViewController(addBlogVC, animated: true)
@@ -102,12 +101,14 @@ class RacingScreenViewController: UIViewController, UIScrollViewDelegate {
     }
     
     init(firebaseManager: FirebaseManager) {
+        
         self.firebaseManager = firebaseManager
         super.init(nibName: nil, bundle: nil)
     }
     
     
     required init?(coder: NSCoder) {
+        
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -122,6 +123,9 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BlogCollectionViewCell.identifier, for: indexPath) as? BlogCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
+        cell.delegate = self
+        cell.indexPath = indexPath
         
         let blog = dataSource[indexPath.item]
         
@@ -149,16 +153,41 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
         let selectedBlog = dataSource[indexPath.item]
         if let cell = collectionView.cellForItem(at: indexPath) as? BlogCollectionViewCell {
             let detailVC = DetailScreenViewController()
-            detailVC.blogTitle = selectedBlog.title
-            detailVC.blogDescription = selectedBlog.description
-            detailVC.blogImage = cell.postImageView.image ?? placeholderImage
+            detailVC.blog = selectedBlog
             self.navigationController?.pushViewController(detailVC, animated: true)
         }
     }
 }
 
+extension RacingScreenViewController: BlogCollectionViewCellDelegate {
+    
+    func didTapFavouritesButton(cell: BlogCollectionViewCell, indexPath: IndexPath, isFavourite: Bool) {
+        guard let indexPath = collectionView.indexPath(for: cell) else {
+            return
+        }
+        
+        guard let firebaseManager = firebaseManager else { return }
+        
+        let selectedBlog = dataSource[indexPath.item]
+        
+        
+        firebaseManager.uploadPhoto(title: selectedBlog.title,
+                                    description: selectedBlog.description,
+                                    image: selectedBlog.image,
+                                    isFavourite: isFavourite) { success in
+            if success {
+                self.dataSource[indexPath.item] .isFavourite = isFavourite
+                self.collectionView.reloadData()
+            } else {
+                print("Failure")
+            }
+        }
+    }
+}
+
 extension RacingScreenViewController: AddABlogDelegate {
-    func addBlog(_ blog: AddABlogModel, image: UIImage) {
+    
+    func addBlog(_ blog: Blog, image: UIImage) {
         dataSource.insert(blog, at: 0)
     }
 }
