@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import SDWebImage
 
-class RacingScreenViewController: UIViewController, UIScrollViewDelegate {
+class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDelegate {
     
     var firebaseManager: FirebaseManager?
     
@@ -51,16 +51,6 @@ class RacingScreenViewController: UIViewController, UIScrollViewDelegate {
     func mainScreenConfigUI() {
         
         title = "Racing"
-        
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        navBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        navBarAppearance.backgroundColor = UIColor.white
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.standardAppearance = navBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         
@@ -158,6 +148,8 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
         }
     }
 }
+
+//MARK: -
 
 extension RacingScreenViewController: BlogCollectionViewCellDelegate {
     

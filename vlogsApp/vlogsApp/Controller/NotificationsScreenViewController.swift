@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class NotificationsScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NotificationsScreenViewController: BaseUiNavigationBarAppearance, UITableViewDelegate, UITableViewDataSource {
     
     var tableViewData: [String] = [
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -58,18 +58,6 @@ class NotificationsScreenViewController: UIViewController, UITableViewDelegate, 
     func alertConfigUI() {
         
         title = "Notifications"
-        
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        navBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        navBarAppearance.backgroundColor = UIColor.white
-                
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.standardAppearance = navBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-        view.backgroundColor = .white
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

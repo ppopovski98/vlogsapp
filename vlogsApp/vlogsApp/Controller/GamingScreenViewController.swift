@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import SDWebImage
 
-class GamingScreenViewController: UIViewController, UIScrollViewDelegate {
+class GamingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDelegate {
     
     private let firebaseManager: FirebaseManager?
     
@@ -51,16 +51,6 @@ class GamingScreenViewController: UIViewController, UIScrollViewDelegate {
     func mainScreenConfigUI() {
         
         title = "Gaming"
-        
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        navBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        navBarAppearance.backgroundColor = UIColor.white
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.standardAppearance = navBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         
@@ -146,6 +136,7 @@ extension GamingScreenViewController: UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         let selectedBlog = dataSource[indexPath.item]
         if let cell = collectionView.cellForItem(at: indexPath) as? BlogCollectionViewCell {
             let detailVC = DetailScreenViewController(firebaseManager: FirebaseManager())
