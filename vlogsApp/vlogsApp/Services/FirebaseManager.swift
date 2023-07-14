@@ -15,10 +15,10 @@ import FirebaseStorage
 class FirebaseManager {
     
     let db = Firestore.firestore()
-    var dataSource = [AddABlogModel]()
+    private var dataSource = [Blog]()
     let reference = Storage.storage()
     
-    func getDataFromFirebase(completion: @escaping ([AddABlogModel]) -> Void) {
+    func getDataFromFirebase(completion: @escaping ([Blog]) -> Void) {
         
         db.collection("Posts").getDocuments { querySnapshot, err in
             guard let querySnapshot = querySnapshot else { return }
@@ -26,7 +26,7 @@ class FirebaseManager {
                 let data = document.data()
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-                    let blogPost = try JSONDecoder().decode(AddABlogModel.self, from: jsonData)
+                    let blogPost = try JSONDecoder().decode(Blog.self, from: jsonData)
                     self.dataSource.append(blogPost)
                 } catch {
                     print("Error")
@@ -36,7 +36,7 @@ class FirebaseManager {
         }
     }
     
-    func uploadPhoto(title: String, description: String, image: String, completion: @escaping (Bool) -> Void) {
+    func uploadPhoto(title: String, description: String, image: String, isFavourite: Bool, completion: @escaping (Bool) -> Void) {
         let storageRef = Storage.storage().reference()
         let path = "Posts/\(UUID().uuidString).jpg"
         let fileRef = storageRef.child(path)
@@ -57,7 +57,8 @@ class FirebaseManager {
             self.db.collection("Posts").addDocument(data: [
                 "title": title,
                 "description": description,
-                "image": path
+                "image": path,
+                "isFavourite": isFavourite
             ]) { err in
                 if let err = err {
                     print("Error adding document: \(err)")
@@ -72,7 +73,7 @@ class FirebaseManager {
     
     func dowloadPhoto(path: String, completion: @escaping (Data) -> Void) {
         
-        reference.reference(withPath: path).getData(maxSize: (1 * 512 * 512)) { data, error in
+        reference.reference(withPath: path).getData(maxSize: (3 * 512 * 512)) { data, error in
             if let err = error {
                 print(err)
             } else {
@@ -80,37 +81,6 @@ class FirebaseManager {
                     completion(image)
                 }
             }
-        }
-    }
-    
-    func retrieveData(completion: @escaping ([AddABlogModel]) -> Void) {
-        
-        db.collection("Posts").getDocuments { querySnapshot, error in
-            if let error = error {
-                print("Error retrieving photos: \(error)")
-                completion([])
-                return
-            }
-            
-            guard let querySnapshot = querySnapshot else {
-                completion(self.dataSource)
-                return
-            }
-            
-            for document in querySnapshot.documents {
-                let data = document.data()
-                
-                if let base64Image = data["image"] as? String {
-                    let blogPost = AddABlogModel(
-                        title: data["title"] as? String ?? "",
-                        description: data["description"] as? String ?? "",
-                        image: base64Image
-                    )
-                    self.dataSource.append(blogPost)
-                }
-            }
-            
-            completion(self.dataSource)
         }
     }
 }

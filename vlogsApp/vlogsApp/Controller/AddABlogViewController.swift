@@ -13,7 +13,7 @@ import FirebaseFirestore
 import FirebaseStorage
 
 protocol AddABlogDelegate: AnyObject {
-    func addBlog(_ blog: AddABlogModel, image: UIImage)
+    func addBlog(_ blog: Blog, image: UIImage)
 }
 
 class AddABlogViewController: UIViewController {
@@ -23,10 +23,21 @@ class AddABlogViewController: UIViewController {
     
     weak var delegate: AddABlogDelegate?
     
-    lazy var photoPickerButton = UIButton()
     lazy var imageView = UIImageView()
     var selectedImage: UIImage?
     var selectedImageURL: String?
+    
+    lazy var photoPickerButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor(named: "textFieldColor")
+        button.addTarget(self, action: #selector(postButtonTapped), for: .touchUpInside)
+        button.setTitle("UPLOAD A PHOTO", for: .normal)
+        button.tintColor = .black
+        button.layer.cornerRadius = 20
+        
+        button.addTarget(self, action: #selector(photoPickerButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     lazy var titleTextField: UITextField = {
         let title = UITextField()
@@ -45,7 +56,15 @@ class AddABlogViewController: UIViewController {
         return title
     }()
     
-    lazy var postButton = UIButton()
+    lazy var postButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor(named: "textFieldColor")
+        button.addTarget(self, action: #selector(postButtonTapped), for: .touchUpInside)
+        button.setTitle("POST", for: .normal)
+        button.tintColor = .black
+        button.layer.cornerRadius = 20
+        return button
+    }()
     
     lazy var stackView = UIStackView(arrangedSubviews: [titleTextField, descritptionTextField, UIView()], spacing: 12, axis: .vertical, distribution: .fill, alignment: .center, layoutMargins: UIEdgeInsets(top: 100, left: 12, bottom: 0, right: 12))
     
@@ -71,9 +90,9 @@ class AddABlogViewController: UIViewController {
                 return
             }
 
-            firebaseManager.uploadPhoto(title: title, description: description, image: imageURL) { success in
+        firebaseManager.uploadPhoto(title: title, description: description, image: imageURL, isFavourite: false) { success in
                 if success {
-                    let newBlog = AddABlogModel(title: title, description: description, image: imageURL)
+                    let newBlog = Blog(title: title, description: description, image: imageURL, isFavourite: false)
                     self.delegate?.addBlog(newBlog, image: self.selectedImage!)
                     self.navigationController?.popViewController(animated: true)
                 } else {
@@ -91,20 +110,6 @@ class AddABlogViewController: UIViewController {
         view.addSubview(postButton)
         view.addSubview(photoPickerButton)
         view.addSubview(imageView)
-        
-        postButton.backgroundColor = UIColor(named: "textFieldColor")
-        postButton.addTarget(self, action: #selector(postButtonTapped), for: .touchUpInside)
-        postButton.setTitle("POST", for: .normal)
-        postButton.tintColor = .black
-        postButton.layer.cornerRadius = 20
-        
-        photoPickerButton.backgroundColor = UIColor(named: "textFieldColor")
-        photoPickerButton.addTarget(self, action: #selector(postButtonTapped), for: .touchUpInside)
-        photoPickerButton.setTitle("UPLOAD A PHOTO", for: .normal)
-        photoPickerButton.tintColor = .black
-        photoPickerButton.layer.cornerRadius = 20
-        
-        photoPickerButton.addTarget(self, action: #selector(photoPickerButtonTapped), for: .touchUpInside)
         
         photoPickerButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
