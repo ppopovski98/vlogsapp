@@ -26,6 +26,7 @@ class AddABlogViewController: UIViewController {
     lazy var imageView = UIImageView()
     var selectedImage: UIImage?
     var selectedImageURL: String?
+    var selectedDate: Date?
     
     lazy var photoPickerButton: UIButton = {
         let button = UIButton()
@@ -56,6 +57,13 @@ class AddABlogViewController: UIViewController {
         return title
     }()
     
+    lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .gray
+        return label
+    }()
+    
     lazy var postButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(named: "textFieldColor")
@@ -64,6 +72,19 @@ class AddABlogViewController: UIViewController {
         button.tintColor = .black
         button.layer.cornerRadius = 20
         return button
+    }()
+    
+    lazy var datePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.datePickerMode = .date
+        picker.addTarget(self, action: #selector(datePickerValueChange), for: .valueChanged)
+        return picker
+    }()
+    
+    lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        return formatter
     }()
     
     lazy var stackView = UIStackView(arrangedSubviews: [titleTextField, descritptionTextField, UIView()], spacing: 12, axis: .vertical, distribution: .fill, alignment: .center, layoutMargins: UIEdgeInsets(top: 100, left: 12, bottom: 0, right: 12))
@@ -86,13 +107,14 @@ class AddABlogViewController: UIViewController {
         
         guard let title = titleTextField.text,
                   let description = descritptionTextField.text,
-                  let imageURL = selectedImageURL else {
+                  let imageURL = selectedImageURL,
+                  let selectedDate = selectedDate else {
                 return
             }
 
-        firebaseManager.uploadPhoto(title: title, description: description, image: imageURL, isFavourite: false) { success in
+        firebaseManager.uploadPhoto(title: title, description: description, image: imageURL, isFavourite: false, timestamp: selectedDate.timeIntervalSince1970) { success in
                 if success {
-                    let newBlog = Blog(title: title, description: description, image: imageURL, isFavourite: false)
+                    let newBlog = Blog(title: title, description: description, image: imageURL, isFavourite: false, timestamp: selectedDate.timeIntervalSince1970)
                     self.delegate?.addBlog(newBlog, image: self.selectedImage!)
                     self.navigationController?.popViewController(animated: true)
                 } else {
@@ -110,6 +132,8 @@ class AddABlogViewController: UIViewController {
         view.addSubview(postButton)
         view.addSubview(photoPickerButton)
         view.addSubview(imageView)
+        view.addSubview(datePicker)
+        view.addSubview(dateLabel)
         
         photoPickerButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -144,6 +168,26 @@ class AddABlogViewController: UIViewController {
             make.top.equalTo(descritptionTextField.snp.bottom).offset(10)
             make.width.equalTo(350)
             make.height.equalTo(250)
+        }
+        
+        datePicker.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(descritptionTextField.snp.bottom).offset(20)
+        }
+        dateLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(descritptionTextField.snp.bottom).offset(20)
+        }
+    }
+    
+    @objc func datePickerValueChange() {
+        selectedDate = datePicker.date
+        
+        if let selectedDate = selectedDate {
+            let formattedDate = dateFormatter.string(from: selectedDate)
+            dateLabel.text = formattedDate
+        } else {
+            dateLabel.text = "N/A"
         }
     }
     

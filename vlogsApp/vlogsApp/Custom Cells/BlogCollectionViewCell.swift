@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol BlogCollectionViewCellDelegate: AnyObject {
-    func didTapFavouritesButton(cell: BlogCollectionViewCell, indexPath: IndexPath, isFavourite: Bool)
+    func didTapFavouritesButton(cell: BlogCollectionViewCell, indexPath: IndexPath, isFavourite: Bool, timestamp: Double)
 }
 
 class BlogCollectionViewCell: UICollectionViewCell {
@@ -51,18 +51,18 @@ class BlogCollectionViewCell: UICollectionViewCell {
     }()
     
     lazy var dateLabel: UILabel = {
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.locale = .current
-        formatter.timeZone = .current
-        formatter.dateFormat = "dd.MM.yyyy"
+//        let date = Date()
+//        let formatter = DateFormatter()
+//        formatter.locale = .current
+//        formatter.timeZone = .current
+//        formatter.dateFormat = "dd.MM.yyyy"
         
         let label = UILabel()
-        label.text = formatter.string(from: date)
-        label.font = .systemFont(ofSize: 15, weight: .bold)
-        label.textColor = .systemBlue
-        label.textAlignment = .right
-    
+//        label.text = formatter.string(from: date)
+//        label.font = .systemFont(ofSize: 15, weight: .bold)
+//        label.textColor = .systemBlue
+//        label.textAlignment = .right
+//
         return label
     }()
     
@@ -159,7 +159,21 @@ class BlogCollectionViewCell: UICollectionViewCell {
         guard let indexPath = indexPath else {
             return
         }
-        let isFavourite = !dataSource[indexPath.item].isFavourite
-        delegate?.didTapFavouritesButton(cell: self, indexPath: indexPath, isFavourite: isFavourite)
+       
+        let selectedBlog = dataSource[indexPath.item]
+        let isFavourite = !selectedBlog.isFavourite
+        delegate?.didTapFavouritesButton(cell: self, indexPath: indexPath, isFavourite: isFavourite, timestamp: selectedBlog.timestamp)
     }
+    
+    func updateCell(with blog: Blog) {
+        titleLabel.text = blog.title
+        descriptionLabel.text = blog.description
+        
+            let date = Date(timeIntervalSince1970: blog.timestamp)
+            let formatter = DateFormatter()
+            formatter.locale = .current
+            formatter.timeZone = .current
+            formatter.dateFormat = "dd.MM.yyyy"
+            dateLabel.text = formatter.string(from: date)
+        }
 }

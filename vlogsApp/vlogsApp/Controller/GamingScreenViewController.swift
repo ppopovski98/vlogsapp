@@ -148,7 +148,7 @@ extension GamingScreenViewController: UICollectionViewDataSource, UICollectionVi
 
 extension GamingScreenViewController: BlogCollectionViewCellDelegate {
     
-    func didTapFavouritesButton(cell: BlogCollectionViewCell, indexPath: IndexPath, isFavourite: Bool) {
+    func didTapFavouritesButton(cell: BlogCollectionViewCell, indexPath: IndexPath, isFavourite: Bool, timestamp: Double) {
         guard let indexPath = collectionView.indexPath(for: cell) else {
             return
         }
@@ -161,7 +161,8 @@ extension GamingScreenViewController: BlogCollectionViewCellDelegate {
         firebaseManager.uploadPhoto(title: selectedBlog.title,
                                     description: selectedBlog.description,
                                     image: selectedBlog.image,
-                                    isFavourite: isFavourite) { success in
+                                    isFavourite: isFavourite,
+                                    timestamp: timestamp ) { success in
             if success {
                 self.dataSource[indexPath.item] .isFavourite = isFavourite
                 self.collectionView.reloadData()

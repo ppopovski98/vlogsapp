@@ -15,5 +15,5 @@ struct Blog: Codable {
     var image: String
     var isFavourite: Bool
     var category: String?
-    var timestamp: Double?
+    var timestamp: Double
 }

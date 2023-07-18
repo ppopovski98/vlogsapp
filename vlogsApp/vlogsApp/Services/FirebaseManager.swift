@@ -36,7 +36,7 @@ class FirebaseManager {
         }
     }
     
-    func uploadPhoto(title: String, description: String, image: String, isFavourite: Bool, completion: @escaping (Bool) -> Void) {
+    func uploadPhoto(title: String, description: String, image: String, isFavourite: Bool, timestamp: Double, completion: @escaping (Bool) -> Void) {
         let storageRef = Storage.storage().reference()
         let path = "Posts/\(UUID().uuidString).jpg"
         let fileRef = storageRef.child(path)
@@ -58,7 +58,8 @@ class FirebaseManager {
                 "title": title,
                 "description": description,
                 "image": path,
-                "isFavourite": isFavourite
+                "isFavourite": isFavourite,
+                "timestamp": timestamp
             ]) { err in
                 if let err = err {
                     print("Error adding document: \(err)")

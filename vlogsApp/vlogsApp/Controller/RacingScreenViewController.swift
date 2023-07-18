@@ -123,6 +123,7 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
             cell.postImageView.image = UIImage(data: imageData)
         })
         
+        cell.updateCell(with: blog)
         cell.titleLabel.text = blog.title
         cell.descriptionLabel.text = blog.description
         
@@ -153,7 +154,7 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
 
 extension RacingScreenViewController: BlogCollectionViewCellDelegate {
     
-    func didTapFavouritesButton(cell: BlogCollectionViewCell, indexPath: IndexPath, isFavourite: Bool) {
+    func didTapFavouritesButton(cell: BlogCollectionViewCell, indexPath: IndexPath, isFavourite: Bool, timestamp: Double) {
         guard let indexPath = collectionView.indexPath(for: cell) else {
             return
         }
@@ -166,7 +167,8 @@ extension RacingScreenViewController: BlogCollectionViewCellDelegate {
         firebaseManager.uploadPhoto(title: selectedBlog.title,
                                     description: selectedBlog.description,
                                     image: selectedBlog.image,
-                                    isFavourite: isFavourite) { success in
+                                    isFavourite: isFavourite,
+                                    timestamp: timestamp ) { success in
             if success {
                 self.dataSource[indexPath.item] .isFavourite = isFavourite
                 self.collectionView.reloadData()
