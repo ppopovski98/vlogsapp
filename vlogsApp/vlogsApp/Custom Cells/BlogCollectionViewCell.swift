@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol BlogCollectionViewCellDelegate: AnyObject {
-    func didTapFavouritesButton(cell: BlogCollectionViewCell, indexPath: IndexPath, isFavourite: Bool, timestamp: Double)
+    func didTapFavouritesButton(blog: Blog)
 }
 
 class BlogCollectionViewCell: UICollectionViewCell {
@@ -17,7 +17,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
     static let identifier = "BlogCollectionViewCell"
     weak var delegate: BlogCollectionViewCellDelegate?
     var indexPath: IndexPath?
-    private let dataSource: [Blog] = []
+    var dataSource: Blog?
     
     lazy var placeholderView: UIView = {
         let uiView = UIView()
@@ -51,18 +51,10 @@ class BlogCollectionViewCell: UICollectionViewCell {
     }()
     
     lazy var dateLabel: UILabel = {
-//        let date = Date()
-//        let formatter = DateFormatter()
-//        formatter.locale = .current
-//        formatter.timeZone = .current
-//        formatter.dateFormat = "dd.MM.yyyy"
-        
         let label = UILabel()
-//        label.text = formatter.string(from: date)
-//        label.font = .systemFont(ofSize: 15, weight: .bold)
-//        label.textColor = .systemBlue
-//        label.textAlignment = .right
-//
+        label.font = .systemFont(ofSize: 15, weight: .bold)
+        label.textColor = .systemBlue
+        label.textAlignment = .right
         return label
     }()
     
@@ -156,13 +148,11 @@ class BlogCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func favouritesButtonTapped() {
-        guard let indexPath = indexPath else {
+        
+        guard let blog = dataSource else {
             return
         }
-       
-        let selectedBlog = dataSource[indexPath.item]
-        let isFavourite = !selectedBlog.isFavourite
-        delegate?.didTapFavouritesButton(cell: self, indexPath: indexPath, isFavourite: isFavourite, timestamp: selectedBlog.timestamp)
+        delegate?.didTapFavouritesButton(blog: blog)
     }
     
     func updateCell(with blog: Blog) {

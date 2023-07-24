@@ -10,10 +10,11 @@ import Firebase
 import FirebaseFirestoreSwift
 
 struct Blog: Codable {
+    var blogID: String?
     var title: String
     var description: String
     var image: String
     var isFavourite: Bool
-    var category: String?
+    var category: String
     var timestamp: Double
 }

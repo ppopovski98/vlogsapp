@@ -14,6 +14,7 @@ class GamingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
     private let firebaseManager: FirebaseManager?
     
     lazy var dataSource: [Blog] = []
+    var category = "gaming"
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -148,24 +149,23 @@ extension GamingScreenViewController: UICollectionViewDataSource, UICollectionVi
 
 extension GamingScreenViewController: BlogCollectionViewCellDelegate {
     
-    func didTapFavouritesButton(cell: BlogCollectionViewCell, indexPath: IndexPath, isFavourite: Bool, timestamp: Double) {
-        guard let indexPath = collectionView.indexPath(for: cell) else {
-            return
-        }
+    func didTapFavouritesButton(blog: Blog) {
         
         guard let firebaseManager = firebaseManager else { return }
+    
+        var updatedBlog = blog
+        updatedBlog.isFavourite.toggle()
         
-        let selectedBlog = dataSource[indexPath.item]
-        
-        
-        firebaseManager.uploadPhoto(title: selectedBlog.title,
-                                    description: selectedBlog.description,
-                                    image: selectedBlog.image,
-                                    isFavourite: isFavourite,
-                                    timestamp: timestamp ) { success in
+        firebaseManager.uploadData(title: updatedBlog.title,
+                                    description: updatedBlog.description,
+                                    image: updatedBlog.image,
+                                    isFavourite: updatedBlog.isFavourite,
+                                    category: updatedBlog.category,
+                                    timestamp: updatedBlog.timestamp ) { success in
             if success {
-                self.dataSource[indexPath.item] .isFavourite = isFavourite
-                self.collectionView.reloadData()
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
             } else {
                 print("Failure")
             }
@@ -175,6 +175,9 @@ extension GamingScreenViewController: BlogCollectionViewCellDelegate {
 
 extension GamingScreenViewController: AddABlogDelegate {
     func addBlog(_ blog: Blog, image: UIImage) {
-        dataSource.insert(blog, at: 0)
+        if blog.category == "gaming" {
+            dataSource.insert(blog, at: 0)
+            collectionView.reloadData()
+        }
     }
 }
