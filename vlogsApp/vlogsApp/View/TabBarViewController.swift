@@ -8,28 +8,27 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
-
+    
+    let mainScreen = RacingScreenViewController(firebaseManager: FirebaseManager())
+    let profileScreen = ProfileViewController()
+    let favouriteScreen = FavouritesScreenViewController(firebaseManager: FirebaseManager())
+    let gamingScreen = GamingScreenViewController(firebaseManager: FirebaseManager())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
         navigationController?.navigationBar.barTintColor = .white
         tabBarController?.tabBar.tintColor = .white
+        addAndAlert()
         tabBarConfigUI()
     }
     
     func tabBarConfigUI() {
         
-        let vlogImage = UIImage(systemName: "bell")
-        
         self.navigationItem.setHidesBackButton(true, animated: true)
         
         tabBar.backgroundColor = .white
         
-        let mainScreen = RacingScreenViewController(firebaseManager: FirebaseManager())
-        let profileScreen = ProfileViewController()
-        let favouriteScreen = FavouritesScreenViewController()
-        let gamingScreen = GamingScreenViewController(firebaseManager: FirebaseManager())
-
         profileScreen.title = "Profile"
         favouriteScreen.title = "Favourites"
         gamingScreen.title = "Gaming"
@@ -44,19 +43,32 @@ class TabBarViewController: UITabBarController {
         self.setViewControllers(viewControllers, animated: false)
         self.selectedViewController = mainScreenNavController
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: mainScreen, action: #selector(mainScreen.addButtonTapped))
-        mainScreen.navigationItem.rightBarButtonItem = addButton
-        mainScreen.navigationItem.rightBarButtonItem?.tintColor = .black
-        
-        let alertButton = UIBarButtonItem(image: vlogImage, style: .done, target: mainScreen, action: #selector(mainScreen.alertButtonTapped))
-        mainScreen.navigationItem.leftBarButtonItem = alertButton
-        mainScreen.navigationItem.leftBarButtonItem?.tintColor = .black
-        
         guard let items = tabBar.items else { return }
         let images =  ["person.circle", "theatermasks.circle", "flag.checkered.circle", "star.circle"]
                 
         for x in 0..<items.count {
             items[x].image = UIImage(systemName: images[x])
         }
+    }
+    
+    func addAndAlert() {
+        
+        let vlogImage = UIImage(systemName: "bell")
+        
+        let mainScreenAddButton = UIBarButtonItem(barButtonSystemItem: .add, target: mainScreen, action: #selector(mainScreen.addButtonTapped))
+        mainScreen.navigationItem.rightBarButtonItem = mainScreenAddButton
+        mainScreen.navigationItem.rightBarButtonItem?.tintColor = .black
+        
+        let mainScreenAlertButton = UIBarButtonItem(image: vlogImage, style: .done, target: mainScreen, action: #selector(mainScreen.alertButtonTapped))
+        mainScreen.navigationItem.leftBarButtonItem = mainScreenAlertButton
+        mainScreen.navigationItem.leftBarButtonItem?.tintColor = .black
+        
+        let gamingScreenAddButton = UIBarButtonItem(barButtonSystemItem: .add, target: gamingScreen, action: #selector(gamingScreen.addButtonTapped))
+        gamingScreen.navigationItem.rightBarButtonItem = gamingScreenAddButton
+        gamingScreen.navigationItem.rightBarButtonItem?.tintColor = .black
+        
+        let gamingScreeenAlertButton = UIBarButtonItem(image: vlogImage, style: .done, target: gamingScreen, action: #selector(gamingScreen.alertButtonTapped))
+        gamingScreen.navigationItem.leftBarButtonItem = gamingScreeenAlertButton
+        gamingScreen.navigationItem.leftBarButtonItem?.tintColor = .black
     }
 }

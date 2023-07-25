@@ -6,20 +6,33 @@
 //
 
 import UIKit
+import SnapKit
 
-class NotificationsScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NotificationsScreenViewController: BaseUiNavigationBarAppearance, UITableViewDelegate, UITableViewDataSource {
     
     var tableViewData: [String] = [
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "Quisque vel augue eget mi hendrerit faucibus. Pellentesque non eros lacinia, volutpat ligula eu, scelerisque lacus. Nunc ut mi nec nibh egestas aliquam et non sem. Ut dui risus, gravida in lorem a, accumsan mattis ante. Pellentesque placerat ipsum elit. Nulla sodales, mi vel iaculis maximus, nulla quam ullamcorper magna, ut consequat sapien turpis quis justo. Maecenas sed fermentum neque. In ut ligula quis justo tincidunt mattis eget sit amet eros.",
-    "Aliquam et leo mi. Morbi ornare, tellus id auctor imperdiet, mi augue porttitor nisi, ut viverra lorem ipsum vitae dolor. ",
-    "Integer sodales dolor vitae tellus vulputate, sit amet dictum felis lobortis. Sed consequat ante mauris, at iaculis felis placerat ut. Cras mollis quam at lorem molestie porta. Praesent luctus dui vitae est egestas, eu vehicula lorem consectetur. Nam ac consectetur ante, nec convallis lacus. Morbi urna arcu, fermentum ac congue in, lobortis at quam.",
-    "Lorem ipsum"
+    "Quisque et neque metus. Phasellus tortor justo, elementum sed tincidunt in, venenatis sit amet nulla. Mauris libero massa, rhoncus et scelerisque a, interdum at orci. Pellentesque ac sodales turpis, nec porta enim. Sed quis blandit libero. Morbi ornare, est id aliquet eleifend, tortor augue vestibulum orci, ut rutrum dui odio eu mi. Etiam quis lacus enim.",
+    "Aenean viverra rhoncus varius. Sed dolor nulla, dictum vitae elit eu, suscipit aliquet leo. Aliquam id ante et ipsum mollis pulvinar. Nullam dictum mi eu tellus molestie pellentesque. Proin ac neque pellentesque, dignissim arcu tristique, feugiat nibh. Quisque dictum nibh pellentesque, aliquet felis pharetra, dapibus dui. Vestibulum sit amet fermentum tellus. Sed nec odio sed dolor pharetra volutpat.",
+    "Suspendisse potenti. Duis ac suscipit odio. Suspendisse ornare iaculis sem nec hendrerit. Suspendisse potenti. Nulla facilisi. Ut mattis a eros tristique scelerisque. Praesent aliquet eros non justo bibendum, non elementum nunc volutpat. Aliquam rhoncus ornare dolor, eu blandit leo rhoncus vel.",
+    "Bla"
     ]
+    
+    lazy var notifTableView: UITableView = {
+       var tableView = UITableView()
+        tableView.register(NotifTableViewCell.self, forCellReuseIdentifier: NotifTableViewCell.identifier)
+        return tableView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        notifTableView.delegate = self
+        notifTableView.dataSource = self
+        notifTableView.estimatedRowHeight = 44
+        notifTableView.rowHeight = UITableView.automaticDimension
+        view.backgroundColor = .white
+        view.addSubview(notifTableView)
         alertConfigUI()
     }
     
@@ -31,20 +44,20 @@ class NotificationsScreenViewController: UIViewController, UITableViewDelegate, 
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        notifTableView.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview().inset(12)
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview().inset(12)
+        }
+    }
+    
     func alertConfigUI() {
         
         title = "Notifications"
-        
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        navBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        navBarAppearance.backgroundColor = UIColor.white
-                
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.standardAppearance = navBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-        view.backgroundColor = .white
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,10 +76,5 @@ class NotificationsScreenViewController: UIViewController, UITableViewDelegate, 
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 100
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: NotifTableViewCell.identifier)
-        return footer
     }
 }

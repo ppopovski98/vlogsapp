@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		5636EFEE2A406036005A3859 /* GamingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636EFED2A406036005A3859 /* GamingScreenViewController.swift */; };
 		565B7CA82A4C47F40027947D /* NotifTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565B7CA72A4C47F40027947D /* NotifTableViewCell.swift */; };
+		565B7CAB2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */; };
+		569D1D452A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569D1D442A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift */; };
 		569E82962A3B2FDE0014BF2B /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569E82952A3B2FDE0014BF2B /* FirebaseManager.swift */; };
-		56A160DA2A385B9700C0B0A9 /* AddABlog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A160D92A385B9700C0B0A9 /* AddABlog.swift */; };
+		56A160DA2A385B9700C0B0A9 /* Blog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A160D92A385B9700C0B0A9 /* Blog.swift */; };
 		56A29E062A309AB100D866F1 /* RacingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A29E052A309AB100D866F1 /* RacingScreenViewController.swift */; };
 		56A29E0B2A309E0C00D866F1 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 56A29E0A2A309E0C00D866F1 /* FirebaseDatabaseSwift */; };
 		56A29E0D2A309E1100D866F1 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 56A29E0C2A309E1100D866F1 /* FirebaseFirestoreSwift */; };
@@ -39,8 +41,10 @@
 /* Begin PBXFileReference section */
 		5636EFED2A406036005A3859 /* GamingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamingScreenViewController.swift; sourceTree = "<group>"; };
 		565B7CA72A4C47F40027947D /* NotifTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifTableViewCell.swift; sourceTree = "<group>"; };
+		565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+RoundedProfilePic.swift"; sourceTree = "<group>"; };
+		569D1D442A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUiNavigationBarAppearance.swift; sourceTree = "<group>"; };
 		569E82952A3B2FDE0014BF2B /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
-		56A160D92A385B9700C0B0A9 /* AddABlog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddABlog.swift; sourceTree = "<group>"; };
+		56A160D92A385B9700C0B0A9 /* Blog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blog.swift; sourceTree = "<group>"; };
 		56A29E052A309AB100D866F1 /* RacingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RacingScreenViewController.swift; sourceTree = "<group>"; };
 		56A29E102A30A62900D866F1 /* FavouritesScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesScreenViewController.swift; sourceTree = "<group>"; };
 		56A29E122A30AA4000D866F1 /* BlogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -99,7 +103,7 @@
 		56A160D82A385B8000C0B0A9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				56A160D92A385B9700C0B0A9 /* AddABlog.swift */,
+				56A160D92A385B9700C0B0A9 /* Blog.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -123,6 +127,10 @@
 			isa = PBXGroup;
 			children = (
 				56AB84A72A28B1E400A3C54C /* vlogsApp */,
+				56AB84B32A28B1E500A3C54C /* LaunchScreen.storyboard */,
+				56AB84B62A28B1E500A3C54C /* Info.plist */,
+				56B5F7742A2F670A006F3E49 /* GoogleService-Info.plist */,
+				56AB84B12A28B1E500A3C54C /* Assets.xcassets */,
 				56AB84A62A28B1E400A3C54C /* Products */,
 				56A29E072A309DDF00D866F1 /* Frameworks */,
 			);
@@ -147,10 +155,6 @@
 				565B7CA62A4C476D0027947D /* Custom Cells */,
 				56A29E142A30BE9B00D866F1 /* View */,
 				56F61C192A28C45B00383821 /* Controller */,
-				56AB84B12A28B1E500A3C54C /* Assets.xcassets */,
-				56AB84B32A28B1E500A3C54C /* LaunchScreen.storyboard */,
-				56AB84B62A28B1E500A3C54C /* Info.plist */,
-				56B5F7742A2F670A006F3E49 /* GoogleService-Info.plist */,
 			);
 			path = vlogsApp;
 			sourceTree = "<group>";
@@ -159,6 +163,8 @@
 			isa = PBXGroup;
 			children = (
 				56AD9F402A3751F3001DA577 /* Extension+UIStackView.swift */,
+				565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */,
+				569D1D442A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -167,9 +173,9 @@
 			isa = PBXGroup;
 			children = (
 				56AB84AC2A28B1E400A3C54C /* SignInViewController.swift */,
+				5636EFED2A406036005A3859 /* GamingScreenViewController.swift */,
 				56B5F7722A2F5307006F3E49 /* RegisterViewController.swift */,
 				56A29E052A309AB100D866F1 /* RacingScreenViewController.swift */,
-				5636EFED2A406036005A3859 /* GamingScreenViewController.swift */,
 				56B81B8E2A320B55001341CF /* AddABlogViewController.swift */,
 				56AD9F3D2A37463E001DA577 /* NotificationsScreenViewController.swift */,
 				56A29E102A30A62900D866F1 /* FavouritesScreenViewController.swift */,
@@ -272,13 +278,15 @@
 				56AB84AD2A28B1E400A3C54C /* SignInViewController.swift in Sources */,
 				56AB84A92A28B1E400A3C54C /* AppDelegate.swift in Sources */,
 				56AB84AB2A28B1E400A3C54C /* SceneDelegate.swift in Sources */,
+				565B7CAB2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift in Sources */,
 				56B81B8D2A31FDD6001341CF /* TabBarViewController.swift in Sources */,
 				56AD9F3C2A373D3B001DA577 /* DetailScreenViewController.swift in Sources */,
-				56A160DA2A385B9700C0B0A9 /* AddABlog.swift in Sources */,
+				56A160DA2A385B9700C0B0A9 /* Blog.swift in Sources */,
 				5636EFEE2A406036005A3859 /* GamingScreenViewController.swift in Sources */,
 				56A29E112A30A62900D866F1 /* FavouritesScreenViewController.swift in Sources */,
 				56A29E182A30C72A00D866F1 /* ProfileViewController.swift in Sources */,
 				569E82962A3B2FDE0014BF2B /* FirebaseManager.swift in Sources */,
+				569D1D452A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift in Sources */,
 				56B5F7732A2F5307006F3E49 /* RegisterViewController.swift in Sources */,
 				56A29E132A30AA4000D866F1 /* BlogCollectionViewCell.swift in Sources */,
 			);
@@ -419,12 +427,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3389RHNLVA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = vlogsApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -445,12 +455,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3389RHNLVA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = vlogsApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
