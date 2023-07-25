@@ -43,7 +43,7 @@ class GamingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
         view.backgroundColor = UIColor(named: "backgroundColor")
         mainScreenConfigUI()
         
-        firebaseManager?.getDataFromFirebase(completion: { dataSourceForTableView in
+        firebaseManager?.getDataFromFirebase(forCategory: "gaming", completion: { dataSourceForTableView in
             self.dataSource = dataSourceForTableView
             self.collectionView.reloadData()
         })

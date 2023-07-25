@@ -43,7 +43,7 @@ class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
         mainScreenConfigUI()
         view.backgroundColor = UIColor(named: "backgroundColor")
         
-        firebaseManager?.getDataFromFirebase(completion: { dataSourceForTableView in
+        firebaseManager?.getDataFromFirebase(forCategory: "racing", completion: { dataSourceForTableView in
             self.dataSource = dataSourceForTableView
             self.collectionView.reloadData()
         })

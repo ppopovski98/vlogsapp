@@ -18,9 +18,15 @@ class FirebaseManager {
     private var dataSource = [Blog]()
     let reference = Storage.storage()
     
-    func getDataFromFirebase(completion: @escaping ([Blog]) -> Void) {
+    func getDataFromFirebase(forCategory category: String?, completion: @escaping ([Blog]) -> Void) {
         
-        db.collection("Posts").getDocuments { querySnapshot, err in
+        var query: Query = db.collection("Posts")
+        
+        if let category = category {
+            query = query.whereField("category", isEqualTo: category)
+        }
+        
+        query.getDocuments { querySnapshot, err in
             guard let querySnapshot = querySnapshot else { return }
             for document in querySnapshot.documents {
                 let data = document.data()
