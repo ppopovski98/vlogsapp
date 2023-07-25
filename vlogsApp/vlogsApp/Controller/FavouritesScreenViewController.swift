@@ -28,7 +28,7 @@ class FavouritesScreenViewController: BaseUiNavigationBarAppearance {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        firebaseManager?.getDataFromFirebase(completion: { dataSourceForTableView in
+        firebaseManager?.getDataFromFirebase(forCategory: "favourite", completion: { dataSourceForTableView in
             self.selectedBlogs = dataSourceForTableView
             self.filteredBlogs = self.selectedBlogs.filter( { $0.isFavourite } )
             self.collectionView.reloadData()
@@ -64,6 +64,10 @@ class FavouritesScreenViewController: BaseUiNavigationBarAppearance {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func printing() {
+        print("Upgraded base")
     }
 }
 

@@ -20,7 +20,9 @@ class BaseUiNavigationBarAppearance: UIViewController {
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
-    
+    func printing() {
+        print("Base")
+    }
 }
 
 //extension UINavigationBarAppearance {

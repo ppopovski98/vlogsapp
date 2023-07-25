@@ -26,6 +26,8 @@ class AddABlogViewController: UIViewController {
     lazy var imageView = UIImageView()
     var selectedImage: UIImage?
     var selectedImageURL: String?
+    var selectedDate: Date?
+    var selectedCategory: String = "racing"
     
     lazy var photoPickerButton: UIButton = {
         let button = UIButton()
@@ -66,6 +68,25 @@ class AddABlogViewController: UIViewController {
         return button
     }()
     
+    lazy var datePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.datePickerMode = .date
+        picker.addTarget(self, action: #selector(datePickerValueChange), for: .valueChanged)
+        return picker
+    }()
+    
+    lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        return formatter
+    }()
+    
+    lazy var categorySwitch: UISwitch = {
+       let uiSwitch = UISwitch()
+        uiSwitch.addTarget(self, action: #selector(categorySwitchValue), for: .valueChanged)
+        return uiSwitch
+    }()
+    
     lazy var stackView = UIStackView(arrangedSubviews: [titleTextField, descritptionTextField, UIView()], spacing: 12, axis: .vertical, distribution: .fill, alignment: .center, layoutMargins: UIEdgeInsets(top: 100, left: 12, bottom: 0, right: 12))
     
     override func viewDidLoad() {
@@ -86,13 +107,14 @@ class AddABlogViewController: UIViewController {
         
         guard let title = titleTextField.text,
                   let description = descritptionTextField.text,
-                  let imageURL = selectedImageURL else {
+                  let imageURL = selectedImageURL,
+                  let selectedDate = selectedDate else {
                 return
             }
 
-        firebaseManager.uploadPhoto(title: title, description: description, image: imageURL, isFavourite: false) { success in
+        firebaseManager.uploadData(title: title, description: description, image: imageURL, isFavourite: false, category: selectedCategory, timestamp: selectedDate.timeIntervalSince1970) { success in
                 if success {
-                    let newBlog = Blog(title: title, description: description, image: imageURL, isFavourite: false)
+                    let newBlog = Blog(title: title, description: description, image: imageURL, isFavourite: false, category: self.selectedCategory, timestamp: selectedDate.timeIntervalSince1970)
                     self.delegate?.addBlog(newBlog, image: self.selectedImage!)
                     self.navigationController?.popViewController(animated: true)
                 } else {
@@ -110,6 +132,8 @@ class AddABlogViewController: UIViewController {
         view.addSubview(postButton)
         view.addSubview(photoPickerButton)
         view.addSubview(imageView)
+        view.addSubview(datePicker)
+        view.addSubview(categorySwitch)
         
         photoPickerButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -120,7 +144,7 @@ class AddABlogViewController: UIViewController {
         
         postButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(descritptionTextField.snp.bottom).offset(300)
+            make.top.equalTo(categorySwitch.snp.bottom).offset(12)
             make.width.equalTo(350)
             make.height.equalTo(50)
         }
@@ -145,6 +169,25 @@ class AddABlogViewController: UIViewController {
             make.width.equalTo(350)
             make.height.equalTo(250)
         }
+        
+        datePicker.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(descritptionTextField.snp.bottom).offset(20)
+        }
+        categorySwitch.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(imageView.snp.bottom).offset(15)
+        }
+    }
+    
+    @objc func datePickerValueChange() {
+        selectedDate = datePicker.date
+        
+        if let selectedDate = selectedDate {
+            lazy var formattedDate = dateFormatter.string(from: selectedDate)
+        } else {
+            return
+        }
     }
     
     @objc func photoPickerButtonTapped() {
@@ -165,6 +208,10 @@ class AddABlogViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    @objc func categorySwitchValue() {
+        selectedCategory = categorySwitch.isOn ? "gaming" : "racing"
     }
 }
 

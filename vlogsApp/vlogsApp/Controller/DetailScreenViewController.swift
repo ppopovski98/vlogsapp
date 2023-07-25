@@ -9,11 +9,23 @@ import UIKit
 import SnapKit
 import SDWebImage
 
+protocol DetailScreenViewControllerDelegate: AnyObject {
+    func didUpdateBlog(_ blog: Blog)
+}
+
 class DetailScreenViewController: UIViewController {
     
     var firebaseManager: FirebaseManager?
-    
+    weak var delegate: DetailScreenViewControllerDelegate?
     var blog: Blog?
+    
+    lazy var editButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Edit", for: .normal)
+        button.tintColor = .blue
+        button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -74,6 +86,7 @@ class DetailScreenViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(descriptionLabel)
         view.addSubview(vlogImageView)
+        view.addSubview(editButton)
         
         titleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -93,6 +106,54 @@ class DetailScreenViewController: UIViewController {
             make.width.equalTo(350)
             make.height.equalTo(250)
         }
+        editButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(20)
+        }
+    }
+    
+    @objc func editButtonTapped() {
+        
+        let alertController = UIAlertController(title: "Edit Blog", message: nil, preferredStyle: .alert)
+        alertController.addTextField(configurationHandler: { textField in
+            textField.placeholder = "Enter New Title"
+        })
+        alertController.addTextField(configurationHandler: { textField in
+            textField.placeholder = "Enter New Description"
+        })
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
+            if let newTitle = alertController.textFields?[0].text,
+               let newDescription = alertController.textFields?[1].text {
+                
+        
+                if let title = self.blog?.title, let description = self.blog?.description, let blogID = self.blog?.blogID {
+                    self.firebaseManager?.updateBlogData(blogID: blogID, title: title, description: description, newTitle: newTitle, newDescription: newDescription, completion: { error in
+                        if let error = error {
+                            print("Error updating \(error)")
+                        } else {
+                            self.blog?.title = newTitle
+                            self.blog?.description = newDescription
+                            
+                            self.titleLabel.text = newTitle
+                            self.descriptionLabel.text = newDescription
+                            
+                            guard let selectedBlog = self.blog else {
+                                return
+                            }
+                            self.delegate?.didUpdateBlog(selectedBlog)
+                            print("Blog updated successfully.")
+                        }
+                    })
+                }
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
     }
 }
 

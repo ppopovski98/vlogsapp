@@ -18,9 +18,15 @@ class FirebaseManager {
     private var dataSource = [Blog]()
     let reference = Storage.storage()
     
-    func getDataFromFirebase(completion: @escaping ([Blog]) -> Void) {
+    func getDataFromFirebase(forCategory category: String?, completion: @escaping ([Blog]) -> Void) {
         
-        db.collection("Posts").getDocuments { querySnapshot, err in
+        var query: Query = db.collection("Posts")
+        
+        if let category = category {
+            query = query.whereField("category", isEqualTo: category)
+        }
+        
+        query.getDocuments { querySnapshot, err in
             guard let querySnapshot = querySnapshot else { return }
             for document in querySnapshot.documents {
                 let data = document.data()
@@ -36,9 +42,10 @@ class FirebaseManager {
         }
     }
     
-    func uploadPhoto(title: String, description: String, image: String, isFavourite: Bool, completion: @escaping (Bool) -> Void) {
+    func uploadData(title: String, description: String, image: String, isFavourite: Bool, category: String, timestamp: Double, completion: @escaping (Bool) -> Void) {
         let storageRef = Storage.storage().reference()
         let path = "Posts/\(UUID().uuidString).jpg"
+        let blogPath = UUID().uuidString
         let fileRef = storageRef.child(path)
         
         guard let imageData = Data(base64Encoded: image) else {
@@ -55,10 +62,13 @@ class FirebaseManager {
             }
             
             self.db.collection("Posts").addDocument(data: [
+                "blogID": blogPath,
                 "title": title,
                 "description": description,
                 "image": path,
-                "isFavourite": isFavourite
+                "isFavourite": isFavourite,
+                "category": category,
+                "timestamp": timestamp
             ]) { err in
                 if let err = err {
                     print("Error adding document: \(err)")
@@ -80,6 +90,28 @@ class FirebaseManager {
                 if let image  = data {
                     completion(image)
                 }
+            }
+        }
+    }
+    
+    func updateBlogData(blogID: String, title: String, description: String, newTitle: String, newDescription: String, completion: @escaping (Error?) -> Void) {
+        let blogRef = db.collection("Posts")
+            .whereField("blogID", isEqualTo: blogID)
+        
+        blogRef.getDocuments { (querySnapshot, error) in
+            guard let querySnapshot = querySnapshot else {
+                completion(error)
+                return
+            }
+            if let document = querySnapshot.documents.first {
+                document.reference.updateData([
+                    "title": newTitle,
+                    "description": newDescription
+                ]) { error in
+                    completion(error)
+                }
+            } else {
+                completion(error)
             }
         }
     }
