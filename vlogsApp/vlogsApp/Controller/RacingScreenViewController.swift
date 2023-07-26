@@ -15,6 +15,7 @@ class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
     
     lazy var dataSource: [Blog] = []
     lazy var category = "racing"
+    lazy var isFirstAppearence = true
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -42,17 +43,22 @@ class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
         
         mainScreenConfigUI()
         view.backgroundColor = UIColor(named: "backgroundColor")
-        
-        firebaseManager?.getDataFromFirebase(forCategory: "racing", completion: { dataSourceForTableView in
-            self.dataSource = dataSourceForTableView
-            self.collectionView.reloadData()
-        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.collectionView.reloadData()
+        if isFirstAppearence {
+            isFirstAppearence = false
+            fetchBlogData()
+        }
+    }
+    
+    func fetchBlogData() {
+        firebaseManager?.getDataFromFirebase(forCategory: "racing", completion: { dataSourceForTableView in
+            self.dataSource = dataSourceForTableView
+            self.collectionView.reloadData()
+        })
     }
     
     func mainScreenConfigUI() {

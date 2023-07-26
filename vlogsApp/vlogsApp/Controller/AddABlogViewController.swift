@@ -107,15 +107,19 @@ class AddABlogViewController: UIViewController {
         
         guard let title = titleTextField.text,
                   let description = descritptionTextField.text,
-                  let imageURL = selectedImageURL,
-                  let selectedDate = selectedDate else {
+                  let imageURL = selectedImageURL
+                   else {
                 return
             }
+        
+        if selectedDate == nil {
+            selectedDate = Date()
+        }
 
-        firebaseManager.uploadData(title: title, description: description, image: imageURL, isFavourite: false, category: selectedCategory, timestamp: selectedDate.timeIntervalSince1970) { success in
+        firebaseManager.uploadData(title: title, description: description, image: imageURL, isFavourite: false, category: selectedCategory, timestamp: selectedDate!.timeIntervalSince1970) { success in
                 if success {
                     guard let selectedImage = self.selectedImage else { return }
-                    let newBlog = Blog(title: title, description: description, image: imageURL, isFavourite: false, category: self.selectedCategory, timestamp: selectedDate.timeIntervalSince1970)
+                    let newBlog = Blog(title: title, description: description, image: imageURL, isFavourite: false, category: self.selectedCategory, timestamp: self.selectedDate!.timeIntervalSince1970)
                     self.delegate?.addBlog(newBlog, image: selectedImage)
                     self.navigationController?.popViewController(animated: true)
                 } else {
@@ -223,6 +227,7 @@ extension AddABlogViewController: UIImagePickerControllerDelegate, UINavigationC
         if let image = info[.editedImage] as? UIImage {
             imageView.image = image
             selectedImage = image
+            retrievePhotos()
             
             if let imageData = image.jpegData(compressionQuality: 0.8) {
                 selectedImageURL = imageData.base64EncodedString()
