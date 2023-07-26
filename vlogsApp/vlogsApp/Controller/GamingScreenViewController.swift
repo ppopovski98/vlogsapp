@@ -14,7 +14,7 @@ class GamingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
     private let firebaseManager: FirebaseManager?
     
     lazy var dataSource: [Blog] = []
-    var category = "gaming"
+    lazy var category = "gaming"
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

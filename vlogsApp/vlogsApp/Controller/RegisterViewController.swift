@@ -136,6 +136,10 @@ class RegisterViewController: UIViewController {
             if error != nil {
                 print(error?.localizedDescription ?? "Error.")
             } else {
+                let tabBarViewController = TabBarViewController()
+                self.navigationController?.isNavigationBarHidden = true
+                self.navigationController?.navigationBar.isHidden = true
+                self.navigationController?.pushViewController(tabBarViewController, animated: true)
                 print("Success.")
             }
         }

@@ -114,11 +114,12 @@ class AddABlogViewController: UIViewController {
 
         firebaseManager.uploadData(title: title, description: description, image: imageURL, isFavourite: false, category: selectedCategory, timestamp: selectedDate.timeIntervalSince1970) { success in
                 if success {
+                    guard let selectedImage = self.selectedImage else { return }
                     let newBlog = Blog(title: title, description: description, image: imageURL, isFavourite: false, category: self.selectedCategory, timestamp: selectedDate.timeIntervalSince1970)
-                    self.delegate?.addBlog(newBlog, image: self.selectedImage!)
+                    self.delegate?.addBlog(newBlog, image: selectedImage)
                     self.navigationController?.popViewController(animated: true)
                 } else {
-                    print("Failed to upload photo.")
+                    print("Failed to upload blog.")
                 }
         }
     }

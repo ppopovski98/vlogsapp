@@ -14,7 +14,7 @@ class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
     var firebaseManager: FirebaseManager?
     
     lazy var dataSource: [Blog] = []
-    var category = "racing"
+    lazy var category = "racing"
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -47,6 +47,12 @@ class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
             self.dataSource = dataSourceForTableView
             self.collectionView.reloadData()
         })
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.collectionView.reloadData()
     }
     
     func mainScreenConfigUI() {

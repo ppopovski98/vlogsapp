@@ -13,10 +13,11 @@ class FavouritesScreenViewController: BaseUiNavigationBarAppearance {
     
     let firebaseManager: FirebaseManager?
     
-    var selectedBlogs: [Blog] = []
-    var filteredBlogs: [Blog] = []
+    lazy var selectedBlogs: [Blog] = []
+    lazy var filteredBlogs: [Blog] = []
+    lazy var category = "favourites"
     
-    let collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -28,7 +29,7 @@ class FavouritesScreenViewController: BaseUiNavigationBarAppearance {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        firebaseManager?.getDataFromFirebase(forCategory: "favourite", completion: { dataSourceForTableView in
+        firebaseManager?.getDataFromFirebase(forCategory: "favourites", completion: { dataSourceForTableView in
             self.selectedBlogs = dataSourceForTableView
             self.filteredBlogs = self.selectedBlogs.filter( { $0.isFavourite } )
             self.collectionView.reloadData()
