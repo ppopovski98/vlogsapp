@@ -15,12 +15,13 @@ import FirebaseStorage
 class FirebaseManager {
     
     let db = Firestore.firestore()
-    private var dataSource = [Blog]()
     let reference = Storage.storage()
+    
     
     func getDataFromFirebase(forCategory category: String?, completion: @escaping ([Blog]) -> Void) {
         
         var query: Query = db.collection("Posts")
+        var dataSource = [Blog]()
         
         if let category = category {
             query = query.whereField("category", isEqualTo: category)
@@ -33,12 +34,12 @@ class FirebaseManager {
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
                     let blogPost = try JSONDecoder().decode(Blog.self, from: jsonData)
-                    self.dataSource.append(blogPost)
+                    dataSource.append(blogPost)
                 } catch {
                     print("Error")
                 }
             }
-            completion(self.dataSource)
+            completion(dataSource)
         }
     }
     
@@ -81,18 +82,25 @@ class FirebaseManager {
         }
     }
     
-    func dowloadPhoto(path: String, completion: @escaping (Data) -> Void) {
-        
-        reference.reference(withPath: path).getData(maxSize: (3 * 512 * 512)) { data, error in
-            if let err = error {
-                print(err)
-            } else {
-                if let image  = data {
-                    completion(image)
+    
+    
+    func dowloadPhoto(path: String, completion: @escaping (URL) -> Void) {
+                // Replace "your_image_path.jpg" with the actual path of the image in Firebase Storage
+                let imageRef = Storage.storage().reference().child(path)
+
+                // Get the download URL of the image
+                imageRef.downloadURL { url, error in
+                    if let error = error {
+                        print("Error getting download URL: \(error.localizedDescription)")
+                    } else {
+                        if let downloadURL = url {
+                            print("Download URL: \(downloadURL)")
+                            completion(downloadURL)
+                            // Here you can use the downloadURL to display the image or perform other tasks
+                        }
+                    }
                 }
             }
-        }
-    }
     
     func updateBlogData(blogID: String, title: String, description: String, newTitle: String, newDescription: String, completion: @escaping (Error?) -> Void) {
         let blogRef = db.collection("Posts")

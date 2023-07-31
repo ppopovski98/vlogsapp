@@ -64,9 +64,9 @@ class DetailScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        firebaseManager?.dowloadPhoto(path: blog?.image ?? "", completion: { imageData in
-            self.vlogImageView.image = UIImage(data: imageData)
-        })
+//        firebaseManager?.dowloadPhoto(path: blog?.image ?? "", completion: { imageData, result in
+//            self.vlogImageView.image = UIImage(data: imageData)
+//        })
         
         view.backgroundColor = UIColor(named: "backgroundColor")
         configUI()

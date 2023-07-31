@@ -32,7 +32,6 @@ class AddABlogViewController: UIViewController {
     lazy var photoPickerButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(named: "textFieldColor")
-        button.addTarget(self, action: #selector(postButtonTapped), for: .touchUpInside)
         button.setTitle("UPLOAD A PHOTO", for: .normal)
         button.tintColor = .black
         button.layer.cornerRadius = 20
@@ -115,16 +114,20 @@ class AddABlogViewController: UIViewController {
         if selectedDate == nil {
             selectedDate = Date()
         }
-
-        firebaseManager.uploadData(title: title, description: description, image: imageURL, isFavourite: false, category: selectedCategory, timestamp: selectedDate!.timeIntervalSince1970) { success in
-                if success {
-                    guard let selectedImage = self.selectedImage else { return }
-                    let newBlog = Blog(title: title, description: description, image: imageURL, isFavourite: false, category: self.selectedCategory, timestamp: self.selectedDate!.timeIntervalSince1970)
-                    self.delegate?.addBlog(newBlog, image: selectedImage)
-                    self.navigationController?.popViewController(animated: true)
-                } else {
-                    print("Failed to upload blog.")
-                }
+        
+        if let selectedDate = selectedDate {
+            firebaseManager.uploadData(title: title, description: description, image: imageURL, isFavourite: false, category: selectedCategory, timestamp: selectedDate.timeIntervalSince1970) { success in
+                    if success {
+                        guard let selectedImage = self.selectedImage else { return }
+                        let newBlog = Blog(title: title, description: description, image: imageURL, isFavourite: false, category: self.selectedCategory, timestamp: self.selectedDate!.timeIntervalSince1970)
+                        self.delegate?.addBlog(newBlog, image: selectedImage)
+                        DispatchQueue.main.async {
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    } else {
+                        print("Failed to upload blog.")
+                    }
+            }
         }
     }
     

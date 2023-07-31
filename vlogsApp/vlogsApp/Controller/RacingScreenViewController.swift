@@ -41,20 +41,12 @@ class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mainScreenConfigUI()
         view.backgroundColor = UIColor(named: "backgroundColor")
+        mainScreenConfigUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if isFirstAppearence {
-            isFirstAppearence = false
-            fetchBlogData()
-        }
-    }
-    
-    func fetchBlogData() {
         firebaseManager?.getDataFromFirebase(forCategory: "racing", completion: { dataSourceForTableView in
             self.dataSource = dataSourceForTableView
             self.collectionView.reloadData()
@@ -131,12 +123,15 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
         cell.indexPath = indexPath
         
         let blog = dataSource[indexPath.item]
-        
-        firebaseManager?.dowloadPhoto(path: blog.image, completion: { imageData in
-            cell.postImageView.image = UIImage(data: imageData)
-        })
-        
+        cell.dataSource = blog
         cell.updateCell(with: blog)
+        
+        firebaseManager?.dowloadPhoto(path: blog.image, completion: { url in
+            cell.postImageView.sd_setImage(with: url)
+        })
+
+        cell.titleLabel.text = blog.title
+        cell.descriptionLabel.text = blog.description
         
         return cell
     }
@@ -152,11 +147,11 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         let selectedBlog = dataSource[indexPath.item]
         if let cell = collectionView.cellForItem(at: indexPath) as? BlogCollectionViewCell {
             let detailVC = DetailScreenViewController(firebaseManager: FirebaseManager())
             detailVC.blog = selectedBlog
-            detailVC.delegate = self
             self.navigationController?.pushViewController(detailVC, animated: true)
         }
     }
@@ -164,7 +159,7 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
 
 //MARK: -
 
-extension RacingScreenViewController: BlogCollectionViewCellDelegate {    
+extension RacingScreenViewController: BlogCollectionViewCellDelegate {
     
     func didTapFavouritesButton(blog: Blog) {
         
@@ -193,8 +188,10 @@ extension RacingScreenViewController: BlogCollectionViewCellDelegate {
 extension RacingScreenViewController: AddABlogDelegate {
     func addBlog(_ blog: Blog, image: UIImage) {
         if blog.category == "racing" {
-            dataSource.insert(blog, at: 0)
-            collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.dataSource.insert(blog, at: 0)
+                self.collectionView.reloadData()
+            }
         }
     }
 }

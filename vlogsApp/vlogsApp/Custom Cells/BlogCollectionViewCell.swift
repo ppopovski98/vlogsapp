@@ -94,6 +94,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        
         contentView.layer.cornerRadius = 20
         contentView.backgroundColor = UIColor(named: "textFieldColor")
 
@@ -166,4 +167,11 @@ class BlogCollectionViewCell: UICollectionViewCell {
             formatter.dateFormat = "dd.MM.yyyy"
             dateLabel.text = formatter.string(from: date)
         }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        postImageView.image = nil
+        dateLabel.text = nil
+    }
 }

@@ -42,7 +42,10 @@ class GamingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
         
         view.backgroundColor = UIColor(named: "backgroundColor")
         mainScreenConfigUI()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         firebaseManager?.getDataFromFirebase(forCategory: "gaming", completion: { dataSourceForTableView in
             self.dataSource = dataSourceForTableView
             self.collectionView.reloadData()
@@ -115,11 +118,13 @@ extension GamingScreenViewController: UICollectionViewDataSource, UICollectionVi
         cell.indexPath = indexPath
         
         let blog = dataSource[indexPath.item]
+        cell.dataSource = blog
+        cell.updateCell(with: blog)
         
-        firebaseManager?.dowloadPhoto(path: blog.image, completion: { imageData in
-            cell.postImageView.image = UIImage(data: imageData)
+        firebaseManager?.dowloadPhoto(path: blog.image, completion: { url in
+            cell.postImageView.sd_setImage(with: url)
         })
-        
+
         cell.titleLabel.text = blog.title
         cell.descriptionLabel.text = blog.description
         
@@ -176,8 +181,10 @@ extension GamingScreenViewController: BlogCollectionViewCellDelegate {
 extension GamingScreenViewController: AddABlogDelegate {
     func addBlog(_ blog: Blog, image: UIImage) {
         if blog.category == "gaming" {
-            dataSource.insert(blog, at: 0)
-            collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.dataSource.insert(blog, at: 0)
+                self.collectionView.reloadData()
+            }
         }
     }
 }
