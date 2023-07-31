@@ -11,15 +11,23 @@ import FirebaseAuth
 
 class RegisterViewController: UIViewController {
     
-    let registerEmail = UITextField()
-    let registerPassword = UITextField()
-    let registerButton = UIButton()
+    lazy var registerEmail = UITextField()
+    lazy var registerPassword = UITextField()
     
-    let enterEmailLabel = UILabel()
-    let enterPasswordLabel = UILabel()
+    lazy var registerButton: UIButton = {
+        let UIbutton = UIButton()
+        UIbutton.setTitle("CREATE AN ACCOUNT", for: .normal)
+        UIbutton.setTitleColor(.black, for: .normal)
+        UIbutton.backgroundColor = UIColor(named: "textFieldColor")
+        UIbutton.layer.cornerRadius = 20
+        UIbutton.frame = CGRect(x: 100, y: 100, width: 350, height: 50)
+        UIbutton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
+        UIbutton.translatesAutoresizingMaskIntoConstraints = false
+        return UIbutton
+    }()
     
-    let textFieldColor = "textFieldColor"
-    let backgroundColor = "backgroundColor"
+    lazy var enterEmailLabel = UILabel()
+    lazy var enterPasswordLabel = UILabel()
     
     lazy var stackView = UIStackView(arrangedSubviews: [registerEmail, registerPassword, UIView()], spacing: 50, axis: .vertical, distribution: .fill, alignment: .center, layoutMargins: UIEdgeInsets(top: 100, left: 12, bottom: 0, right: 12))
 
@@ -39,7 +47,7 @@ class RegisterViewController: UIViewController {
         view.addSubview(stackView)
         view.addSubview(registerButton)
         
-        view.backgroundColor = UIColor(named: backgroundColor)
+        view.backgroundColor = UIColor(named: "backgroundColor")
         
         navigationController?.navigationBar.tintColor = .black
         
@@ -97,14 +105,6 @@ class RegisterViewController: UIViewController {
         
         enterPasswordLabel.text = "Password"
         enterPasswordLabel.textColor = .gray
-        
-        registerButton.setTitle("CREATE AN ACCOUNT", for: .normal)
-        registerButton.backgroundColor = .black
-        registerButton.layer.cornerRadius = 20
-        registerButton.tintColor = .black
-        registerButton.frame = CGRect(x: 100, y: 100, width: 350, height: 50)
-        registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
-        registerButton.translatesAutoresizingMaskIntoConstraints = false
         
         registerEmail.placeholder = "E-mail"
         registerEmail.attributedPlaceholder = emailAttributedTextField

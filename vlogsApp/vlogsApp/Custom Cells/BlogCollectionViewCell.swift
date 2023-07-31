@@ -37,6 +37,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
     public let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name:"HelveticaNeue-Bold", size: 18.0)
+        label.textColor = .black
         label.numberOfLines = 1
         label.lineBreakMode = .byTruncatingTail
         return label
@@ -45,6 +46,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
     public let descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .black
         label.numberOfLines = 3
         label.lineBreakMode = .byTruncatingTail
         return label

@@ -11,9 +11,9 @@ import UIKit
 class BaseUiNavigationBarAppearance: UIViewController {
     override func viewDidLoad() {
         let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        navBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        navBarAppearance.backgroundColor = UIColor.white
+        navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "titleColor")]
+        navBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "titleColor")]
+        navBarAppearance.backgroundColor = UIColor(named: "backgroundColor")
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.isTranslucent = false
@@ -24,10 +24,3 @@ class BaseUiNavigationBarAppearance: UIViewController {
         print("Base")
     }
 }
-
-//extension UINavigationBarAppearance {
-//
-//    static func configureNavigationBarAppearance() -> UINavigationBarAppearance {
-//
-//    }
-//}

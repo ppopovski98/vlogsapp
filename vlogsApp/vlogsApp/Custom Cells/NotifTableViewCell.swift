@@ -15,7 +15,7 @@ class NotifTableViewCell: UITableViewCell {
     
     lazy var newsLabel: UILabel = {
         var label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping

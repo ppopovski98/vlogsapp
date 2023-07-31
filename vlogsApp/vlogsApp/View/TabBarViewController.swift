@@ -9,10 +9,10 @@ import UIKit
 
 class TabBarViewController: UITabBarController {
     
-    let mainScreen = RacingScreenViewController(firebaseManager: FirebaseManager())
-    let profileScreen = ProfileViewController()
-    let favouriteScreen = FavouritesScreenViewController(firebaseManager: FirebaseManager())
-    let gamingScreen = GamingScreenViewController(firebaseManager: FirebaseManager())
+    lazy var mainScreen = RacingScreenViewController(firebaseManager: FirebaseManager())
+    lazy var profileScreen = ProfileViewController()
+    lazy var favouriteScreen = FavouritesScreenViewController(firebaseManager: FirebaseManager())
+    lazy var gamingScreen = GamingScreenViewController(firebaseManager: FirebaseManager())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +26,6 @@ class TabBarViewController: UITabBarController {
     func tabBarConfigUI() {
         
         self.navigationItem.setHidesBackButton(true, animated: true)
-        
-        tabBar.backgroundColor = .white
         
         profileScreen.title = "Profile"
         favouriteScreen.title = "Favourites"
@@ -57,18 +55,18 @@ class TabBarViewController: UITabBarController {
         
         let mainScreenAddButton = UIBarButtonItem(barButtonSystemItem: .add, target: mainScreen, action: #selector(mainScreen.addButtonTapped))
         mainScreen.navigationItem.rightBarButtonItem = mainScreenAddButton
-        mainScreen.navigationItem.rightBarButtonItem?.tintColor = .black
+        mainScreen.navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "titleColor")
         
         let mainScreenAlertButton = UIBarButtonItem(image: vlogImage, style: .done, target: mainScreen, action: #selector(mainScreen.alertButtonTapped))
         mainScreen.navigationItem.leftBarButtonItem = mainScreenAlertButton
-        mainScreen.navigationItem.leftBarButtonItem?.tintColor = .black
+        mainScreen.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "titleColor")
         
         let gamingScreenAddButton = UIBarButtonItem(barButtonSystemItem: .add, target: gamingScreen, action: #selector(gamingScreen.addButtonTapped))
         gamingScreen.navigationItem.rightBarButtonItem = gamingScreenAddButton
-        gamingScreen.navigationItem.rightBarButtonItem?.tintColor = .black
+        gamingScreen.navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "titleColor")
         
         let gamingScreeenAlertButton = UIBarButtonItem(image: vlogImage, style: .done, target: gamingScreen, action: #selector(gamingScreen.alertButtonTapped))
         gamingScreen.navigationItem.leftBarButtonItem = gamingScreeenAlertButton
-        gamingScreen.navigationItem.leftBarButtonItem?.tintColor = .black
+        gamingScreen.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "titleColor")
     }
 }

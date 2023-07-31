@@ -86,6 +86,21 @@ class AddABlogViewController: UIViewController {
         return uiSwitch
     }()
     
+    lazy var gamingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Gaming Category"
+        label.textColor = .black
+        return label
+    }()
+    
+    lazy var racingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Racing Category"
+        label.textColor = .black
+        label.textAlignment = .right
+        return label
+    }()
+    
     lazy var stackView = UIStackView(arrangedSubviews: [titleTextField, descritptionTextField, UIView()], spacing: 12, axis: .vertical, distribution: .fill, alignment: .center, layoutMargins: UIEdgeInsets(top: 100, left: 12, bottom: 0, right: 12))
     
     override func viewDidLoad() {
@@ -142,6 +157,8 @@ class AddABlogViewController: UIViewController {
         view.addSubview(imageView)
         view.addSubview(datePicker)
         view.addSubview(categorySwitch)
+        view.addSubview(gamingLabel)
+        view.addSubview(racingLabel)
         
         photoPickerButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -182,8 +199,23 @@ class AddABlogViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(descritptionTextField.snp.bottom).offset(20)
         }
+        
         categorySwitch.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
+            make.top.equalTo(imageView.snp.bottom).offset(15)
+        }
+        
+        gamingLabel.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(12)
+            make.left.equalTo(categorySwitch.snp.right).offset(5)
+            make.bottom.equalTo(postButton.snp.top).offset(-10)
+            make.top.equalTo(imageView.snp.bottom).offset(15)
+        }
+        
+        racingLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(12)
+            make.right.equalTo(categorySwitch.snp.left).offset(-5)
+            make.bottom.equalTo(postButton.snp.top).offset(-10)
             make.top.equalTo(imageView.snp.bottom).offset(15)
         }
     }
