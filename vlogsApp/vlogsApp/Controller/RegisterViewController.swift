@@ -11,8 +11,31 @@ import FirebaseAuth
 
 class RegisterViewController: UIViewController {
     
-    lazy var registerEmail = UITextField()
-    lazy var registerPassword = UITextField()
+    lazy var registerEmail: UITextField = {
+        let textField = UITextField()
+        paddingView(textField)
+        textField.leftViewMode = UITextField.ViewMode.always
+        textField.placeholder = "E-mail"
+        textField.backgroundColor = .white
+        textField.layer.cornerRadius = 15
+        textField.textColor = .black
+        textField.layer.borderWidth = 0.5
+        textField.frame = CGRect(x: 100, y: 100, width: 350, height: 50)
+        return textField
+    }()
+    
+    lazy var registerPassword: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Password"
+        paddingView(textField)
+        textField.textColor = .black
+        textField.layer.cornerRadius = 15
+        textField.backgroundColor = .white
+        textField.layer.borderWidth = 0.5
+        textField.frame = CGRect(x: 100, y: 150, width: 350, height: 40)
+        textField.isSecureTextEntry = true
+        return textField
+    }()
     
     lazy var registerButton: UIButton = {
         let UIbutton = UIButton()
@@ -26,8 +49,19 @@ class RegisterViewController: UIViewController {
         return UIbutton
     }()
     
-    lazy var enterEmailLabel = UILabel()
-    lazy var enterPasswordLabel = UILabel()
+    lazy var enterEmailLabel: UILabel = {
+        let label = UILabel()
+        label.text = "E-mail"
+        label.textColor = .gray
+        return label
+    }()
+    
+    lazy var enterPasswordLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Password"
+        label.textColor = .gray
+        return label
+    }()
     
     lazy var stackView = UIStackView(arrangedSubviews: [registerEmail, registerPassword, UIView()], spacing: 50, axis: .vertical, distribution: .fill, alignment: .center, layoutMargins: UIEdgeInsets(top: 100, left: 12, bottom: 0, right: 12))
 
@@ -35,7 +69,6 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
 
         registerConfigUI()
-        buttonConfigUI()
     }
     
     //Config for the register button, email and password.
@@ -49,7 +82,7 @@ class RegisterViewController: UIViewController {
         
         view.backgroundColor = UIColor(named: "backgroundColor")
         
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = UIColor(named: "titleColor")
         
         enterEmailLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -87,42 +120,13 @@ class RegisterViewController: UIViewController {
         }
     }
     
-    func buttonConfigUI() {
-        
-        let emailPaddingView = UIView(frame: CGRectMake(0, 0, 15, self.registerEmail.frame.height))
-        registerEmail.leftView = emailPaddingView
-        registerEmail.leftViewMode = UITextField.ViewMode.always
-        let passwordPaddingView = UIView(frame: CGRectMake(0, 0, 15, self.registerPassword.frame.height))
-        registerPassword.leftView = passwordPaddingView
-        registerPassword.leftViewMode = UITextField.ViewMode.always
-        
+    func paddingView(_ textField: UITextField) {
+        let emailPaddingView = UIView(frame: CGRectMake(0, 0, 15, textField.frame.height))
         let attributes: [NSAttributedString.Key: Any] = [ NSAttributedString.Key.foregroundColor: UIColor.black.withAlphaComponent(0.3)]
-        let emailAttributedTextField = NSAttributedString(string: registerEmail.placeholder ?? "E-mail", attributes: attributes)
-        let passwordAttributedTextField = NSAttributedString(string: registerPassword.placeholder ?? "Password", attributes: attributes)
-        
-        enterEmailLabel.text = "E-mail"
-        enterEmailLabel.textColor = .gray
-        
-        enterPasswordLabel.text = "Password"
-        enterPasswordLabel.textColor = .gray
-        
-        registerEmail.placeholder = "E-mail"
-        registerEmail.attributedPlaceholder = emailAttributedTextField
-        registerEmail.backgroundColor = .white
-        registerEmail.layer.cornerRadius = 15
-        registerEmail.tintColor = .black
-        registerEmail.layer.borderWidth = 0.5
-        registerEmail.frame = CGRect(x: 100, y: 100, width: 350, height: 50)
-        
-        registerPassword.placeholder = "Password"
-        registerPassword.attributedPlaceholder = passwordAttributedTextField
-        registerPassword.textColor = .black
-        registerPassword.layer.cornerRadius = 15
-        registerPassword.backgroundColor = .white
-        registerPassword.layer.borderWidth = 0.5
-        registerPassword.frame = CGRect(x: 100, y: 150, width: 350, height: 40)
-        registerPassword.isSecureTextEntry = true
-        
+        let attributedTextField = NSAttributedString(string: textField.placeholder ?? "E-mail", attributes: attributes)
+        textField.leftView = emailPaddingView
+        textField.attributedPlaceholder = attributedTextField
+        textField.leftViewMode = UITextField.ViewMode.always
     }
     
     @objc func registerButtonTapped() {
