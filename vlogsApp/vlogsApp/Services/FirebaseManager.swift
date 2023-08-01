@@ -85,10 +85,8 @@ class FirebaseManager {
     
     
     func dowloadPhoto(path: String, completion: @escaping (URL) -> Void) {
-                // Replace "your_image_path.jpg" with the actual path of the image in Firebase Storage
                 let imageRef = Storage.storage().reference().child(path)
-
-                // Get the download URL of the image
+                
                 imageRef.downloadURL { url, error in
                     if let error = error {
                         print("Error getting download URL: \(error.localizedDescription)")
@@ -96,7 +94,7 @@ class FirebaseManager {
                         if let downloadURL = url {
                             print("Download URL: \(downloadURL)")
                             completion(downloadURL)
-                            // Here you can use the downloadURL to display the image or perform other tasks
+                            
                         }
                     }
                 }

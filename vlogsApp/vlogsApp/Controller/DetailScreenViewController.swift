@@ -19,17 +19,9 @@ class DetailScreenViewController: UIViewController {
     weak var delegate: DetailScreenViewControllerDelegate?
     var blog: Blog?
     
-    lazy var editButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Edit", for: .normal)
-        button.tintColor = .blue
-        button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -39,7 +31,7 @@ class DetailScreenViewController: UIViewController {
     
     lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -64,9 +56,9 @@ class DetailScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        firebaseManager?.dowloadPhoto(path: blog?.image ?? "", completion: { imageData, result in
-//            self.vlogImageView.image = UIImage(data: imageData)
-//        })
+        firebaseManager?.dowloadPhoto(path: blog?.image ?? "", completion: { url in
+            self.vlogImageView.sd_setImage(with: url)
+        })
         
         view.backgroundColor = UIColor(named: "backgroundColor")
         configUI()
@@ -83,10 +75,11 @@ class DetailScreenViewController: UIViewController {
     
     func configUI() {
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editButtonTapped))
+
         view.addSubview(titleLabel)
         view.addSubview(descriptionLabel)
         view.addSubview(vlogImageView)
-        view.addSubview(editButton)
         
         titleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -105,10 +98,6 @@ class DetailScreenViewController: UIViewController {
             make.top.equalToSuperview().offset(20)
             make.width.equalTo(350)
             make.height.equalTo(250)
-        }
-        editButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(20)
         }
     }
     
@@ -148,6 +137,7 @@ class DetailScreenViewController: UIViewController {
                 }
             }
         }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         alertController.addAction(saveAction)
