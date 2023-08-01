@@ -83,13 +83,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		565B7CA62A4C476D0027947D /* Custom Cells */ = {
+		2F8E690C2A793B3200EEC373 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				56A29E122A30AA4000D866F1 /* BlogCollectionViewCell.swift */,
-				565B7CA72A4C47F40027947D /* NotifTableViewCell.swift */,
+				56AB84A82A28B1E400A3C54C /* AppDelegate.swift */,
+				56AB84AA2A28B1E400A3C54C /* SceneDelegate.swift */,
 			);
-			path = "Custom Cells";
+			path = Core;
+			sourceTree = "<group>";
+		};
+		2F8E690D2A793BAB00EEC373 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				56AB84B12A28B1E500A3C54C /* Assets.xcassets */,
+				56AB84B32A28B1E500A3C54C /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		569E82942A3B2FCF0014BF2B /* Services */ = {
@@ -118,6 +127,8 @@
 		56A29E142A30BE9B00D866F1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				56A29E122A30AA4000D866F1 /* BlogCollectionViewCell.swift */,
+				565B7CA72A4C47F40027947D /* NotifTableViewCell.swift */,
 				56B81B8C2A31FDD6001341CF /* TabBarViewController.swift */,
 			);
 			path = View;
@@ -127,10 +138,9 @@
 			isa = PBXGroup;
 			children = (
 				56AB84A72A28B1E400A3C54C /* vlogsApp */,
-				56AB84B32A28B1E500A3C54C /* LaunchScreen.storyboard */,
+				2F8E690D2A793BAB00EEC373 /* Resources */,
 				56AB84B62A28B1E500A3C54C /* Info.plist */,
 				56B5F7742A2F670A006F3E49 /* GoogleService-Info.plist */,
-				56AB84B12A28B1E500A3C54C /* Assets.xcassets */,
 				56AB84A62A28B1E400A3C54C /* Products */,
 				56A29E072A309DDF00D866F1 /* Frameworks */,
 			);
@@ -147,14 +157,12 @@
 		56AB84A72A28B1E400A3C54C /* vlogsApp */ = {
 			isa = PBXGroup;
 			children = (
-				56AB84A82A28B1E400A3C54C /* AppDelegate.swift */,
-				56AB84AA2A28B1E400A3C54C /* SceneDelegate.swift */,
+				2F8E690C2A793B3200EEC373 /* Core */,
 				569E82942A3B2FCF0014BF2B /* Services */,
 				56A160D82A385B8000C0B0A9 /* Model */,
 				56AD9F3F2A3751C8001DA577 /* Helpers */,
-				565B7CA62A4C476D0027947D /* Custom Cells */,
 				56A29E142A30BE9B00D866F1 /* View */,
-				56F61C192A28C45B00383821 /* Controller */,
+				56F61C192A28C45B00383821 /* ViewController */,
 			);
 			path = vlogsApp;
 			sourceTree = "<group>";
@@ -169,7 +177,7 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		56F61C192A28C45B00383821 /* Controller */ = {
+		56F61C192A28C45B00383821 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				56AB84AC2A28B1E400A3C54C /* SignInViewController.swift */,
@@ -182,7 +190,7 @@
 				56A29E172A30C72A00D866F1 /* ProfileViewController.swift */,
 				56AD9F3B2A373D3B001DA577 /* DetailScreenViewController.swift */,
 			);
-			path = Controller;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
