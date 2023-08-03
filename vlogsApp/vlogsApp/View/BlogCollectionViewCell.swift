@@ -18,6 +18,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
     weak var delegate: BlogCollectionViewCellDelegate?
     var indexPath: IndexPath?
     var dataSource: Blog?
+    var selectedCategory: String = "favourites"
     
     lazy var placeholderView: UIView = {
         let uiView = UIView()
@@ -152,9 +153,11 @@ class BlogCollectionViewCell: UICollectionViewCell {
     
     @objc func favouritesButtonTapped() {
         
-        guard let blog = dataSource else {
+        guard var blog = dataSource else {
             return
         }
+        
+        
         delegate?.didTapFavouritesButton(blog: blog)
     }
     

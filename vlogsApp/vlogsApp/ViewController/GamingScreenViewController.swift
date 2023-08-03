@@ -121,7 +121,7 @@ extension GamingScreenViewController: UICollectionViewDataSource, UICollectionVi
         cell.dataSource = blog
         cell.updateCell(with: blog)
         
-        firebaseManager?.dowloadPhoto(path: blog.image, completion: { url in
+        firebaseManager?.downloadPhoto(path: blog.image ?? "", completion: { url in
             cell.postImageView.sd_setImage(with: url)
         })
 
@@ -161,12 +161,7 @@ extension GamingScreenViewController: BlogCollectionViewCellDelegate {
         var updatedBlog = blog
         updatedBlog.isFavourite.toggle()
         
-        firebaseManager.uploadData(title: updatedBlog.title,
-                                    description: updatedBlog.description,
-                                    image: updatedBlog.image,
-                                    isFavourite: updatedBlog.isFavourite,
-                                    category: updatedBlog.category,
-                                    timestamp: updatedBlog.timestamp ) { success in
+        firebaseManager.addToFavourites(updatedBlog) { success in
             if success {
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()

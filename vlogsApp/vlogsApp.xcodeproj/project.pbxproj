@@ -139,9 +139,9 @@
 			children = (
 				56AB84A72A28B1E400A3C54C /* vlogsApp */,
 				2F8E690D2A793BAB00EEC373 /* Resources */,
+				56AB84A62A28B1E400A3C54C /* Products */,
 				56AB84B62A28B1E500A3C54C /* Info.plist */,
 				56B5F7742A2F670A006F3E49 /* GoogleService-Info.plist */,
-				56AB84A62A28B1E400A3C54C /* Products */,
 				56A29E072A309DDF00D866F1 /* Frameworks */,
 			);
 			sourceTree = "<group>";

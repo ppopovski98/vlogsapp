@@ -32,7 +32,7 @@ class FavouritesScreenViewController: BaseUiNavigationBarAppearance {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        firebaseManager?.getDataFromFirebase(forCategory: "favourites", completion: { dataSourceForTableView in
+        firebaseManager?.getDataFromFirebase(completion: { dataSourceForTableView in
             self.selectedBlogs = dataSourceForTableView
             self.filteredBlogs = self.selectedBlogs.filter( { $0.isFavourite } )
             self.collectionView.reloadData()
@@ -88,13 +88,14 @@ extension FavouritesScreenViewController: UICollectionViewDataSource, UICollecti
             }
         
         cell.descriptionLabel.text = filteredBlogs[indexPath.item].description
+        cell.titleLabel.text = filteredBlogs[indexPath.item].title
+        cell.updateCell(with: filteredBlogs[indexPath.item])
         
-//        firebaseManager?.dowloadPhoto(path: selectedBlog.image) { imageData, result in
-//            DispatchQueue.main.async {
-//                cell.blogCellConfigUI(title: selectedBlog.title, description: selectedBlog.description, image: imageData)
-//            }
-//        }
-    
+        firebaseManager?.downloadPhoto(path: filteredBlogs[indexPath.item].image ?? "", completion: { url in
+            cell.postImageView.sd_setImage(with: url)
+        })
+
+        
         return cell
     }
     

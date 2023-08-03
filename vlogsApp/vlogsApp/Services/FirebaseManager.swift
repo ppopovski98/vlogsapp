@@ -18,7 +18,7 @@ class FirebaseManager {
     let reference = Storage.storage()
     
     
-    func getDataFromFirebase(forCategory category: String?, completion: @escaping ([Blog]) -> Void) {
+    func getDataFromFirebase(forCategory category: String? = nil, completion: @escaping ([Blog]) -> Void) {
         
         var query: Query = db.collection("Posts")
         var dataSource = [Blog]()
@@ -82,9 +82,26 @@ class FirebaseManager {
         }
     }
     
+    func addToFavourites(_ blog: Blog, completion: @escaping (Bool) -> Void) {
+        var query: Query = db.collection("Posts")
+        
+        if let blogId = blog.blogID {
+            query.whereField("blogID", isEqualTo: blogId).getDocuments(completion: { querySnapshot, err in
+                if let err = err {
+                    completion(false)
+                } else {
+                    let document = querySnapshot?.documents.first
+                    document?.reference.updateData(["isFavourite" : blog.isFavourite])
+                    completion(true)
+                }
+                
+            })
+        }
+    }
     
     
-    func dowloadPhoto(path: String, completion: @escaping (URL) -> Void) {
+    
+    func downloadPhoto(path: String, completion: @escaping (URL) -> Void) {
                 let imageRef = Storage.storage().reference().child(path)
                 
                 imageRef.downloadURL { url, error in

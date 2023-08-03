@@ -56,7 +56,7 @@ class DetailScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        firebaseManager?.dowloadPhoto(path: blog?.image ?? "", completion: { url in
+        firebaseManager?.downloadPhoto(path: blog?.image ?? "", completion: { url in
             self.vlogImageView.sd_setImage(with: url)
         })
         
