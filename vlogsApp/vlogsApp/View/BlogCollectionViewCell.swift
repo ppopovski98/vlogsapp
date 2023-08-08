@@ -9,16 +9,16 @@ import UIKit
 import SnapKit
 
 protocol BlogCollectionViewCellDelegate: AnyObject {
-    func didTapFavouritesButton(blog: Blog)
+    func didTapFavouritesButton(blog: Blog, indexPath: IndexPath)
 }
 
 class BlogCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "BlogCollectionViewCell"
     weak var delegate: BlogCollectionViewCellDelegate?
+    
     var indexPath: IndexPath?
     var dataSource: Blog?
-    var selectedCategory: String = "favourites"
     
     lazy var placeholderView: UIView = {
         let uiView = UIView()
@@ -97,7 +97,6 @@ class BlogCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        
         contentView.layer.cornerRadius = 20
         contentView.backgroundColor = UIColor(named: "textFieldColor")
 
@@ -153,25 +152,34 @@ class BlogCollectionViewCell: UICollectionViewCell {
     
     @objc func favouritesButtonTapped() {
         
-        guard var blog = dataSource else {
+        guard let blog = dataSource else {
             return
         }
         
-        
-        delegate?.didTapFavouritesButton(blog: blog)
+        delegate?.didTapFavouritesButton(blog: blog, indexPath: indexPath ?? IndexPath(row: 0, section: 0))
     }
     
     func updateCell(with blog: Blog) {
+        
         titleLabel.text = blog.title
         descriptionLabel.text = blog.description
         
-            let date = Date(timeIntervalSince1970: blog.timestamp)
-            let formatter = DateFormatter()
-            formatter.locale = .current
-            formatter.timeZone = .current
-            formatter.dateFormat = "dd.MM.yyyy"
-            dateLabel.text = formatter.string(from: date)
+        let date = Date(timeIntervalSince1970: blog.timestamp)
+        let formatter = DateFormatter()
+        formatter.locale = .current
+        formatter.timeZone = .current
+        formatter.dateFormat = "dd.MM.yyyy"
+        dateLabel.text = formatter.string(from: date)
+        
+        if blog.isFavourite == false {
+            favouritesButton.setImage(UIImage(systemName: "star"), for: .normal)
+        } else {
+            favouritesButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
         }
+
+    }
+    
+    
     
     override func prepareForReuse() {
         super.prepareForReuse()

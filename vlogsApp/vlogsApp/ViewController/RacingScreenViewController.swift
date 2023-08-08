@@ -89,6 +89,7 @@ class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
     }
     
     @objc func alertButtonTapped() {
+        
         navigationController?.pushViewController(NotificationsScreenViewController(), animated: true)
         if let tabBarVC = tabBarController as? TabBarViewController {
             tabBarVC.tabBar.isHidden = true
@@ -129,9 +130,7 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
         firebaseManager?.downloadPhoto(path: blog.image ?? "", completion: { url in
             cell.postImageView.sd_setImage(with: url)
         })
-
-        cell.titleLabel.text = blog.title
-        cell.descriptionLabel.text = blog.description
+        
         
         return cell
     }
@@ -161,12 +160,13 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
 
 extension RacingScreenViewController: BlogCollectionViewCellDelegate {
     
-    func didTapFavouritesButton(blog: Blog) {
+    func didTapFavouritesButton(blog: Blog, indexPath: IndexPath) {
         
         guard let firebaseManager = firebaseManager else { return }
     
         var updatedBlog = blog
         updatedBlog.isFavourite.toggle()
+        dataSource[indexPath.row].isFavourite.toggle()
         
         firebaseManager.addToFavourites(updatedBlog) { success in
             if success {

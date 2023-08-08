@@ -11,7 +11,7 @@ import SnapKit
 class NotifTableViewCell: UITableViewCell {
     
     static let identifier = "NotifTableViewCell"
-    var newNotif = false
+    lazy var newNotif = false
     
     lazy var newsLabel: UILabel = {
         var label = UILabel()

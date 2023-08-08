@@ -154,7 +154,7 @@ extension GamingScreenViewController: UICollectionViewDataSource, UICollectionVi
 
 extension GamingScreenViewController: BlogCollectionViewCellDelegate {
     
-    func didTapFavouritesButton(blog: Blog) {
+    func didTapFavouritesButton(blog: Blog, indexPath: IndexPath) {
         
         guard let firebaseManager = firebaseManager else { return }
     

@@ -15,6 +15,7 @@ class FavouritesScreenViewController: BaseUiNavigationBarAppearance {
     
     lazy var selectedBlogs: [Blog] = []
     lazy var filteredBlogs: [Blog] = []
+    lazy var favouriteToggle = true
     lazy var category = "favourites"
     
     lazy var collectionView: UICollectionView = {
@@ -25,7 +26,7 @@ class FavouritesScreenViewController: BaseUiNavigationBarAppearance {
         collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
         return collectionView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -87,14 +88,22 @@ extension FavouritesScreenViewController: UICollectionViewDataSource, UICollecti
                 return UICollectionViewCell()
             }
         
-        cell.descriptionLabel.text = filteredBlogs[indexPath.item].description
-        cell.titleLabel.text = filteredBlogs[indexPath.item].title
-        cell.updateCell(with: filteredBlogs[indexPath.item])
+        cell.delegate = self
+        cell.indexPath = indexPath
+        
+        let blog = filteredBlogs[indexPath.item]
+        cell.dataSource = blog
+        cell.updateCell(with: blog)
         
         firebaseManager?.downloadPhoto(path: filteredBlogs[indexPath.item].image ?? "", completion: { url in
             cell.postImageView.sd_setImage(with: url)
         })
-
+        
+        cell.descriptionLabel.text = blog.description
+        cell.titleLabel.text = blog.title
+        
+//        let imageName = isStarFilled ? "star.fill" : "star"
+//        cell.favouritesButton.setImage(UIImage(systemName: imageName), for: .normal)
         
         return cell
     }
@@ -102,5 +111,38 @@ extension FavouritesScreenViewController: UICollectionViewDataSource, UICollecti
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width - 40
         return CGSize(width: width, height: 300)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let selectedBlog = filteredBlogs[indexPath.item]
+        if let cell = collectionView.cellForItem(at: indexPath) as? BlogCollectionViewCell {
+            let detailVC = DetailScreenViewController(firebaseManager: FirebaseManager())
+            detailVC.blog = selectedBlog
+            self.navigationController?.pushViewController(detailVC, animated: true)
+        }
+    }
+}
+
+extension FavouritesScreenViewController: BlogCollectionViewCellDelegate {
+    
+    func didTapFavouritesButton(blog: Blog, indexPath: IndexPath) {
+        
+        guard let firebaseManager = firebaseManager else { return }
+        
+        var updatedBlog = blog
+        updatedBlog.isFavourite = false
+        
+        firebaseManager.addToFavourites(updatedBlog) { success in
+            if success {
+                self.collectionView.deleteItems(at: [indexPath])
+                self.filteredBlogs.remove(at: indexPath.row)
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            } else {
+                print("Failure")
+            }
+        }
     }
 }

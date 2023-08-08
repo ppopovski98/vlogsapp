@@ -32,6 +32,7 @@ class NotificationsScreenViewController: BaseUiNavigationBarAppearance, UITableV
         notifTableView.estimatedRowHeight = 44
         notifTableView.rowHeight = UITableView.automaticDimension
         view.backgroundColor = .white
+        
         view.addSubview(notifTableView)
         alertConfigUI()
     }

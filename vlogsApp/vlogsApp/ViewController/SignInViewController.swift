@@ -25,6 +25,7 @@ class SignInViewController: UIViewController {
     
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
+        textField.text = "test@gmail.com" // WILL REMOVE THIS ( EAZY LOG IN )
         textField.frame = CGRect(x: 100, y: 100, width: 350, height: 40)
         textField.placeholder = "Enter E-mail"
         textField.textColor = .black
@@ -37,6 +38,7 @@ class SignInViewController: UIViewController {
     
     lazy var passwordTextField: UITextField = {
         let textField = UITextField()
+        textField.text = "asdasdasd" // WILL REMOVE THIS ( EAZY LOG IN )
         textField.frame = CGRect(x: 100, y: 150, width: 350, height: 40)
         textField.placeholder = "Enter Password"
         textField.textColor = .black

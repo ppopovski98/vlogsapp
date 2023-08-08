@@ -83,6 +83,7 @@ class FirebaseManager {
     }
     
     func addToFavourites(_ blog: Blog, completion: @escaping (Bool) -> Void) {
+        
         var query: Query = db.collection("Posts")
         
         if let blogId = blog.blogID {
@@ -91,7 +92,25 @@ class FirebaseManager {
                     completion(false)
                 } else {
                     let document = querySnapshot?.documents.first
-                    document?.reference.updateData(["isFavourite" : blog.isFavourite])
+                    document?.reference.updateData(["isFavourite": blog.isFavourite])
+                    completion(true)
+                }
+                
+            })
+        }
+    }
+    
+    func removeFromFavourites(_ blog: Blog, completion: @escaping (Bool) -> Void) {
+        
+        var query: Query = db.collection("Posts")
+        
+        if let blogId = blog.blogID {
+            query.whereField("blogID", isEqualTo: blogId).getDocuments(completion: { querySnapshot, err in
+                if let err = err {
+                    completion(false)
+                } else {
+                    let document = querySnapshot?.documents.first
+                    document?.reference.updateData(["isFavourite": false])
                     completion(true)
                 }
                 
