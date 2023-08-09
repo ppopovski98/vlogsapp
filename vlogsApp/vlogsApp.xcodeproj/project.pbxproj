@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F992DE22A83A00B000FD3D8 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F992DE12A83A00B000FD3D8 /* SignInViewModel.swift */; };
 		5636EFEE2A406036005A3859 /* GamingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636EFED2A406036005A3859 /* GamingScreenViewController.swift */; };
 		565B7CA82A4C47F40027947D /* NotifTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565B7CA72A4C47F40027947D /* NotifTableViewCell.swift */; };
 		565B7CAB2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F992DE12A83A00B000FD3D8 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		5636EFED2A406036005A3859 /* GamingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamingScreenViewController.swift; sourceTree = "<group>"; };
 		565B7CA72A4C47F40027947D /* NotifTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifTableViewCell.swift; sourceTree = "<group>"; };
 		565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+RoundedProfilePic.swift"; sourceTree = "<group>"; };
@@ -99,6 +101,15 @@
 				56AB84B32A28B1E500A3C54C /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		2F992DE32A83A016000FD3D8 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				56AB84AC2A28B1E400A3C54C /* SignInViewController.swift */,
+				2F992DE12A83A00B000FD3D8 /* SignInViewModel.swift */,
+			);
+			path = SignIn;
 			sourceTree = "<group>";
 		};
 		569E82942A3B2FCF0014BF2B /* Services */ = {
@@ -180,7 +191,7 @@
 		56F61C192A28C45B00383821 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				56AB84AC2A28B1E400A3C54C /* SignInViewController.swift */,
+				2F992DE32A83A016000FD3D8 /* SignIn */,
 				56B5F7722A2F5307006F3E49 /* RegisterViewController.swift */,
 				5636EFED2A406036005A3859 /* GamingScreenViewController.swift */,
 				56A29E052A309AB100D866F1 /* RacingScreenViewController.swift */,
@@ -282,6 +293,7 @@
 				565B7CA82A4C47F40027947D /* NotifTableViewCell.swift in Sources */,
 				56AD9F412A3751F3001DA577 /* Extension+UIStackView.swift in Sources */,
 				56AD9F3E2A37463E001DA577 /* NotificationsScreenViewController.swift in Sources */,
+				2F992DE22A83A00B000FD3D8 /* SignInViewModel.swift in Sources */,
 				56A29E062A309AB100D866F1 /* RacingScreenViewController.swift in Sources */,
 				56AB84AD2A28B1E400A3C54C /* SignInViewController.swift in Sources */,
 				56AB84A92A28B1E400A3C54C /* AppDelegate.swift in Sources */,

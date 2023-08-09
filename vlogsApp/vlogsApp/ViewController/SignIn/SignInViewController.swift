@@ -6,10 +6,11 @@
 //
 
 import UIKit
-import FirebaseAuth
 import SnapKit
 
 class SignInViewController: UIViewController {
+    
+    private var viewModel: SignInViewModel?
     
     lazy var loginButton: UIButton = {
         let button = UIButton(type: .roundedRect)
@@ -111,6 +112,7 @@ class SignInViewController: UIViewController {
         super.viewDidLoad()
         
         configUI()
+        viewModel = SignInViewModel()
     }
     
     
@@ -214,8 +216,6 @@ class SignInViewController: UIViewController {
         }
     }
     
-    //Firebase Auth
-    
     @objc func registerButtonTapped() {
         navigationController?.pushViewController(RegisterViewController(), animated: true)
     }
@@ -228,19 +228,19 @@ class SignInViewController: UIViewController {
             return
         }
         
-        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { authResult, error in
+        viewModel?.signIn(email: email, password: password) { success, error in
             
-        if error != nil {
-                self.alertMessage()
-                print(error?.localizedDescription ?? "Error")
-            } else {
+            if success {
                 let tabBarViewController = TabBarViewController()
                 self.navigationController?.isNavigationBarHidden = true
                 self.navigationController?.navigationBar.isHidden = true
                 self.navigationController?.pushViewController(tabBarViewController, animated: true)
                 print("Success")
+            } else {
+                self.alertMessage()
+                print(error?.localizedDescription ?? "Error")
             }
-        })
+        }
     }
     
     //Timer and alert message for no credentials.
