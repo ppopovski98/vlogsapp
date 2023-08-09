@@ -11,6 +11,8 @@ import FirebaseAuth
 
 class RegisterViewController: UIViewController {
     
+    private var viewModel: RegisterViewModel?
+    
     lazy var registerEmail: UITextField = {
         let textField = UITextField()
         paddingView(textField)
@@ -69,6 +71,7 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
 
         registerConfigUI()
+        viewModel = RegisterViewModel()
     }
     
     //Config for the register button, email and password.
@@ -135,18 +138,17 @@ class RegisterViewController: UIViewController {
             return
         }
         
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            
-            if error != nil {
-                print(error?.localizedDescription ?? "Error.")
-            } else {
+        viewModel?.createAccount(email: email, password: password, completion: { success, error in
+            if success {
                 let tabBarViewController = TabBarViewController()
                 self.navigationController?.isNavigationBarHidden = true
                 self.navigationController?.navigationBar.isHidden = true
                 self.navigationController?.pushViewController(tabBarViewController, animated: true)
                 print("Success.")
+            } else {
+                print(error?.localizedDescription ?? "Error.")
             }
-        }
+        })
     }
-
 }
+
