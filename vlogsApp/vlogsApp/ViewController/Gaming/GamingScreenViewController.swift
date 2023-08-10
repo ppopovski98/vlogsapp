@@ -168,13 +168,9 @@ extension GamingScreenViewController: BlogCollectionViewCellDelegate {
     
     func didTapFavouritesButton(blog: Blog, indexPath: IndexPath) {
         
-        guard let firebaseManager = firebaseManager else { return }
-    
-        var updatedBlog = blog
-        updatedBlog.isFavourite.toggle()
         dataSource[indexPath.row].isFavourite.toggle()
-        
-        firebaseManager.addToFavourites(updatedBlog) { success in
+
+        viewModel?.addToFavourites(blog: blog, indexPath: indexPath, completion: { success in
             if success {
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
@@ -182,7 +178,7 @@ extension GamingScreenViewController: BlogCollectionViewCellDelegate {
             } else {
                 print("Failure")
             }
-        }
+        })
     }
 }
 

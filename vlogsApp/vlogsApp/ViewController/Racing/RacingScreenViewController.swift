@@ -1,5 +1,5 @@
 //
-//  MainScreenViewController.swift
+//  GamingScreenViewController.swift
 //  vlogsApp
 //
 //  Created by Petar Popovski on 7.6.23.
@@ -12,6 +12,7 @@ import SDWebImage
 class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDelegate {
     
     var firebaseManager: FirebaseManager?
+    private var viewModel: RacingScreenViewModel?
     
     lazy var dataSource: [Blog] = []
     lazy var category = "racing"
@@ -41,21 +42,26 @@ class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard let firebaseManager = firebaseManager else {
+            return
+        }
+        
+        viewModel = GamingScreenViewModel(firebaseManager: firebaseManager)
         view.backgroundColor = UIColor(named: "backgroundColor")
         mainScreenConfigUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        firebaseManager?.getDataFromFirebase(forCategory: "racing", completion: { dataSourceForTableView in
-            self.dataSource = dataSourceForTableView
+        viewModel?.fetchData(completion: { dataSource in
+            self.dataSource = dataSource
             self.collectionView.reloadData()
         })
     }
     
     func mainScreenConfigUI() {
         
-        title = "Racing"
+        title = "Gaming"
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         
@@ -162,13 +168,9 @@ extension RacingScreenViewController: BlogCollectionViewCellDelegate {
     
     func didTapFavouritesButton(blog: Blog, indexPath: IndexPath) {
         
-        guard let firebaseManager = firebaseManager else { return }
-    
-        var updatedBlog = blog
-        updatedBlog.isFavourite.toggle()
         dataSource[indexPath.row].isFavourite.toggle()
-        
-        firebaseManager.addToFavourites(updatedBlog) { success in
+
+        viewModel?.addToFavourites(blog: blog, indexPath: indexPath, completion: { success in
             if success {
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
@@ -176,7 +178,7 @@ extension RacingScreenViewController: BlogCollectionViewCellDelegate {
             } else {
                 print("Failure")
             }
-        }
+        })
     }
 }
 

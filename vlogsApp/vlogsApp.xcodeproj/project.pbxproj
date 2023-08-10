@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F91640B2A84EDA300E5CFBC /* RacingScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F91640A2A84EDA300E5CFBC /* RacingScreenViewModel.swift */; };
+		2F91640E2A84F26700E5CFBC /* AddABlogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F91640D2A84F26700E5CFBC /* AddABlogViewModel.swift */; };
 		2F992DE22A83A00B000FD3D8 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F992DE12A83A00B000FD3D8 /* SignInViewModel.swift */; };
 		2F992DE52A83A31E000FD3D8 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F992DE42A83A31E000FD3D8 /* RegisterViewModel.swift */; };
 		2F992DE82A83A9C4000FD3D8 /* GamingScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F992DE72A83A9C4000FD3D8 /* GamingScreenViewModel.swift */; };
@@ -42,6 +44,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F91640A2A84EDA300E5CFBC /* RacingScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RacingScreenViewModel.swift; sourceTree = "<group>"; };
+		2F91640D2A84F26700E5CFBC /* AddABlogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddABlogViewModel.swift; sourceTree = "<group>"; };
 		2F992DE12A83A00B000FD3D8 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		2F992DE42A83A31E000FD3D8 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		2F992DE72A83A9C4000FD3D8 /* GamingScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamingScreenViewModel.swift; sourceTree = "<group>"; };
@@ -105,6 +109,56 @@
 				56AB84B32A28B1E500A3C54C /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		2F91640C2A84EDA700E5CFBC /* Racing */ = {
+			isa = PBXGroup;
+			children = (
+				56A29E052A309AB100D866F1 /* RacingScreenViewController.swift */,
+				2F91640A2A84EDA300E5CFBC /* RacingScreenViewModel.swift */,
+			);
+			path = Racing;
+			sourceTree = "<group>";
+		};
+		2F91640F2A84F26E00E5CFBC /* AddABlog */ = {
+			isa = PBXGroup;
+			children = (
+				56B81B8E2A320B55001341CF /* AddABlogViewController.swift */,
+				2F91640D2A84F26700E5CFBC /* AddABlogViewModel.swift */,
+			);
+			path = AddABlog;
+			sourceTree = "<group>";
+		};
+		2F9164102A8504C400E5CFBC /* NotificationsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				56AD9F3D2A37463E001DA577 /* NotificationsScreenViewController.swift */,
+			);
+			path = NotificationsScreen;
+			sourceTree = "<group>";
+		};
+		2F9164112A8504D400E5CFBC /* FavouritesScreen */ = {
+			isa = PBXGroup;
+			children = (
+				56A29E102A30A62900D866F1 /* FavouritesScreenViewController.swift */,
+			);
+			path = FavouritesScreen;
+			sourceTree = "<group>";
+		};
+		2F9164122A8504E300E5CFBC /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				56A29E172A30C72A00D866F1 /* ProfileViewController.swift */,
+			);
+			path = ProfileView;
+			sourceTree = "<group>";
+		};
+		2F9164132A8504FC00E5CFBC /* DetailScreen */ = {
+			isa = PBXGroup;
+			children = (
+				56AD9F3B2A373D3B001DA577 /* DetailScreenViewController.swift */,
+			);
+			path = DetailScreen;
 			sourceTree = "<group>";
 		};
 		2F992DE32A83A016000FD3D8 /* SignIn */ = {
@@ -173,9 +227,9 @@
 				56AB84A72A28B1E400A3C54C /* vlogsApp */,
 				2F8E690D2A793BAB00EEC373 /* Resources */,
 				56AB84A62A28B1E400A3C54C /* Products */,
+				56A29E072A309DDF00D866F1 /* Frameworks */,
 				56AB84B62A28B1E500A3C54C /* Info.plist */,
 				56B5F7742A2F670A006F3E49 /* GoogleService-Info.plist */,
-				56A29E072A309DDF00D866F1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -216,12 +270,12 @@
 				2F992DE32A83A016000FD3D8 /* SignIn */,
 				2F992DE62A83A325000FD3D8 /* Register */,
 				2F992DE92A83A9D0000FD3D8 /* Gaming */,
-				56A29E052A309AB100D866F1 /* RacingScreenViewController.swift */,
-				56B81B8E2A320B55001341CF /* AddABlogViewController.swift */,
-				56AD9F3D2A37463E001DA577 /* NotificationsScreenViewController.swift */,
-				56A29E102A30A62900D866F1 /* FavouritesScreenViewController.swift */,
-				56A29E172A30C72A00D866F1 /* ProfileViewController.swift */,
-				56AD9F3B2A373D3B001DA577 /* DetailScreenViewController.swift */,
+				2F91640C2A84EDA700E5CFBC /* Racing */,
+				2F91640F2A84F26E00E5CFBC /* AddABlog */,
+				2F9164102A8504C400E5CFBC /* NotificationsScreen */,
+				2F9164112A8504D400E5CFBC /* FavouritesScreen */,
+				2F9164122A8504E300E5CFBC /* ProfileView */,
+				2F9164132A8504FC00E5CFBC /* DetailScreen */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -319,9 +373,11 @@
 				56A29E062A309AB100D866F1 /* RacingScreenViewController.swift in Sources */,
 				56AB84AD2A28B1E400A3C54C /* SignInViewController.swift in Sources */,
 				56AB84A92A28B1E400A3C54C /* AppDelegate.swift in Sources */,
+				2F91640B2A84EDA300E5CFBC /* RacingScreenViewModel.swift in Sources */,
 				56AB84AB2A28B1E400A3C54C /* SceneDelegate.swift in Sources */,
 				565B7CAB2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift in Sources */,
 				56B81B8D2A31FDD6001341CF /* TabBarViewController.swift in Sources */,
+				2F91640E2A84F26700E5CFBC /* AddABlogViewModel.swift in Sources */,
 				56AD9F3C2A373D3B001DA577 /* DetailScreenViewController.swift in Sources */,
 				56A160DA2A385B9700C0B0A9 /* Blog.swift in Sources */,
 				2F992DE82A83A9C4000FD3D8 /* GamingScreenViewModel.swift in Sources */,

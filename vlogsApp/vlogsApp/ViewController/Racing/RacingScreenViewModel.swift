@@ -1,13 +1,13 @@
 //
-//  GamingScreenViewModel.swift
+//  RacingScreenViewModel.swift
 //  vlogsApp
 //
-//  Created by Petar Popovski on 9.8.23.
+//  Created by Petar Popovski on 10.8.23.
 //
 
 import Foundation
 
-class GamingScreenViewModel {
+class RacingScreenViewModel {
     
     private var firebaseManager: FirebaseManager
     
@@ -18,7 +18,7 @@ class GamingScreenViewModel {
     var dataSource: [Blog] = []
     
     func fetchData(completion: @escaping ([Blog]) -> Void) {
-        firebaseManager.getDataFromFirebase(forCategory: "gaming", completion: { dataSourceForTableView in
+        firebaseManager.getDataFromFirebase(forCategory: "racing", completion: { dataSourceForTableView in
             self.dataSource = dataSourceForTableView
             completion(self.dataSource)
         })
