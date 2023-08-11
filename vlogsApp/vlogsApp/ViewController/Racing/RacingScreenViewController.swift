@@ -46,7 +46,7 @@ class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
             return
         }
         
-        viewModel = GamingScreenViewModel(firebaseManager: firebaseManager)
+        viewModel = RacingScreenViewModel(firebaseManager: firebaseManager)
         view.backgroundColor = UIColor(named: "backgroundColor")
         mainScreenConfigUI()
     }
@@ -61,7 +61,7 @@ class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
     
     func mainScreenConfigUI() {
         
-        title = "Gaming"
+        title = "Racing"
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         

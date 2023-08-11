@@ -33,10 +33,14 @@ class FavouritesScreenViewController: BaseUiNavigationBarAppearance {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        firebaseManager?.getDataFromFirebase(completion: { dataSourceForTableView in
-            self.selectedBlogs = dataSourceForTableView
-            self.filteredBlogs = self.selectedBlogs.filter( { $0.isFavourite } )
-            self.collectionView.reloadData()
+        firebaseManager?.getDataFromFirebase(completion: { dataSourceForTableView, status in
+            if status == true {
+                self.selectedBlogs = dataSourceForTableView
+                self.filteredBlogs = self.selectedBlogs.filter( { $0.isFavourite } )
+                self.collectionView.reloadData()
+            } else {
+                return
+            }
         })
         
         favouritesScreenConfigUI()
@@ -101,9 +105,6 @@ extension FavouritesScreenViewController: UICollectionViewDataSource, UICollecti
         
         cell.descriptionLabel.text = blog.description
         cell.titleLabel.text = blog.title
-        
-//        let imageName = isStarFilled ? "star.fill" : "star"
-//        cell.favouritesButton.setImage(UIImage(systemName: imageName), for: .normal)
         
         return cell
     }

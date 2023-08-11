@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let rootViewController = SignInViewController()
+        let rootViewController = SignInViewController(viewModel: SignInViewModel())
         let navController = UINavigationController(rootViewController: rootViewController)
         window?.rootViewController = navController
         window?.makeKeyAndVisible()

@@ -18,7 +18,7 @@ class FirebaseManager {
     let reference = Storage.storage()
     
     
-    func getDataFromFirebase(forCategory category: String? = nil, completion: @escaping ([Blog]) -> Void) {
+    func getDataFromFirebase(forCategory category: String? = nil, completion: @escaping ([Blog], Bool) -> Void) {
         
         var query: Query = db.collection("Posts")
         var dataSource = [Blog]()
@@ -37,9 +37,10 @@ class FirebaseManager {
                     dataSource.append(blogPost)
                 } catch {
                     print("Error")
+                    completion([Blog](), false)
                 }
             }
-            completion(dataSource)
+            completion(dataSource, true)
         }
     }
     

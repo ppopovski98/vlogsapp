@@ -22,6 +22,7 @@ class AddABlogViewController: UIViewController {
     let firebaseManager = FirebaseManager()
     
     weak var delegate: AddABlogDelegate?
+    private var viewModel: AddABlogViewModel?
     
     lazy var imageView = UIImageView()
     var selectedImage: UIImage?
@@ -33,9 +34,8 @@ class AddABlogViewController: UIViewController {
         let button = UIButton()
         button.backgroundColor = UIColor(named: "textFieldColor")
         button.setTitle("UPLOAD A PHOTO", for: .normal)
-        button.tintColor = .black
+        button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 20
-        
         button.addTarget(self, action: #selector(photoPickerButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -62,7 +62,7 @@ class AddABlogViewController: UIViewController {
         button.backgroundColor = UIColor(named: "textFieldColor")
         button.addTarget(self, action: #selector(postButtonTapped), for: .touchUpInside)
         button.setTitle("POST", for: .normal)
-        button.tintColor = .black
+        button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 20
         return button
     }()
@@ -89,14 +89,14 @@ class AddABlogViewController: UIViewController {
     lazy var gamingLabel: UILabel = {
         let label = UILabel()
         label.text = "Gaming Category"
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         return label
     }()
     
     lazy var racingLabel: UILabel = {
         let label = UILabel()
         label.text = "Racing Category"
-        label.textColor = .black
+        label.textColor = UIColor(named: "titleColor")
         label.textAlignment = .right
         return label
     }()
