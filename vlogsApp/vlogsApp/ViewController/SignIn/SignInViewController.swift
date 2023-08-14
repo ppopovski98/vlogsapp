@@ -19,11 +19,12 @@ class SignInViewController: UIViewController {
         
         title = "Log In"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
         view.addSubview(signInView)
         signInView.delegate = self
         
         signInView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.edges.equalToSuperview()
         }
     }
     

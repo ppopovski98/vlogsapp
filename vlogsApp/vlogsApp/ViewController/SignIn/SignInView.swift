@@ -23,7 +23,6 @@ class SignInView: UIView {
         button.backgroundColor = UIColor(named: "textFieldColor")
         button.layer.cornerRadius = 20
         button.tintColor = .black
-        button.frame = CGRect(x: 100, y: 100, width: 350, height: 50)
         button.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -32,7 +31,6 @@ class SignInView: UIView {
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.text = "test@gmail.com" // WILL REMOVE THIS ( EAZY LOG IN )
-        textField.frame = CGRect(x: 100, y: 100, width: 350, height: 40)
         textField.placeholder = "Enter E-mail"
         textField.textColor = .black
         textField.layer.cornerRadius = 15
@@ -45,7 +43,6 @@ class SignInView: UIView {
     lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.text = "asdasdasd" // WILL REMOVE THIS ( EAZY LOG IN )
-        textField.frame = CGRect(x: 100, y: 150, width: 350, height: 40)
         textField.placeholder = "Enter Password"
         textField.textColor = .black
         textField.layer.cornerRadius = 15
@@ -117,7 +114,6 @@ class SignInView: UIView {
         super.init(frame: .zero)
         configUI()
         
-        
     }
     
     required init?(coder: NSCoder) {
@@ -151,81 +147,64 @@ class SignInView: UIView {
         passwordTextField.leftView = passwordPaddingView
         passwordTextField.leftViewMode = UITextField.ViewMode.always
         
-        lazy var contentView = UIStackView(arrangedSubviews: <#T##[UIView]#>, spacing: <#T##CGFloat#>, axis: <#T##NSLayoutConstraint.Axis#>, distribution: <#T##UIStackView.Distribution#>, alignment: <#T##UIStackView.Alignment#>)
+        lazy var stackViewEmail = UIStackView(arrangedSubviews: [emailPlaceholder, emailTextField], spacing: 12, axis: .vertical, distribution: .fill, alignment: .fill, layoutMargins: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         
-        // These are the constraints for the mail, password and log in button using snapkit.
+        lazy var stackViewPassword = UIStackView(arrangedSubviews:
+        [passwordPlaceholder, passwordTextField, noCredentialsAlert], spacing: 12, axis: .vertical, distribution: .fill, alignment: .fill, layoutMargins: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         
-        passwordPlaceholder.snp.makeConstraints { make in
+        lazy var horizontalLineStackView = UIStackView(arrangedSubviews: [lineView, signUpLabel, secondLineView], spacing: 0, axis: .horizontal, distribution: .fill, alignment: .fill, layoutMargins: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        
+        lazy var buttonStackView = UIStackView(arrangedSubviews: [loginButton, horizontalLineStackView, registerButton], spacing: 30, axis: .vertical, distribution: .fill, alignment: .fill, layoutMargins: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        
+        addSubview(buttonStackView)
+        addSubview(stackViewEmail)
+        addSubview(stackViewPassword)
+        
+        stackViewEmail.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(passwordTextField.snp.top).offset(10)
-            make.width.equalTo(350)
-            make.height.equalTo(50)
-        }
-        
-        emailPlaceholder.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(emailTextField.snp.top).offset(10)
-            make.width.equalTo(350)
-            make.height.equalTo(50)
-        }
-        
-        loginButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(passwordTextField.snp.bottom).offset(70)
-            make.width.equalTo(250)
-            make.height.equalTo(60)
-        }
-        
-        registerButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(loginButton.snp.bottom).offset(140)
-            make.width.equalTo(350)
-            make.height.equalTo(60)
+            make.leading.equalToSuperview().offset(12)
+            make.trailing.equalToSuperview().inset(12)
         }
         
         emailTextField.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(passwordTextField.snp.top).offset(-50)
-            make.width.equalTo(350)
-            make.height.equalTo(50)
+            make.height.equalTo(40)
+        }
+        
+        stackViewPassword.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.top.equalTo(stackViewEmail.snp.bottom).offset(15)
+            make.leading.equalToSuperview().offset(12)
+            make.trailing.equalToSuperview().inset(12)
         }
         
         passwordTextField.snp.makeConstraints { make in
+            make.height.equalTo(40)
+        }
+        
+        buttonStackView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.top.equalTo(passwordPlaceholder.snp.bottom)
-            make.width.equalTo(350)
+            make.top.equalTo(passwordTextField.snp.bottom).offset(100)
+            make.leading.equalToSuperview().offset(12)
+            make.trailing.equalToSuperview().inset(12)
+        }
+        
+        loginButton.snp.makeConstraints { make in
             make.height.equalTo(50)
         }
         
-        noCredentialsAlert.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(passwordTextField.snp.bottom).offset(5)
-            make.width.equalTo(350)
+        registerButton.snp.makeConstraints { make in
             make.height.equalTo(50)
         }
         
         lineView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview().offset(-120)
-            make.top.equalTo(loginButton.snp.bottom).offset(100)
             make.width.equalTo(100)
             make.height.equalTo(1)
         }
         
         secondLineView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview().offset(120)
-            make.top.equalTo(loginButton.snp.bottom).offset(100)
             make.width.equalTo(100)
             make.height.equalTo(1)
         }
-        
-        signUpLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview().offset(18)
-            make.top.equalTo(loginButton.snp.bottom).offset(75)
-            make.width.equalTo(120)
-            make.height.equalTo(50)
-        }
     }
-    
 }
 

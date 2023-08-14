@@ -18,7 +18,7 @@ class GamingScreenViewModel {
     var dataSource: [Blog] = []
     
     func fetchData(completion: @escaping ([Blog]) -> Void) {
-        firebaseManager.getDataFromFirebase(forCategory: "gaming", completion: { dataSourceForTableView in
+        firebaseManager.getDataFromFirebase(forCategory: "gaming", completion: { dataSourceForTableView, success  in
             self.dataSource = dataSourceForTableView
             completion(self.dataSource)
         })

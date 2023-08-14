@@ -18,7 +18,7 @@ class RacingScreenViewModel {
     var dataSource: [Blog] = []
     
     func fetchData(completion: @escaping ([Blog]) -> Void) {
-        firebaseManager.getDataFromFirebase(forCategory: "racing", completion: { dataSourceForTableView in
+        firebaseManager.getDataFromFirebase(forCategory: "racing", completion: { dataSourceForTableView, success in
             self.dataSource = dataSourceForTableView
             completion(self.dataSource)
         })
