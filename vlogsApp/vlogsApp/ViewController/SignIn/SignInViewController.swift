@@ -7,10 +7,10 @@
 
 import UIKit
 import SnapKit
+import FirebaseAuth
+
 
 class SignInViewController: UIViewController {
-    
-    private var viewModel: SignInViewModel?
     
     var signInView = SignInView()
     
@@ -27,17 +27,6 @@ class SignInViewController: UIViewController {
             make.edges.equalToSuperview()
         }
     }
-    
-    init(viewModel: SignInViewModel) {
-        super.init(nibName: .none, bundle: .none)
-        self.viewModel = viewModel
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    //Timer and alert message for no credentials.
     
     func startTimer() {
         
@@ -74,9 +63,9 @@ extension SignInViewController: SignInProtocol {
             return
         }
         
-        viewModel?.signIn(email: email, password: password) { success, error in
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             
-            if success {
+            if authResult != nil {
                 let tabBarViewController = TabBarViewController()
                 self.navigationController?.isNavigationBarHidden = true
                 self.navigationController?.navigationBar.isHidden = true

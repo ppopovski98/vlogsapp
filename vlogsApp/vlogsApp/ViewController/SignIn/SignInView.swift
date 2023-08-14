@@ -152,9 +152,9 @@ class SignInView: UIView {
         lazy var stackViewPassword = UIStackView(arrangedSubviews:
         [passwordPlaceholder, passwordTextField, noCredentialsAlert], spacing: 12, axis: .vertical, distribution: .fill, alignment: .fill, layoutMargins: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         
-        lazy var horizontalLineStackView = UIStackView(arrangedSubviews: [lineView, signUpLabel, secondLineView], spacing: 0, axis: .horizontal, distribution: .fill, alignment: .fill, layoutMargins: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        lazy var horizontalLineStackView = UIStackView(arrangedSubviews: [lineView, signUpLabel, secondLineView], spacing: 0, axis: .horizontal, distribution: .equalSpacing, alignment: .center, layoutMargins: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         
-        lazy var buttonStackView = UIStackView(arrangedSubviews: [loginButton, horizontalLineStackView, registerButton], spacing: 30, axis: .vertical, distribution: .fill, alignment: .fill, layoutMargins: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        lazy var buttonStackView = UIStackView(arrangedSubviews: [loginButton, horizontalLineStackView, registerButton], spacing: 30, axis: .vertical, distribution: .fillEqually, alignment: .fill, layoutMargins: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         
         addSubview(buttonStackView)
         addSubview(stackViewEmail)
