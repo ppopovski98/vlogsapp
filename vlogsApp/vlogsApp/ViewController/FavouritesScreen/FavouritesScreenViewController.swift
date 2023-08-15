@@ -117,7 +117,7 @@ extension FavouritesScreenViewController: UICollectionViewDataSource, UICollecti
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let selectedBlog = filteredBlogs[indexPath.item]
-        if let cell = collectionView.cellForItem(at: indexPath) as? BlogCollectionViewCell {
+        if collectionView.cellForItem(at: indexPath) is BlogCollectionViewCell {
             let detailVC = DetailScreenViewController(firebaseManager: FirebaseManager())
             detailVC.blog = selectedBlog
             self.navigationController?.pushViewController(detailVC, animated: true)
@@ -136,7 +136,7 @@ extension FavouritesScreenViewController: BlogCollectionViewCellDelegate {
         
         firebaseManager.addToFavourites(updatedBlog) { success in
             if success {
-                self.collectionView.deleteItems(at: [indexPath])
+//                self.collectionView.deleteItems(at: [indexPath])
                 self.filteredBlogs.remove(at: indexPath.row)
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()

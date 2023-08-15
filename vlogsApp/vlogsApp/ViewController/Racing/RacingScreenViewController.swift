@@ -12,76 +12,41 @@ import SDWebImage
 class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDelegate {
     
     var firebaseManager: FirebaseManager?
-    private var viewModel: RacingScreenViewModel?
+    var racingScreenView = RacingScreenView()
     
     lazy var dataSource: [Blog] = []
     lazy var category = "racing"
     lazy var isFirstAppearence = true
     
-    lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
-        collectionView.backgroundColor = UIColor(named: "backgroundColor")
-        return collectionView
-    }()
-    
-    lazy var activityIndicatorView: UIActivityIndicatorView = {
-        let indicatorView = UIActivityIndicatorView(style: .medium)
-        indicatorView.hidesWhenStopped = true
-        return indicatorView
-    }()
-    
-    lazy var placeholderImage: UIImage = {
-        let image = UIImage()
-        return image
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        guard let firebaseManager = firebaseManager else {
-            return
-        }
-        
-        viewModel = RacingScreenViewModel(firebaseManager: firebaseManager)
-        view.backgroundColor = UIColor(named: "backgroundColor")
-        mainScreenConfigUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel?.fetchData(completion: { dataSource in
-            self.dataSource = dataSource
-            self.collectionView.reloadData()
-        })
-    }
-    
-    func mainScreenConfigUI() {
         
         title = "Racing"
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        view.addSubview(racingScreenView)
         
-        view.addSubview(collectionView)
-        view.addSubview(activityIndicatorView)
-        
-        collectionView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-                
-        activityIndicatorView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-16)
+        racingScreenView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
+        racingScreenView.collectionView.dataSource = self
+        racingScreenView.collectionView.delegate = self
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let firebaseManager = firebaseManager else {
+            return
+        }
+        
+        firebaseManager.getDataFromFirebase(forCategory: "racing", completion: { dataSourceForTableView, success  in
+            self.dataSource = dataSourceForTableView
+            self.racingScreenView.collectionView.reloadData()
+        })
     }
     
     @objc func addButtonTapped() {
@@ -168,17 +133,24 @@ extension RacingScreenViewController: BlogCollectionViewCellDelegate {
     
     func didTapFavouritesButton(blog: Blog, indexPath: IndexPath) {
         
+        guard let firebaseManager = firebaseManager else {
+            return
+        }
+        
         dataSource[indexPath.row].isFavourite.toggle()
+        
+        var updatedBlog = blog
+        updatedBlog.isFavourite.toggle()
 
-        viewModel?.addToFavourites(blog: blog, indexPath: indexPath, completion: { success in
+        firebaseManager.addToFavourites(updatedBlog) { success in
             if success {
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    self.racingScreenView.collectionView.reloadData()
                 }
             } else {
                 print("Failure")
             }
-        })
+        }
     }
 }
 
@@ -187,7 +159,7 @@ extension RacingScreenViewController: AddABlogDelegate {
         if blog.category == "racing" {
             DispatchQueue.main.async {
                 self.dataSource.insert(blog, at: 0)
-                self.collectionView.reloadData()
+                self.racingScreenView.collectionView.reloadData()
             }
         }
     }
@@ -197,7 +169,7 @@ extension RacingScreenViewController: DetailScreenViewControllerDelegate {
     func didUpdateBlog(_ blog: Blog) {
         if let index = dataSource.firstIndex(where: { $0.image == blog.image }) {
             dataSource[index] = blog
-            collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            self.racingScreenView.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
             
         }
     }

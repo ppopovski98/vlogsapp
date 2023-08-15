@@ -12,77 +12,44 @@ import SDWebImage
 class GamingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDelegate {
     
     var firebaseManager: FirebaseManager?
-    private var viewModel: GamingScreenViewModel?
+    var gamingView = GamingScreenView()
     
     lazy var dataSource: [Blog] = []
     lazy var category = "gaming"
     lazy var isFirstAppearence = true
     
-    lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
-        collectionView.backgroundColor = UIColor(named: "backgroundColor")
-        return collectionView
-    }()
-    
-    lazy var activityIndicatorView: UIActivityIndicatorView = {
-        let indicatorView = UIActivityIndicatorView(style: .medium)
-        indicatorView.hidesWhenStopped = true
-        return indicatorView
-    }()
-    
-    lazy var placeholderImage: UIImage = {
-        let image = UIImage()
-        return image
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        guard let firebaseManager = firebaseManager else {
-            return
-        }
-        
-        viewModel = GamingScreenViewModel(firebaseManager: firebaseManager)
-        view.backgroundColor = UIColor(named: "backgroundColor")
-        mainScreenConfigUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel?.fetchData(completion: { dataSource in
-            self.dataSource = dataSource
-            self.collectionView.reloadData()
-        })
-    }
-    
-    func mainScreenConfigUI() {
         
         title = "Gaming"
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        view.addSubview(gamingView)
         
-        view.addSubview(collectionView)
-        view.addSubview(activityIndicatorView)
+        gamingView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
         
-        collectionView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-                
-        activityIndicatorView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-16)
-        }
+        gamingView.collectionView.dataSource = self
+        gamingView.collectionView.delegate = self
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let firebaseManager = firebaseManager else {
+            return
+        }
+        
+        firebaseManager.getDataFromFirebase(forCategory: "gaming", completion: { dataSourceForTableView, success  in
+            self.dataSource = dataSourceForTableView
+            self.gamingView.collectionView.reloadData()
+        })
+    }
+    
+    
     
     @objc func addButtonTapped() {
         
@@ -154,7 +121,7 @@ extension GamingScreenViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let selectedBlog = dataSource[indexPath.item]
-        if let cell = collectionView.cellForItem(at: indexPath) as? BlogCollectionViewCell {
+        if collectionView.cellForItem(at: indexPath) is BlogCollectionViewCell {
             let detailVC = DetailScreenViewController(firebaseManager: FirebaseManager())
             detailVC.blog = selectedBlog
             self.navigationController?.pushViewController(detailVC, animated: true)
@@ -168,17 +135,24 @@ extension GamingScreenViewController: BlogCollectionViewCellDelegate {
     
     func didTapFavouritesButton(blog: Blog, indexPath: IndexPath) {
         
+        guard let firebaseManager = firebaseManager else {
+            return
+        }
+        
         dataSource[indexPath.row].isFavourite.toggle()
+        
+        var updatedBlog = blog
+        updatedBlog.isFavourite.toggle()
 
-        viewModel?.addToFavourites(blog: blog, indexPath: indexPath, completion: { success in
+        firebaseManager.addToFavourites(updatedBlog) { success in
             if success {
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    self.gamingView.collectionView.reloadData()
                 }
             } else {
                 print("Failure")
             }
-        })
+        }
     }
 }
 
@@ -187,7 +161,7 @@ extension GamingScreenViewController: AddABlogDelegate {
         if blog.category == "gaming" {
             DispatchQueue.main.async {
                 self.dataSource.insert(blog, at: 0)
-                self.collectionView.reloadData()
+                self.gamingView.collectionView.reloadData()
             }
         }
     }
@@ -197,7 +171,7 @@ extension GamingScreenViewController: DetailScreenViewControllerDelegate {
     func didUpdateBlog(_ blog: Blog) {
         if let index = dataSource.firstIndex(where: { $0.image == blog.image }) {
             dataSource[index] = blog
-            collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            gamingView.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
             
         }
     }
