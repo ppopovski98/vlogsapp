@@ -102,7 +102,7 @@ extension FavouritesScreenViewController: UICollectionViewDataSource, UICollecti
         
         let selectedBlog = filteredBlogs[indexPath.item]
         if collectionView.cellForItem(at: indexPath) is BlogCollectionViewCell {
-            let detailVC = DetailScreenViewController(firebaseManager: FirebaseManager())
+            let detailVC = DetailScreenViewController(firebaseManager: firebaseManager, blog: selectedBlog)
             detailVC.detailScreenView.blog = selectedBlog
             self.navigationController?.pushViewController(detailVC, animated: true)
         }

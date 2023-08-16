@@ -8,10 +8,6 @@
 import UIKit
 import SnapKit
 
-protocol DetailScreenProtocol: AnyObject {
-    func editButtonTapped()
-}
-
 class DetailScreenView: UIView {
     
     weak var delegate: DetailScreenProtocol?
@@ -23,7 +19,6 @@ class DetailScreenView: UIView {
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.text = blog?.title
         return label
     }()
     
@@ -33,7 +28,6 @@ class DetailScreenView: UIView {
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.text = blog?.description
         return label
     }()
     
@@ -63,6 +57,8 @@ class DetailScreenView: UIView {
     
     func configUI() {
         
+        backgroundColor = UIColor(named: "backgroundColor")
+        
         addSubview(titleLabel)
         addSubview(descriptionLabel)
         addSubview(vlogImageView)
@@ -85,9 +81,5 @@ class DetailScreenView: UIView {
             make.width.equalTo(350)
             make.height.equalTo(250)
         }
-    }
-    
-    @objc func editButtonTapped() {
-        delegate?.editButtonTapped()
     }
 }

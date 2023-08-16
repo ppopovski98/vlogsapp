@@ -120,7 +120,7 @@ extension RacingScreenViewController: UICollectionViewDataSource, UICollectionVi
         
         let selectedBlog = dataSource[indexPath.item]
         if let cell = collectionView.cellForItem(at: indexPath) as? BlogCollectionViewCell {
-            let detailVC = DetailScreenViewController(firebaseManager: FirebaseManager())
+            let detailVC = DetailScreenViewController(firebaseManager: firebaseManager, blog: dataSource[indexPath.item])
             detailVC.detailScreenView.blog = selectedBlog
             self.navigationController?.pushViewController(detailVC, animated: true)
         }

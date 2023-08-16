@@ -18,11 +18,16 @@ class DetailScreenViewController: UIViewController {
     var detailScreenView = DetailScreenView()
     var firebaseManager: FirebaseManager?
     weak var delegate: DetailScreenViewControllerDelegate?
+    var blog: Blog?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         detailScreenView.delegate = self
+        detailScreenView.blog = blog
+        
+        detailScreenView.titleLabel.text = blog?.title
+        detailScreenView.descriptionLabel.text = blog?.description
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editButtonTapped))
         
@@ -36,10 +41,10 @@ class DetailScreenViewController: UIViewController {
             self.detailScreenView.vlogImageView.sd_setImage(with: url)
         })
         
-        view.backgroundColor = UIColor(named: "backgroundColor")
     }
     
-    init(firebaseManager: FirebaseManager?) {
+    init(firebaseManager: FirebaseManager?, blog: Blog) {
+        self.blog = blog
         self.firebaseManager = firebaseManager
         super.init(nibName: nil, bundle: nil)
     }
