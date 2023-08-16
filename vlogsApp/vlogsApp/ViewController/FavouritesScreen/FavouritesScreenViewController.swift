@@ -12,23 +12,27 @@ import FirebaseFirestore
 class FavouritesScreenViewController: BaseUiNavigationBarAppearance {
     
     let firebaseManager: FirebaseManager?
+    var favouritesScreenView = FavouritesScreenView()
     
     lazy var selectedBlogs: [Blog] = []
     lazy var filteredBlogs: [Blog] = []
     lazy var favouriteToggle = true
     lazy var category = "favourites"
     
-    lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
-        return collectionView
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Favourites"
+        
+        favouritesScreenView.collectionView.backgroundColor = UIColor(named: "backgroundColor")
+        favouritesScreenView.collectionView.dataSource = self
+        favouritesScreenView.collectionView.delegate = self
+        
+        view.addSubview(favouritesScreenView)
+        
+        favouritesScreenView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,39 +41,17 @@ class FavouritesScreenViewController: BaseUiNavigationBarAppearance {
             if status == true {
                 self.selectedBlogs = dataSourceForTableView
                 self.filteredBlogs = self.selectedBlogs.filter( { $0.isFavourite } )
-                self.collectionView.reloadData()
+                self.favouritesScreenView.collectionView.reloadData()
             } else {
                 return
             }
         })
-        
-        favouritesScreenConfigUI()
     }
-    
-    func favouritesScreenConfigUI() {
-        
-        title = "Favourites"
-            
-        view.backgroundColor = UIColor(named: "backgroundColor")
 
-        view.addSubview(collectionView)
-        
-        collectionView.backgroundColor = UIColor(named: "backgroundColor")
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        
-        collectionView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-    }
-    
     init(firebaseManager: FirebaseManager) {
         self.firebaseManager = firebaseManager
         super.init(nibName: nil, bundle: nil)
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -79,6 +61,8 @@ class FavouritesScreenViewController: BaseUiNavigationBarAppearance {
         print("Upgraded base")
     }
 }
+
+//MARK: -
 
 extension FavouritesScreenViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -119,11 +103,13 @@ extension FavouritesScreenViewController: UICollectionViewDataSource, UICollecti
         let selectedBlog = filteredBlogs[indexPath.item]
         if collectionView.cellForItem(at: indexPath) is BlogCollectionViewCell {
             let detailVC = DetailScreenViewController(firebaseManager: FirebaseManager())
-            detailVC.blog = selectedBlog
+            detailVC.detailScreenView.blog = selectedBlog
             self.navigationController?.pushViewController(detailVC, animated: true)
         }
     }
 }
+
+//MARK: -
 
 extension FavouritesScreenViewController: BlogCollectionViewCellDelegate {
     
@@ -139,7 +125,7 @@ extension FavouritesScreenViewController: BlogCollectionViewCellDelegate {
 //                self.collectionView.deleteItems(at: [indexPath])
                 self.filteredBlogs.remove(at: indexPath.row)
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    self.favouritesScreenView.collectionView.reloadData()
                 }
             } else {
                 print("Failure")

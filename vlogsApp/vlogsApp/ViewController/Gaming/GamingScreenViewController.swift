@@ -49,8 +49,6 @@ class GamingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
         })
     }
     
-    
-    
     @objc func addButtonTapped() {
         
         let addBlogVC = AddABlogViewController()
@@ -104,7 +102,6 @@ extension GamingScreenViewController: UICollectionViewDataSource, UICollectionVi
             cell.postImageView.sd_setImage(with: url)
         })
         
-        
         return cell
     }
     
@@ -123,7 +120,7 @@ extension GamingScreenViewController: UICollectionViewDataSource, UICollectionVi
         let selectedBlog = dataSource[indexPath.item]
         if collectionView.cellForItem(at: indexPath) is BlogCollectionViewCell {
             let detailVC = DetailScreenViewController(firebaseManager: FirebaseManager())
-            detailVC.blog = selectedBlog
+            detailVC.detailScreenView.blog = selectedBlog
             self.navigationController?.pushViewController(detailVC, animated: true)
         }
     }

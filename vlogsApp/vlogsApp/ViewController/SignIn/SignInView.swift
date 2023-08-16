@@ -10,7 +10,7 @@ import SnapKit
 
 protocol SignInProtocol: AnyObject {
     func loginButtonTapped()
-    func navigationSomehting()
+    func navigationToRegisterView()
 }
 
 class SignInView: UIView {
@@ -121,7 +121,7 @@ class SignInView: UIView {
     }
     
     @objc func registerButtonTapped() {
-        delegate?.navigationSomehting()
+        delegate?.navigationToRegisterView()
     }
     
     @objc func loginTapped() {

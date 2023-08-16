@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 import FirebaseAuth
 
-
 class SignInViewController: UIViewController {
     
     var signInView = SignInView()
@@ -52,7 +51,7 @@ class SignInViewController: UIViewController {
 
 extension SignInViewController: SignInProtocol {
     
-    func navigationSomehting() {
+    func navigationToRegisterView() {
         navigationController?.pushViewController(RegisterViewController(), animated: true)
     }
     

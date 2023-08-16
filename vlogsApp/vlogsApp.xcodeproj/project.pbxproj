@@ -8,10 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		2F51D5C62A8A5511009B0213 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F51D5C52A8A5511009B0213 /* RegisterView.swift */; };
-		2F91640E2A84F26700E5CFBC /* AddABlogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F91640D2A84F26700E5CFBC /* AddABlogViewModel.swift */; };
 		2F9164152A865A7A00E5CFBC /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9164142A865A7A00E5CFBC /* SignInView.swift */; };
 		560AB5802A8B764F00994FB9 /* GamingScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560AB57F2A8B764F00994FB9 /* GamingScreenView.swift */; };
 		560AB5822A8B962500994FB9 /* RacingScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560AB5812A8B962500994FB9 /* RacingScreenView.swift */; };
+		560AB5842A8B9BD100994FB9 /* AddABlogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560AB5832A8B9BD100994FB9 /* AddABlogView.swift */; };
+		560AB5862A8BA05E00994FB9 /* NotificationsScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560AB5852A8BA05E00994FB9 /* NotificationsScreenView.swift */; };
+		560AB5882A8BA58500994FB9 /* FavouritesScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560AB5872A8BA58500994FB9 /* FavouritesScreenView.swift */; };
+		560AB58A2A8BA6F300994FB9 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560AB5892A8BA6F300994FB9 /* ProfileView.swift */; };
+		560AB58C2A8BA9D700994FB9 /* DetailScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560AB58B2A8BA9D700994FB9 /* DetailScreenView.swift */; };
 		5636EFEE2A406036005A3859 /* GamingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636EFED2A406036005A3859 /* GamingScreenViewController.swift */; };
 		565B7CA82A4C47F40027947D /* NotifTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565B7CA72A4C47F40027947D /* NotifTableViewCell.swift */; };
 		565B7CAB2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */; };
@@ -45,10 +49,14 @@
 
 /* Begin PBXFileReference section */
 		2F51D5C52A8A5511009B0213 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
-		2F91640D2A84F26700E5CFBC /* AddABlogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddABlogViewModel.swift; sourceTree = "<group>"; };
 		2F9164142A865A7A00E5CFBC /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		560AB57F2A8B764F00994FB9 /* GamingScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamingScreenView.swift; sourceTree = "<group>"; };
 		560AB5812A8B962500994FB9 /* RacingScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RacingScreenView.swift; sourceTree = "<group>"; };
+		560AB5832A8B9BD100994FB9 /* AddABlogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddABlogView.swift; sourceTree = "<group>"; };
+		560AB5852A8BA05E00994FB9 /* NotificationsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsScreenView.swift; sourceTree = "<group>"; };
+		560AB5872A8BA58500994FB9 /* FavouritesScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesScreenView.swift; sourceTree = "<group>"; };
+		560AB5892A8BA6F300994FB9 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		560AB58B2A8BA9D700994FB9 /* DetailScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenView.swift; sourceTree = "<group>"; };
 		5636EFED2A406036005A3859 /* GamingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamingScreenViewController.swift; sourceTree = "<group>"; };
 		565B7CA72A4C47F40027947D /* NotifTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifTableViewCell.swift; sourceTree = "<group>"; };
 		565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+RoundedProfilePic.swift"; sourceTree = "<group>"; };
@@ -123,8 +131,8 @@
 		2F91640F2A84F26E00E5CFBC /* AddABlog */ = {
 			isa = PBXGroup;
 			children = (
+				560AB5832A8B9BD100994FB9 /* AddABlogView.swift */,
 				56B81B8E2A320B55001341CF /* AddABlogViewController.swift */,
-				2F91640D2A84F26700E5CFBC /* AddABlogViewModel.swift */,
 			);
 			path = AddABlog;
 			sourceTree = "<group>";
@@ -132,6 +140,7 @@
 		2F9164102A8504C400E5CFBC /* NotificationsScreen */ = {
 			isa = PBXGroup;
 			children = (
+				560AB5852A8BA05E00994FB9 /* NotificationsScreenView.swift */,
 				56AD9F3D2A37463E001DA577 /* NotificationsScreenViewController.swift */,
 			);
 			path = NotificationsScreen;
@@ -140,6 +149,7 @@
 		2F9164112A8504D400E5CFBC /* FavouritesScreen */ = {
 			isa = PBXGroup;
 			children = (
+				560AB5872A8BA58500994FB9 /* FavouritesScreenView.swift */,
 				56A29E102A30A62900D866F1 /* FavouritesScreenViewController.swift */,
 			);
 			path = FavouritesScreen;
@@ -148,6 +158,7 @@
 		2F9164122A8504E300E5CFBC /* ProfileView */ = {
 			isa = PBXGroup;
 			children = (
+				560AB5892A8BA6F300994FB9 /* ProfileView.swift */,
 				56A29E172A30C72A00D866F1 /* ProfileViewController.swift */,
 			);
 			path = ProfileView;
@@ -156,6 +167,7 @@
 		2F9164132A8504FC00E5CFBC /* DetailScreen */ = {
 			isa = PBXGroup;
 			children = (
+				560AB58B2A8BA9D700994FB9 /* DetailScreenView.swift */,
 				56AD9F3B2A373D3B001DA577 /* DetailScreenViewController.swift */,
 			);
 			path = DetailScreen;
@@ -366,19 +378,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				56B81B8F2A320B55001341CF /* AddABlogViewController.swift in Sources */,
+				560AB58A2A8BA6F300994FB9 /* ProfileView.swift in Sources */,
 				565B7CA82A4C47F40027947D /* NotifTableViewCell.swift in Sources */,
+				560AB58C2A8BA9D700994FB9 /* DetailScreenView.swift in Sources */,
 				560AB5802A8B764F00994FB9 /* GamingScreenView.swift in Sources */,
 				56AD9F412A3751F3001DA577 /* Extension+UIStackView.swift in Sources */,
 				56AD9F3E2A37463E001DA577 /* NotificationsScreenViewController.swift in Sources */,
 				560AB5822A8B962500994FB9 /* RacingScreenView.swift in Sources */,
 				56A29E062A309AB100D866F1 /* RacingScreenViewController.swift in Sources */,
+				560AB5862A8BA05E00994FB9 /* NotificationsScreenView.swift in Sources */,
 				56AB84AD2A28B1E400A3C54C /* SignInViewController.swift in Sources */,
 				56AB84A92A28B1E400A3C54C /* AppDelegate.swift in Sources */,
+				560AB5842A8B9BD100994FB9 /* AddABlogView.swift in Sources */,
 				2F9164152A865A7A00E5CFBC /* SignInView.swift in Sources */,
 				56AB84AB2A28B1E400A3C54C /* SceneDelegate.swift in Sources */,
 				565B7CAB2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift in Sources */,
 				56B81B8D2A31FDD6001341CF /* TabBarViewController.swift in Sources */,
-				2F91640E2A84F26700E5CFBC /* AddABlogViewModel.swift in Sources */,
 				56AD9F3C2A373D3B001DA577 /* DetailScreenViewController.swift in Sources */,
 				2F51D5C62A8A5511009B0213 /* RegisterView.swift in Sources */,
 				56A160DA2A385B9700C0B0A9 /* Blog.swift in Sources */,
@@ -386,6 +401,7 @@
 				56A29E112A30A62900D866F1 /* FavouritesScreenViewController.swift in Sources */,
 				56A29E182A30C72A00D866F1 /* ProfileViewController.swift in Sources */,
 				569E82962A3B2FDE0014BF2B /* FirebaseManager.swift in Sources */,
+				560AB5882A8BA58500994FB9 /* FavouritesScreenView.swift in Sources */,
 				569D1D452A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift in Sources */,
 				56B5F7732A2F5307006F3E49 /* RegisterViewController.swift in Sources */,
 				56A29E132A30AA4000D866F1 /* BlogCollectionViewCell.swift in Sources */,
