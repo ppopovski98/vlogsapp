@@ -52,11 +52,6 @@ class DetailScreenViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
-
-//MARK: -
-
-extension DetailScreenViewController: DetailScreenProtocol {
     
     @objc func editButtonTapped() {
         
@@ -102,5 +97,4 @@ extension DetailScreenViewController: DetailScreenProtocol {
         
         present(alertController, animated: true, completion: nil)
     }
-    
 }
