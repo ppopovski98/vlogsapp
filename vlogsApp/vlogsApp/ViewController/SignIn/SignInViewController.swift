@@ -12,6 +12,7 @@ import FirebaseAuth
 class SignInViewController: UIViewController {
     
     var signInView = SignInView()
+    var signInViewModel = SignInViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,9 +63,9 @@ extension SignInViewController: SignInProtocol {
             return
         }
         
-        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+        signInViewModel.logIn(email: email, password: password) { success, error in
             
-            if authResult != nil {
+            if success {
                 let tabBarViewController = TabBarViewController()
                 self.navigationController?.isNavigationBarHidden = true
                 self.navigationController?.navigationBar.isHidden = true
@@ -72,9 +73,8 @@ extension SignInViewController: SignInProtocol {
                 print("Success")
             } else {
                 self.alertMessage()
-                print(error?.localizedDescription ?? "Error")
+                print(error ?? "Error")
             }
         }
     }
 }
-

@@ -22,8 +22,7 @@ class DetailScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        detailScreenView.delegate = self
+
         detailScreenView.blog = blog
         
         detailScreenView.titleLabel.text = blog?.title

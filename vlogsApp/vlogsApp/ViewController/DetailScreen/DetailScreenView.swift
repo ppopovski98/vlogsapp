@@ -10,7 +10,6 @@ import SnapKit
 
 class DetailScreenView: UIView {
     
-    weak var delegate: DetailScreenProtocol?
     var blog: Blog?
     
     lazy var titleLabel: UILabel = {

@@ -35,6 +35,8 @@ class AddABlogViewController: UIViewController {
         
         title = "New Blog"
         
+        addABlogView.delegate = self    
+        
         view.addSubview(addABlogView)
         
         addABlogView.snp.makeConstraints { make in
