@@ -25,6 +25,16 @@ class RegisterViewController: UIViewController {
             make.edges.equalToSuperview()
         }
     }
+    
+    func alertMessage(_ error: String) {
+        
+        let alert = UIAlertController(title: error, message: "Please enter a valid email and/or password.", preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+        
+    }
 }
 
 extension RegisterViewController: RegisterProtocol {
@@ -37,6 +47,7 @@ extension RegisterViewController: RegisterProtocol {
         
         FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { authResult, error in
             if let error = error {
+                self.alertMessage(error.localizedDescription)
                 print(error.localizedDescription)
             } else {
                 let tabBarViewController = TabBarViewController()
