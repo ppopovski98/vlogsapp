@@ -84,7 +84,7 @@ extension AddABlogViewController: AddABlogProtocol {
     @objc func postButtonTapped() {
         
         guard let title = addABlogView.titleTextField.text,
-              let description = addABlogView.descritptionTextField.text,
+              let description = addABlogView.descriptionTextField.text,
                   let imageURL = selectedImageURL
                    else {
                 return

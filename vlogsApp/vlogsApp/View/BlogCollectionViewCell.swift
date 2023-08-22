@@ -19,6 +19,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
     
     var indexPath: IndexPath?
     var dataSource: Blog?
+    var firebaseManager: FirebaseManager?
     
     lazy var placeholderView: UIView = {
         let uiView = UIView()
@@ -143,15 +144,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func blogCellConfigUI(title: String, description: String, image: Data) {
-        
-        self.titleLabel.text = title
-        self.descriptionLabel.text = description
-        self.postImageView.image = UIImage(data: image)
-    }
-    
     @objc func favouritesButtonTapped() {
-        
         guard let blog = dataSource else {
             return
         }
@@ -160,7 +153,6 @@ class BlogCollectionViewCell: UICollectionViewCell {
     }
     
     func updateCell(with blog: Blog) {
-        
         titleLabel.text = blog.title
         descriptionLabel.text = blog.description
         
@@ -176,10 +168,18 @@ class BlogCollectionViewCell: UICollectionViewCell {
         } else {
             favouritesButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
         }
-
+        
+        if let image = blog.image {
+            if let cachedImage = ImageCache.images[image] {
+                postImageView.sd_setImage(with: cachedImage)
+            } else {
+                firebaseManager?.downloadPhoto(path: blog.image ?? "", completion: { url in
+                    self.postImageView.sd_setImage(with: url)
+                    ImageCache.images[image] = url
+                })
+            }
+        }
     }
-    
-    
     
     override func prepareForReuse() {
         super.prepareForReuse()

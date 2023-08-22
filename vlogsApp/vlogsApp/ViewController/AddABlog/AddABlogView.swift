@@ -38,7 +38,7 @@ class AddABlogView: UIView {
         return title
     }()
     
-    lazy var descritptionTextField: UITextField = {
+    lazy var descriptionTextField: UITextField = {
         let title = UITextField()
         title.backgroundColor = .white
         title.contentVerticalAlignment = UIControl.ContentVerticalAlignment.top
@@ -91,7 +91,11 @@ class AddABlogView: UIView {
         return label
     }()
     
-    lazy var stackView = UIStackView(arrangedSubviews: [titleTextField, descritptionTextField, UIView()], spacing: 12, axis: .vertical, distribution: .fill, alignment: .center, layoutMargins: UIEdgeInsets(top: 100, left: 12, bottom: 0, right: 12))
+    lazy var dateAndImageStackView = UIStackView(arrangedSubviews: [datePicker, imageView], spacing: 12, axis: .vertical, distribution: .fill, alignment: .center, layoutMargins: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+    
+    lazy var buttonAndTextFieldStackView = UIStackView(arrangedSubviews: [photoPickerButton, titleTextField, descriptionTextField, dateAndImageStackView], spacing: 12, axis: .vertical, distribution: .fill, alignment: .fill, layoutMargins: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12))
+    
+    lazy var categoryStackView = UIStackView(arrangedSubviews: [racingLabel, categorySwitch, gamingLabel], spacing: 12, axis: .horizontal, distribution: .fill, alignment: .fill, layoutMargins: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
     
     override init (frame: CGRect) {
         super.init(frame: .zero)
@@ -104,75 +108,70 @@ class AddABlogView: UIView {
     
     func configUI() {
         
+        let attributes: [NSAttributedString.Key: Any] = [ NSAttributedString.Key.foregroundColor: UIColor.black.withAlphaComponent(0.3)]
+        
+        let titleAttributedTextField = NSAttributedString(string: titleTextField.placeholder ?? "Enter Title", attributes: attributes)
+        let descriptionAttributedTextField = NSAttributedString(string: descriptionTextField.placeholder ?? "Enter Description", attributes: attributes)
+        
+        titleTextField.attributedPlaceholder = titleAttributedTextField
+        descriptionTextField.attributedPlaceholder = descriptionAttributedTextField
+        
+        let titlePaddingView = UIView(frame: CGRectMake(0, 0, 15, self.titleTextField.frame.height))
+        titleTextField.leftView = titlePaddingView
+        titleTextField.leftViewMode = UITextField.ViewMode.always
+        
+        let descriptionPaddingView = UIView(frame: CGRectMake(0, 0, 15, self.descriptionTextField.frame.height))
+        descriptionTextField.leftView = descriptionPaddingView
+        descriptionTextField.leftViewMode = UITextField.ViewMode.always
+        
         backgroundColor = UIColor(named: "backgroundColor")
         
-        addSubview(stackView)
+        addSubview(buttonAndTextFieldStackView)
+        addSubview(categoryStackView)
         addSubview(postButton)
-        addSubview(photoPickerButton)
-        addSubview(imageView)
-        addSubview(datePicker)
-        addSubview(categorySwitch)
-        addSubview(gamingLabel)
-        addSubview(racingLabel)
+        
+        buttonAndTextFieldStackView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(12)
+            make.leading.equalTo(12)
+            make.trailing.equalTo(-12)
+        }
         
         photoPickerButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(titleTextField.snp.top).offset(-10)
-            make.width.equalTo(350)
             make.height.equalTo(50)
-        }
-        
-        postButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(categorySwitch.snp.bottom).offset(12)
             make.width.equalTo(350)
-            make.height.equalTo(50)
-        }
-        
-        stackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
         }
         
         titleTextField.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(12)
-            make.height.equalTo(40)
+            make.height.equalTo(35)
         }
         
-        descritptionTextField.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(12)
-            make.height.equalTo(85)
+        descriptionTextField.snp.makeConstraints { make in
+            make.height.equalTo(140)
+        }
+        
+        datePicker.snp.makeConstraints { make in
+            make.top.equalTo(descriptionTextField.snp.bottom).offset(12)
         }
         
         imageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(descritptionTextField.snp.bottom).offset(10)
+            make.top.equalTo(datePicker.snp.bottom).offset(12)
+            make.bottom.equalTo(categoryStackView.snp.top).offset(-12)
+        }
+        
+        categoryStackView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(postButton.snp.top).offset(-12)
+        }
+        
+        postButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-50)
+            make.height.equalTo(50)
             make.width.equalTo(350)
-            make.height.equalTo(250)
         }
         
-        datePicker.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(descritptionTextField.snp.bottom).offset(20)
-        }
-        
-        categorySwitch.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(imageView.snp.bottom).offset(15)
-        }
-        
-        gamingLabel.snp.makeConstraints { make in
-            make.right.equalToSuperview().offset(12)
-            make.left.equalTo(categorySwitch.snp.right).offset(5)
-            make.bottom.equalTo(postButton.snp.top).offset(-10)
-            make.top.equalTo(imageView.snp.bottom).offset(15)
-        }
-        
-        racingLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(12)
-            make.right.equalTo(categorySwitch.snp.left).offset(-5)
-            make.bottom.equalTo(postButton.snp.top).offset(-10)
-            make.top.equalTo(imageView.snp.bottom).offset(15)
-        }
     }
     
     @objc func photoPickerButtonTapped() {

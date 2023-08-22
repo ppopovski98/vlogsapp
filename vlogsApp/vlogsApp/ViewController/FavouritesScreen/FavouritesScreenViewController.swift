@@ -56,10 +56,6 @@ class FavouritesScreenViewController: BaseUiNavigationBarAppearance {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func printing() {
-        print("Upgraded base")
-    }
 }
 
 //MARK: -
@@ -81,11 +77,8 @@ extension FavouritesScreenViewController: UICollectionViewDataSource, UICollecti
         
         let blog = filteredBlogs[indexPath.item]
         cell.dataSource = blog
+        cell.firebaseManager = firebaseManager
         cell.updateCell(with: blog)
-        
-        firebaseManager?.downloadPhoto(path: filteredBlogs[indexPath.item].image ?? "", completion: { url in
-            cell.postImageView.sd_setImage(with: url)
-        })
         
         cell.descriptionLabel.text = blog.description
         cell.titleLabel.text = blog.title

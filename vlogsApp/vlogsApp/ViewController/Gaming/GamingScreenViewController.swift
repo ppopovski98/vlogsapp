@@ -96,11 +96,8 @@ extension GamingScreenViewController: UICollectionViewDataSource, UICollectionVi
         
         let blog = dataSource[indexPath.item]
         cell.dataSource = blog
+        cell.firebaseManager = firebaseManager
         cell.updateCell(with: blog)
-        
-        firebaseManager?.downloadPhoto(path: blog.image ?? "", completion: { url in
-            cell.postImageView.sd_setImage(with: url)
-        })
         
         return cell
     }

@@ -101,41 +101,21 @@ class FirebaseManager {
         }
     }
     
-    func removeFromFavourites(_ blog: Blog, completion: @escaping (Bool) -> Void) {
-        
-        var query: Query = db.collection("Posts")
-        
-        if let blogId = blog.blogID {
-            query.whereField("blogID", isEqualTo: blogId).getDocuments(completion: { querySnapshot, err in
-                if let err = err {
-                    completion(false)
-                } else {
-                    let document = querySnapshot?.documents.first
-                    document?.reference.updateData(["isFavourite": false])
-                    completion(true)
-                }
-                
-            })
-        }
-    }
-    
-    
-    
     func downloadPhoto(path: String, completion: @escaping (URL) -> Void) {
-                let imageRef = Storage.storage().reference().child(path)
-                
-                imageRef.downloadURL { url, error in
-                    if let error = error {
-                        print("Error getting download URL: \(error.localizedDescription)")
-                    } else {
-                        if let downloadURL = url {
-                            print("Download URL: \(downloadURL)")
-                            completion(downloadURL)
-                            
-                        }
-                    }
+        let imageRef = Storage.storage().reference().child(path)
+        
+        imageRef.downloadURL { url, error in
+            if let error = error {
+                print("Error getting download URL: \(error.localizedDescription)")
+            } else {
+                if let downloadURL = url {
+                    print("Download URL: \(downloadURL)")
+                    completion(downloadURL)
+                    
                 }
             }
+        }
+    }
     
     func updateBlogData(blogID: String, title: String, description: String, newTitle: String, newDescription: String, completion: @escaping (Error?) -> Void) {
         let blogRef = db.collection("Posts")
