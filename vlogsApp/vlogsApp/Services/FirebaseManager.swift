@@ -138,4 +138,22 @@ class FirebaseManager {
             }
         }
     }
+    
+    func deleteBlogData(documentID: String, completion: @escaping (Error?) -> Void) {
+        let reference = db.collection("Posts").whereField("blogID", isEqualTo: documentID)
+        
+        reference.getDocuments { (querySnapshot, error) in
+            guard let querySnapshot = querySnapshot else {
+                completion(error)
+                return
+            }
+            if let document = querySnapshot.documents.first {
+                document.reference.delete { error in
+                    completion(error)
+                }
+            } else {
+                completion(error)
+            }
+        }
+    }
 }

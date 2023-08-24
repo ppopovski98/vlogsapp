@@ -58,7 +58,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.textColor = .systemBlue
-        label.textAlignment = .right
+        label.textAlignment = .center
         return label
     }()
     
@@ -73,7 +73,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
     
     lazy var favouritesButton: UIButton = {
         let button = UIButton()
-        button.tintColor = .red
+        button.tintColor = .white
         button.setImage(UIImage(systemName: "star"), for: .normal)
         button.addTarget(self, action: #selector(favouritesButtonTapped), for: .touchUpInside)
         return button

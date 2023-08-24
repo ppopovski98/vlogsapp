@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import SDWebImage
 
-class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDelegate {
+class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
     var firebaseManager: FirebaseManager?
     var racingScreenView = RacingScreenView()
@@ -33,6 +33,12 @@ class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
         
         racingScreenView.collectionView.dataSource = self
         racingScreenView.collectionView.delegate = self
+        
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(popUpActionCell(longPressGesture:)))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        racingScreenView.collectionView.addGestureRecognizer(lpgr)
         
     }
     
@@ -67,7 +73,48 @@ class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
         }
     }
     
-    init(firebaseManager: FirebaseManager) {
+    @objc func popUpActionCell(longPressGesture : UILongPressGestureRecognizer) {
+        
+        let point = longPressGesture.location(in: racingScreenView.collectionView)
+        let indexPath = racingScreenView.collectionView.indexPathForItem(at: point)
+        
+        
+        
+        if let indexPath = indexPath
+        {
+            
+            guard let firebaseManager = firebaseManager else {
+                return
+            }
+            
+            let alertActionCell = UIAlertController(title: "Delete vlog?", message: "Choose an action for the selected vlog", preferredStyle: .actionSheet)
+            
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { action in
+                let itemToDelete = self.dataSource[indexPath.row]
+                
+                firebaseManager.deleteBlogData(documentID: itemToDelete.blogID ?? "") { error in
+                    if let error = error {
+                        print("Error deleting document. \(error)")
+                    } else {
+                        print("Document deleted.")
+                        self.dataSource.remove(at: indexPath.row)
+                        self.racingScreenView.collectionView.reloadData()
+                    }
+                }
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { acion in
+                print("Cancel actionsheet")
+            })
+            
+            alertActionCell.addAction(deleteAction)
+            alertActionCell.addAction(cancelAction)
+            self.present(alertActionCell, animated: true, completion: nil)
+        }
+    }
+
+    
+        init(firebaseManager: FirebaseManager) {
         
         self.firebaseManager = firebaseManager
         super.init(nibName: nil, bundle: nil)

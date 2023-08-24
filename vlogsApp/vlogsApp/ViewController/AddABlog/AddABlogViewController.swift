@@ -111,11 +111,13 @@ extension AddABlogViewController: AddABlogProtocol {
     }
     
     @objc func photoPickerButtonTapped() {
-        let vc = UIImagePickerController()
-        vc.sourceType = .photoLibrary
-        vc.delegate = self
-        vc.allowsEditing = true
-        present(vc, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            let vc = UIImagePickerController()
+            vc.sourceType = .photoLibrary
+            vc.delegate = self
+            vc.allowsEditing = true
+            self.present(vc, animated: true)
+        }
     }
     
     @objc func categorySwitchValue() {

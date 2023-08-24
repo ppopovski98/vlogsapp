@@ -57,6 +57,7 @@ extension SignInViewController: SignInProtocol {
     }
     
     func loginButtonTapped() {
+        
         guard let email = signInView.emailTextField.text, !email.isEmpty,
               let password = signInView.passwordTextField.text, !password.isEmpty else {
             self.startTimer()

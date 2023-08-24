@@ -10,6 +10,9 @@ import FirebaseAuth
 
 class SignInViewModel {
     
+    var email = ""
+    var password = ""
+    
     func isPasswordTooShort(_ password: String) -> Bool{
         return password.count < 6
     }
