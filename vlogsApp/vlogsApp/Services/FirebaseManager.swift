@@ -18,7 +18,7 @@ class FirebaseManager {
     let reference = Storage.storage()
     
     
-    func getDataFromFirebase(forCategory category: String? = nil, completion: @escaping ([Blog]) -> Void) {
+    func getDataFromFirebase(forCategory category: String? = nil, completion: @escaping ([Blog], Bool) -> Void) {
         
         var query: Query = db.collection("Posts")
         var dataSource = [Blog]()
@@ -37,9 +37,10 @@ class FirebaseManager {
                     dataSource.append(blogPost)
                 } catch {
                     print("Error")
+                    completion([Blog](), false)
                 }
             }
-            completion(dataSource)
+            completion(dataSource, true)
         }
     }
     
@@ -100,41 +101,21 @@ class FirebaseManager {
         }
     }
     
-    func removeFromFavourites(_ blog: Blog, completion: @escaping (Bool) -> Void) {
-        
-        var query: Query = db.collection("Posts")
-        
-        if let blogId = blog.blogID {
-            query.whereField("blogID", isEqualTo: blogId).getDocuments(completion: { querySnapshot, err in
-                if let err = err {
-                    completion(false)
-                } else {
-                    let document = querySnapshot?.documents.first
-                    document?.reference.updateData(["isFavourite": false])
-                    completion(true)
-                }
-                
-            })
-        }
-    }
-    
-    
-    
     func downloadPhoto(path: String, completion: @escaping (URL) -> Void) {
-                let imageRef = Storage.storage().reference().child(path)
-                
-                imageRef.downloadURL { url, error in
-                    if let error = error {
-                        print("Error getting download URL: \(error.localizedDescription)")
-                    } else {
-                        if let downloadURL = url {
-                            print("Download URL: \(downloadURL)")
-                            completion(downloadURL)
-                            
-                        }
-                    }
+        let imageRef = Storage.storage().reference().child(path)
+        
+        imageRef.downloadURL { url, error in
+            if let error = error {
+                print("Error getting download URL: \(error.localizedDescription)")
+            } else {
+                if let downloadURL = url {
+                    print("Download URL: \(downloadURL)")
+                    completion(downloadURL)
+                    
                 }
             }
+        }
+    }
     
     func updateBlogData(blogID: String, title: String, description: String, newTitle: String, newDescription: String, completion: @escaping (Error?) -> Void) {
         let blogRef = db.collection("Posts")
@@ -150,6 +131,24 @@ class FirebaseManager {
                     "title": newTitle,
                     "description": newDescription
                 ]) { error in
+                    completion(error)
+                }
+            } else {
+                completion(error)
+            }
+        }
+    }
+    
+    func deleteBlogData(documentID: String, completion: @escaping (Error?) -> Void) {
+        let reference = db.collection("Posts").whereField("blogID", isEqualTo: documentID)
+        
+        reference.getDocuments { (querySnapshot, error) in
+            guard let querySnapshot = querySnapshot else {
+                completion(error)
+                return
+            }
+            if let document = querySnapshot.documents.first {
+                document.reference.delete { error in
                     completion(error)
                 }
             } else {

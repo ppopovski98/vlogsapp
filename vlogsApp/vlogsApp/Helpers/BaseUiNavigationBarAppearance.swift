@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class BaseUiNavigationBarAppearance: UIViewController {
     override func viewDidLoad() {
         let navBarAppearance = UINavigationBarAppearance()
@@ -19,8 +18,5 @@ class BaseUiNavigationBarAppearance: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-    }
-    func printing() {
-        print("Base")
     }
 }

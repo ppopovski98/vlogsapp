@@ -10,6 +10,7 @@
 		5636EFEE2A406036005A3859 /* GamingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636EFED2A406036005A3859 /* GamingScreenViewController.swift */; };
 		565B7CA82A4C47F40027947D /* NotifTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565B7CA72A4C47F40027947D /* NotifTableViewCell.swift */; };
 		565B7CAB2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */; };
+		567EA3882A9E1480009BDC1C /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EA3872A9E1480009BDC1C /* ImageCache.swift */; };
 		569D1D452A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569D1D442A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift */; };
 		569E82962A3B2FDE0014BF2B /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569E82952A3B2FDE0014BF2B /* FirebaseManager.swift */; };
 		56A160DA2A385B9700C0B0A9 /* Blog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A160D92A385B9700C0B0A9 /* Blog.swift */; };
@@ -42,6 +43,7 @@
 		5636EFED2A406036005A3859 /* GamingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamingScreenViewController.swift; sourceTree = "<group>"; };
 		565B7CA72A4C47F40027947D /* NotifTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifTableViewCell.swift; sourceTree = "<group>"; };
 		565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+RoundedProfilePic.swift"; sourceTree = "<group>"; };
+		567EA3872A9E1480009BDC1C /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		569D1D442A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUiNavigationBarAppearance.swift; sourceTree = "<group>"; };
 		569E82952A3B2FDE0014BF2B /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		56A160D92A385B9700C0B0A9 /* Blog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blog.swift; sourceTree = "<group>"; };
@@ -101,6 +103,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		567EA3862A9E1470009BDC1C /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				567EA3872A9E1480009BDC1C /* ImageCache.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
 		569E82942A3B2FCF0014BF2B /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				2F8E690C2A793B3200EEC373 /* Core */,
+				567EA3862A9E1470009BDC1C /* Cache */,
 				569E82942A3B2FCF0014BF2B /* Services */,
 				56A160D82A385B8000C0B0A9 /* Model */,
 				56AD9F3F2A3751C8001DA577 /* Helpers */,
@@ -288,6 +299,7 @@
 				56AB84AB2A28B1E400A3C54C /* SceneDelegate.swift in Sources */,
 				565B7CAB2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift in Sources */,
 				56B81B8D2A31FDD6001341CF /* TabBarViewController.swift in Sources */,
+				567EA3882A9E1480009BDC1C /* ImageCache.swift in Sources */,
 				56AD9F3C2A373D3B001DA577 /* DetailScreenViewController.swift in Sources */,
 				56A160DA2A385B9700C0B0A9 /* Blog.swift in Sources */,
 				5636EFEE2A406036005A3859 /* GamingScreenViewController.swift in Sources */,
