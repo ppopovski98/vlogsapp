@@ -1,15 +1,20 @@
 //
-//  RegisterViewController.swift
+//  RegisterView.swift
 //  vlogsApp
 //
-//  Created by Petar Popovski on 6.6.23.
+//  Created by Petar Popovski on 14.8.23.
 //
 
 import UIKit
 import SnapKit
-import FirebaseAuth
 
-class RegisterViewController: UIViewController {
+protocol RegisterProtocol: AnyObject {
+    func registerButtonTapped()
+}
+
+class RegisterView: UIView {
+
+    weak var delegate: RegisterProtocol? = nil
     
     lazy var registerEmail: UITextField = {
         let textField = UITextField()
@@ -63,26 +68,42 @@ class RegisterViewController: UIViewController {
         return label
     }()
     
-    lazy var stackView = UIStackView(arrangedSubviews: [registerEmail, registerPassword, UIView()], spacing: 50, axis: .vertical, distribution: .fill, alignment: .center, layoutMargins: UIEdgeInsets(top: 100, left: 12, bottom: 0, right: 12))
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
         registerConfigUI()
     }
     
-    //Config for the register button, email and password.
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func registerButtonTapped() {
+        guard let email = registerEmail.text, !email.isEmpty,
+              let password = registerPassword.text, !password.isEmpty else {
+            return
+        }
+        delegate?.registerButtonTapped()
+    }
+    
+    func paddingView(_ textField: UITextField) {
+        let emailPaddingView = UIView(frame: CGRectMake(0, 0, 15, textField.frame.height))
+        let attributes: [NSAttributedString.Key: Any] = [ NSAttributedString.Key.foregroundColor: UIColor.black.withAlphaComponent(0.3)]
+        let attributedTextField = NSAttributedString(string: textField.placeholder ?? "E-mail", attributes: attributes)
+        textField.leftView = emailPaddingView
+        textField.attributedPlaceholder = attributedTextField
+        textField.leftViewMode = UITextField.ViewMode.always
+    }
+    
+    lazy var stackView = UIStackView(arrangedSubviews: [registerEmail, registerPassword, UIView()], spacing: 50, axis: .vertical, distribution: .fill, alignment: .center, layoutMargins: UIEdgeInsets(top: 100, left: 12, bottom: 0, right: 12))
     
     func registerConfigUI() {
         
-        view.addSubview(enterEmailLabel)
-        view.addSubview(enterPasswordLabel)
-        view.addSubview(stackView)
-        view.addSubview(registerButton)
+        addSubview(enterEmailLabel)
+        addSubview(enterPasswordLabel)
+        addSubview(stackView)
+        addSubview(registerButton)
         
-        view.backgroundColor = UIColor(named: "backgroundColor")
-        
-        navigationController?.navigationBar.tintColor = UIColor(named: "titleColor")
+        backgroundColor = UIColor(named: "backgroundColor")
         
         enterEmailLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -119,34 +140,4 @@ class RegisterViewController: UIViewController {
             make.height.equalTo(60)
         }
     }
-    
-    func paddingView(_ textField: UITextField) {
-        let emailPaddingView = UIView(frame: CGRectMake(0, 0, 15, textField.frame.height))
-        let attributes: [NSAttributedString.Key: Any] = [ NSAttributedString.Key.foregroundColor: UIColor.black.withAlphaComponent(0.3)]
-        let attributedTextField = NSAttributedString(string: textField.placeholder ?? "E-mail", attributes: attributes)
-        textField.leftView = emailPaddingView
-        textField.attributedPlaceholder = attributedTextField
-        textField.leftViewMode = UITextField.ViewMode.always
-    }
-    
-    @objc func registerButtonTapped() {
-        guard let email = registerEmail.text, !email.isEmpty,
-              let password = registerPassword.text, !password.isEmpty else {
-            return
-        }
-        
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            
-            if error != nil {
-                print(error?.localizedDescription ?? "Error.")
-            } else {
-                let tabBarViewController = TabBarViewController()
-                self.navigationController?.isNavigationBarHidden = true
-                self.navigationController?.navigationBar.isHidden = true
-                self.navigationController?.pushViewController(tabBarViewController, animated: true)
-                print("Success.")
-            }
-        }
-    }
-
 }

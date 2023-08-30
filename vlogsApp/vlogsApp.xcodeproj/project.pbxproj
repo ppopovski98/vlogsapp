@@ -12,6 +12,7 @@
 		565B7CAB2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */; };
 		565DFA822A9E23F800DE28B4 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565DFA812A9E23F800DE28B4 /* SignInView.swift */; };
 		565DFA852A9E241800DE28B4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565DFA842A9E241800DE28B4 /* SignInViewModel.swift */; };
+		566136072A9F4379008FB534 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566136062A9F4379008FB534 /* RegisterView.swift */; };
 		567EA3882A9E1480009BDC1C /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EA3872A9E1480009BDC1C /* ImageCache.swift */; };
 		569D1D452A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569D1D442A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift */; };
 		569E82962A3B2FDE0014BF2B /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569E82952A3B2FDE0014BF2B /* FirebaseManager.swift */; };
@@ -47,6 +48,7 @@
 		565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+RoundedProfilePic.swift"; sourceTree = "<group>"; };
 		565DFA812A9E23F800DE28B4 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		565DFA842A9E241800DE28B4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		566136062A9F4379008FB534 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		567EA3872A9E1480009BDC1C /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		569D1D442A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUiNavigationBarAppearance.swift; sourceTree = "<group>"; };
 		569E82952A3B2FDE0014BF2B /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -115,6 +117,15 @@
 				565DFA812A9E23F800DE28B4 /* SignInView.swift */,
 			);
 			path = SignIn;
+			sourceTree = "<group>";
+		};
+		566136052A9F3FFB008FB534 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				566136062A9F4379008FB534 /* RegisterView.swift */,
+				56B5F7722A2F5307006F3E49 /* RegisterViewController.swift */,
+			);
+			path = Register;
 			sourceTree = "<group>";
 		};
 		567EA3862A9E1470009BDC1C /* Cache */ = {
@@ -206,7 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				565DFA832A9E240200DE28B4 /* SignIn */,
-				56B5F7722A2F5307006F3E49 /* RegisterViewController.swift */,
+				566136052A9F3FFB008FB534 /* Register */,
 				5636EFED2A406036005A3859 /* GamingScreenViewController.swift */,
 				56A29E052A309AB100D866F1 /* RacingScreenViewController.swift */,
 				56B81B8E2A320B55001341CF /* AddABlogViewController.swift */,
@@ -312,6 +323,7 @@
 				56AB84A92A28B1E400A3C54C /* AppDelegate.swift in Sources */,
 				56AB84AB2A28B1E400A3C54C /* SceneDelegate.swift in Sources */,
 				565DFA852A9E241800DE28B4 /* SignInViewModel.swift in Sources */,
+				566136072A9F4379008FB534 /* RegisterView.swift in Sources */,
 				565B7CAB2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift in Sources */,
 				56B81B8D2A31FDD6001341CF /* TabBarViewController.swift in Sources */,
 				567EA3882A9E1480009BDC1C /* ImageCache.swift in Sources */,
