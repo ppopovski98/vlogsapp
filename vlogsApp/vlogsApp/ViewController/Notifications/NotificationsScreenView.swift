@@ -1,14 +1,14 @@
 //
-//  AlertScreenViewController.swift
+//  NotificationsScreenView.swift
 //  vlogsApp
 //
-//  Created by Petar Popovski on 12.6.23.
+//  Created by Petar Popovski on 15.8.23.
 //
 
 import UIKit
 import SnapKit
 
-class NotificationsScreenViewController: BaseUiNavigationBarAppearance, UITableViewDelegate, UITableViewDataSource {
+class NotificationsScreenView: UIView {
     
     var tableViewData: [String] = [
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -23,31 +23,23 @@ class NotificationsScreenViewController: BaseUiNavigationBarAppearance, UITableV
         tableView.register(NotifTableViewCell.self, forCellReuseIdentifier: NotifTableViewCell.identifier)
         return tableView
     }()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        notifTableView.delegate = self
-        notifTableView.dataSource = self
-        notifTableView.estimatedRowHeight = 44
-        notifTableView.rowHeight = UITableView.automaticDimension
-        view.backgroundColor = .white
+    
+    override init (frame: CGRect){
+        super.init(frame: .zero)
         
-        view.addSubview(notifTableView)
         alertConfigUI()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        if let tabBarVC = tabBarController as? TabBarViewController {
-            tabBarVC.tabBar.isHidden = false
-        }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    func alertConfigUI() {
         
+        backgroundColor = UIColor(named: "backgroundColor")
+        
+        addSubview(notifTableView)
+
         notifTableView.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.right.equalToSuperview().inset(12)
@@ -56,26 +48,4 @@ class NotificationsScreenViewController: BaseUiNavigationBarAppearance, UITableV
         }
     }
     
-    func alertConfigUI() {
-        
-        title = "Notifications"
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tableViewData.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        var tmpCell = NotifTableViewCell()
-        if let cell = tableView.dequeueReusableCell(withIdentifier: NotifTableViewCell.identifier, for: indexPath) as? NotifTableViewCell {
-            cell.configure(with: tableViewData[indexPath.row])
-            tmpCell = cell
-        }
-        return tmpCell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 100
-    }
 }
