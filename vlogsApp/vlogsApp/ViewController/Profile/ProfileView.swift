@@ -1,15 +1,22 @@
 //
-//  ProfileViewController.swift
+//  ProfileView.swift
 //  vlogsApp
 //
-//  Created by Petar Popovski on 7.6.23.
+//  Created by Petar Popovski on 15.8.23.
 //
 
 import UIKit
 import SnapKit
-import SafariServices
 
-class ProfileViewController: BaseUiNavigationBarAppearance {
+protocol ProfileViewProtocol: AnyObject {
+    func didTapYoutubeButton()
+    func didTapTwitterButton()
+    func didTapFacebookButton()
+}
+
+class ProfileView: UIView {
+    
+    weak var delegate: ProfileViewProtocol?
     
     lazy var profilePic: UIImageView = {
         let imageView = UIImageView()
@@ -21,21 +28,21 @@ class ProfileViewController: BaseUiNavigationBarAppearance {
     lazy var youtubeButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "youtubeButton"), for: .normal)
-        button.addTarget(self, action: #selector(didTapYoutube), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapYoutubeButton), for: .touchUpInside)
         return button
     }()
     
     lazy var twitterButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "twitterButton"), for: .normal)
-        button.addTarget(self, action: #selector(didTapTwitter), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapTwitterButton), for: .touchUpInside)
         return button
     }()
     
     lazy var facebookButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "facebookButton"), for: .normal)
-        button.addTarget(self, action: #selector(didTapFacebook), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapFacebookButton), for: .touchUpInside)
         return button
     }()
     
@@ -59,24 +66,25 @@ class ProfileViewController: BaseUiNavigationBarAppearance {
         return label
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    lazy var buttonStackView = UIStackView(arrangedSubviews: [youtubeButton, twitterButton, facebookButton], spacing: 5, axis: .horizontal, distribution: .fillEqually, alignment: .center, layoutMargins: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
+
+    override init (frame: CGRect) {
+        super.init(frame: .zero)
         configUI()
     }
     
-    lazy var buttonStackView = UIStackView(arrangedSubviews: [youtubeButton, twitterButton, facebookButton], spacing: 5, axis: .horizontal, distribution: .fillEqually, alignment: .center, layoutMargins: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     func configUI() {
         
-        title = "Profile"
+        backgroundColor = UIColor(named: "backgroundColor")
         
-        view.backgroundColor = UIColor(named: "backgroundColor")
-        
-        view.addSubview(buttonStackView)
-        view.addSubview(profilePic)
-        view.addSubview(aboutMeTitle)
-        view.addSubview(aboutMeDescription)
+        addSubview(buttonStackView)
+        addSubview(profilePic)
+        addSubview(aboutMeTitle)
+        addSubview(aboutMeDescription)
         
         buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(aboutMeDescription.snp.bottom).offset(-200)
@@ -110,24 +118,14 @@ class ProfileViewController: BaseUiNavigationBarAppearance {
         }
     }
     
-    @objc func didTapYoutube() {
-        if let url = URL(string: "https://www.youtube.com") {
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-        }
+    @objc func didTapYoutubeButton() {
+        delegate?.didTapYoutubeButton()
     }
     
-    @objc func didTapTwitter() {
-        if let url = URL(string: "https://www.twitter.com") {
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-        }
+    @objc func didTapTwitterButton() {
+        delegate?.didTapTwitterButton()
     }
-    
-    @objc func didTapFacebook() {
-        if let url = URL(string: "https://www.facebook.com") {
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-        }
+    @objc func didTapFacebookButton() {
+        delegate?.didTapFacebookButton()
     }
 }

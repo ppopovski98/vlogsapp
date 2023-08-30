@@ -19,6 +19,7 @@
 		566FD2E32A9F49D4005F8D2F /* RacingScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566FD2E22A9F49D4005F8D2F /* RacingScreenView.swift */; };
 		566FD2E62A9F4A62005F8D2F /* AddABlogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566FD2E52A9F4A62005F8D2F /* AddABlogView.swift */; };
 		566FD2E92A9F4AD1005F8D2F /* NotificationsScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566FD2E82A9F4AD1005F8D2F /* NotificationsScreenView.swift */; };
+		566FD2EC2A9F4B49005F8D2F /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566FD2EB2A9F4B49005F8D2F /* ProfileView.swift */; };
 		567EA3882A9E1480009BDC1C /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EA3872A9E1480009BDC1C /* ImageCache.swift */; };
 		569D1D452A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569D1D442A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift */; };
 		569E82962A3B2FDE0014BF2B /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569E82952A3B2FDE0014BF2B /* FirebaseManager.swift */; };
@@ -61,6 +62,7 @@
 		566FD2E22A9F49D4005F8D2F /* RacingScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RacingScreenView.swift; sourceTree = "<group>"; };
 		566FD2E52A9F4A62005F8D2F /* AddABlogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddABlogView.swift; sourceTree = "<group>"; };
 		566FD2E82A9F4AD1005F8D2F /* NotificationsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsScreenView.swift; sourceTree = "<group>"; };
+		566FD2EB2A9F4B49005F8D2F /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		567EA3872A9E1480009BDC1C /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		569D1D442A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUiNavigationBarAppearance.swift; sourceTree = "<group>"; };
 		569E82952A3B2FDE0014BF2B /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -194,6 +196,15 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
+		566FD2EA2A9F4B3E005F8D2F /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				566FD2EB2A9F4B49005F8D2F /* ProfileView.swift */,
+				56A29E172A30C72A00D866F1 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		567EA3862A9E1470009BDC1C /* Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,7 +300,7 @@
 				566FD2E42A9F4A53005F8D2F /* AddABlog */,
 				566FD2E72A9F4AB5005F8D2F /* Notifications */,
 				566FD2D82A9F4819005F8D2F /* Favourites */,
-				56A29E172A30C72A00D866F1 /* ProfileViewController.swift */,
+				566FD2EA2A9F4B3E005F8D2F /* Profile */,
 				566136092A9F45CB008FB534 /* Detail */,
 			);
 			path = ViewController;
@@ -402,6 +413,7 @@
 				56A29E112A30A62900D866F1 /* FavouritesScreenViewController.swift in Sources */,
 				565DFA822A9E23F800DE28B4 /* SignInView.swift in Sources */,
 				56A29E182A30C72A00D866F1 /* ProfileViewController.swift in Sources */,
+				566FD2EC2A9F4B49005F8D2F /* ProfileView.swift in Sources */,
 				569E82962A3B2FDE0014BF2B /* FirebaseManager.swift in Sources */,
 				566FD2DA2A9F4827005F8D2F /* FavouritesScreenView.swift in Sources */,
 				569D1D452A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift in Sources */,
