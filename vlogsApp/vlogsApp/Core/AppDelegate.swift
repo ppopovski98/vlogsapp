@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseFirestore
+import SDWebImage
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         lazy var db = Firestore.firestore()
         
+        
+        SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 20
+        SDImageCache.shared.config.maxDiskAge = TimeInterval(60 * 60 * 24 * 7)
+        SDImageCache.shared.config.maxDiskSize = 1024 * 1024 * 200
+
         return true
     }
 

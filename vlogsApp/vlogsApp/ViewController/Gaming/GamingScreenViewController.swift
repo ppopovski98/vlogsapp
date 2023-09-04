@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import SDWebImage
 
-class GamingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDelegate {
+class GamingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
     var firebaseManager: FirebaseManager?
     var gamingView = GamingScreenView()
@@ -34,6 +34,11 @@ class GamingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
         gamingView.collectionView.dataSource = self
         gamingView.collectionView.delegate = self
         
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(popUpActionCell(longPressGesture:)))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        gamingView.collectionView.addGestureRecognizer(lpgr)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +69,48 @@ class GamingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
         navigationController?.pushViewController(NotificationsScreenViewController(), animated: true)
         if let tabBarVC = tabBarController as? TabBarViewController {
             tabBarVC.tabBar.isHidden = true
+        }
+    }
+    
+    @objc func popUpActionCell(longPressGesture : UILongPressGestureRecognizer) {
+        
+        let point = longPressGesture.location(in: gamingView.collectionView)
+        let indexPath = gamingView.collectionView.indexPathForItem(at: point)
+        
+        if let indexPath = indexPath
+        {
+            
+            guard let firebaseManager = firebaseManager else {
+                return
+            }
+            
+            guard let blogID = self.dataSource[indexPath.row].blogID else {
+                print("Cannot find blog ID.")
+                return
+            }
+            
+            let alertActionCell = UIAlertController(title: "Delete vlog?", message: "Choose an action for the selected vlog", preferredStyle: .actionSheet)
+            
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { action in
+                
+                firebaseManager.deleteBlogData(documentID: blogID) { error in
+                    if let error = error {
+                        print("Error deleting document. \(error)")
+                    } else {
+                        print("Document deleted.")
+                        self.dataSource.remove(at: indexPath.row)
+                        self.gamingView.collectionView.reloadData()
+                    }
+                }
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { acion in
+                print("Cancel actionsheet")
+            })
+            
+            alertActionCell.addAction(deleteAction)
+            alertActionCell.addAction(cancelAction)
+            self.present(alertActionCell, animated: true, completion: nil)
         }
     }
     

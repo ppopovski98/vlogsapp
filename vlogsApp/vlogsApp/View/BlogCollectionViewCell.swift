@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 protocol BlogCollectionViewCellDelegate: AnyObject {
     func didTapFavouritesButton(blog: Blog, indexPath: IndexPath)
@@ -169,15 +170,14 @@ class BlogCollectionViewCell: UICollectionViewCell {
             favouritesButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
         }
         
-        if let image = blog.image {
-            if let cachedImage = ImageCache.images[image] {
-                postImageView.sd_setImage(with: cachedImage)
-            } else {
-                firebaseManager?.downloadPhoto(path: blog.image ?? "", completion: { url in
-                    self.postImageView.sd_setImage(with: url)
-                    ImageCache.images[image] = url
-                })
-            }
+        if let image = SDImageCache.shared.imageFromCache(forKey: blog.image) {
+            self.postImageView.image = image
+        } else {
+            firebaseManager?.downloadPhoto(path: blog.image ?? "", completion: { url in
+                self.postImageView.sd_setImage(with: url) { image, error, type, id  in
+                    SDImageCache.shared.store(image, forKey: blog.image ?? "")
+                }
+            })
         }
     }
     
