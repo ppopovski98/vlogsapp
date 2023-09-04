@@ -36,9 +36,15 @@ class DetailScreenViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
-        firebaseManager?.downloadPhoto(path: detailScreenView.blog?.image ?? "", completion: { url in
-            self.detailScreenView.vlogImageView.sd_setImage(with: url)
-        })
+        if let image = SDImageCache.shared.imageFromCache(forKey: detailScreenView.blog?.image) {
+            detailScreenView.vlogImageView.image = image
+        } else {
+            firebaseManager?.downloadURL(path: detailScreenView.blog?.image ?? "", completion: { url in
+                self.detailScreenView.vlogImageView.sd_setImage(with: url) { image, error, type, id  in
+                    SDImageCache.shared.store(image, forKey: self.detailScreenView.blog?.image ?? "")
+                }
+            })
+        }
         
     }
     

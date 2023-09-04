@@ -173,7 +173,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
         if let image = SDImageCache.shared.imageFromCache(forKey: blog.image) {
             self.postImageView.image = image
         } else {
-            firebaseManager?.downloadPhoto(path: blog.image ?? "", completion: { url in
+            firebaseManager?.downloadURL(path: blog.image ?? "", completion: { url in
                 self.postImageView.sd_setImage(with: url) { image, error, type, id  in
                     SDImageCache.shared.store(image, forKey: blog.image ?? "")
                 }

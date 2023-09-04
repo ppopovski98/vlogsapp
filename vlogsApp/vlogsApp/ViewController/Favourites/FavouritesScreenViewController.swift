@@ -115,7 +115,6 @@ extension FavouritesScreenViewController: BlogCollectionViewCellDelegate {
         
         firebaseManager.addToFavourites(updatedBlog) { success in
             if success {
-//                self.collectionView.deleteItems(at: [indexPath])
                 self.filteredBlogs.remove(at: indexPath.row)
                 DispatchQueue.main.async {
                     self.favouritesScreenView.collectionView.reloadData()

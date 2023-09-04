@@ -101,7 +101,7 @@ class FirebaseManager {
         }
     }
     
-    func downloadPhoto(path: String, completion: @escaping (URL) -> Void) {
+    func downloadURL(path: String, completion: @escaping (URL) -> Void) {
         let imageRef = Storage.storage().reference().child(path)
         
         imageRef.downloadURL { url, error in
