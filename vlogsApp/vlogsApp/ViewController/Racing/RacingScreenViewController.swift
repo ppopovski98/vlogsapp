@@ -114,7 +114,7 @@ class RacingScreenViewController: BaseUiNavigationBarAppearance, UIScrollViewDel
     }
 
     
-        init(firebaseManager: FirebaseManager) {
+    init(firebaseManager: FirebaseManager) {
         
         self.firebaseManager = firebaseManager
         super.init(nibName: nil, bundle: nil)

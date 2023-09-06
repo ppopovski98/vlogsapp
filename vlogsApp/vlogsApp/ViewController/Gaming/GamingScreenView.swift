@@ -8,13 +8,13 @@
 import UIKit
 import SnapKit
 
-protocol GamingScreenProtocol: AnyObject {
-    
+extension String {
+    func localized() -> String {
+        return NSLocalizedString(self, tableName: "Localizable", bundle: .main, value: self, comment: self)
+    }
 }
 
 class GamingScreenView: UIView {
-    
-    weak var delegate: GamingScreenProtocol? = nil
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -22,7 +22,7 @@ class GamingScreenView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
-        collectionView.backgroundColor = UIColor(named: "backgroundColor")
+        collectionView.backgroundColor = UIColor(named: "Background".localized())
         return collectionView
     }()
     
@@ -30,11 +30,6 @@ class GamingScreenView: UIView {
         let indicatorView = UIActivityIndicatorView(style: .medium)
         indicatorView.hidesWhenStopped = true
         return indicatorView
-    }()
-    
-    lazy var placeholderImage: UIImage = {
-        let image = UIImage()
-        return image
     }()
     
     override init(frame: CGRect) {
@@ -48,7 +43,7 @@ class GamingScreenView: UIView {
     
     func mainScreenConfigUI() {
         
-        backgroundColor = UIColor(named: "backgroundColor")
+        backgroundColor = UIColor(named: "Background".localized())
         
         addSubview(collectionView)
         addSubview(activityIndicatorView)

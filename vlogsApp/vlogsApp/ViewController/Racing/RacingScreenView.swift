@@ -16,7 +16,7 @@ class RacingScreenView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(BlogCollectionViewCell.self, forCellWithReuseIdentifier: BlogCollectionViewCell.identifier)
-        collectionView.backgroundColor = UIColor(named: "backgroundColor")
+        collectionView.backgroundColor = UIColor(named: "Background".localized())
         return collectionView
     }()
     
@@ -24,11 +24,6 @@ class RacingScreenView: UIView {
         let indicatorView = UIActivityIndicatorView(style: .medium)
         indicatorView.hidesWhenStopped = true
         return indicatorView
-    }()
-    
-    lazy var placeholderImage: UIImage = {
-        let image = UIImage()
-        return image
     }()
     
     override init (frame: CGRect) {
@@ -42,7 +37,7 @@ class RacingScreenView: UIView {
     
     func mainScreenConfigUI() {
         
-        backgroundColor = UIColor(named: "backgroundColor")
+        backgroundColor = UIColor(named: "Background".localized())
         
         addSubview(collectionView)
         addSubview(activityIndicatorView)

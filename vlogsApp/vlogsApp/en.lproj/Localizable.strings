@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  vlogsApp
+
+  Created by Petar Popovski on 6.9.23.
+  
+*/
+
+//MARK: - Color Of The App
+
+"Background" = "backgroundColor";
+"Text Field" = "textFieldColor";

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5636EFEE2A406036005A3859 /* GamingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636EFED2A406036005A3859 /* GamingScreenViewController.swift */; };
+		563D61402AA8972F001749F8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 563D61422AA8972F001749F8 /* Localizable.strings */; };
 		565B7CA82A4C47F40027947D /* NotifTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565B7CA72A4C47F40027947D /* NotifTableViewCell.swift */; };
 		565B7CAB2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */; };
 		565DFA822A9E23F800DE28B4 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565DFA812A9E23F800DE28B4 /* SignInView.swift */; };
@@ -50,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		5636EFED2A406036005A3859 /* GamingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamingScreenViewController.swift; sourceTree = "<group>"; };
+		563D61412AA8972F001749F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		565B7CA72A4C47F40027947D /* NotifTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifTableViewCell.swift; sourceTree = "<group>"; };
 		565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+RoundedProfilePic.swift"; sourceTree = "<group>"; };
 		565DFA812A9E23F800DE28B4 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 		56AB84A72A28B1E400A3C54C /* vlogsApp */ = {
 			isa = PBXGroup;
 			children = (
+				563D61422AA8972F001749F8 /* Localizable.strings */,
 				2F8E690C2A793B3200EEC373 /* Core */,
 				569E82942A3B2FCF0014BF2B /* Services */,
 				56A160D82A385B8000C0B0A9 /* Model */,
@@ -368,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56AB84B52A28B1E500A3C54C /* LaunchScreen.storyboard in Resources */,
+				563D61402AA8972F001749F8 /* Localizable.strings in Resources */,
 				56B5F7752A2F670A006F3E49 /* GoogleService-Info.plist in Resources */,
 				56AB84B22A28B1E500A3C54C /* Assets.xcassets in Resources */,
 			);
@@ -415,6 +419,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		563D61422AA8972F001749F8 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				563D61412AA8972F001749F8 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		56AB84B32A28B1E500A3C54C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
