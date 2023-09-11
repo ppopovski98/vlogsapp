@@ -27,6 +27,8 @@ class GamingScreenViewController: MainViewController {
         gamingView.collectionView.dataSource = self
         gamingView.collectionView.delegate = self
         
+        longPressDelete(for: gamingView.collectionView)
+        
         guard let blog = self.blog else {
             return
         }

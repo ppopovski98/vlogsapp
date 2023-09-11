@@ -24,16 +24,14 @@ class MainViewController: BaseUiNavigationBarAppearance, UIScrollViewDelegate, U
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         
-        longPressDelete()
-        
     }
     
-    func longPressDelete() {
+    func longPressDelete(for collectionView: UICollectionView) {
         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(popUpActionCell(longPressGesture:)))
         lpgr.minimumPressDuration = 0.5
         lpgr.delaysTouchesBegan = true
         lpgr.delegate = self
-        self.gamingView.collectionView.addGestureRecognizer(lpgr)
+        collectionView.addGestureRecognizer(lpgr)
     }
     
     func getDataFromFirebase(category: String, collectionView: UICollectionView) {
@@ -68,8 +66,10 @@ class MainViewController: BaseUiNavigationBarAppearance, UIScrollViewDelegate, U
     
     @objc func popUpActionCell(longPressGesture: UILongPressGestureRecognizer) {
         
-        let point = longPressGesture.location(in: self.gamingView.collectionView)
-        let indexPath = self.gamingView.collectionView.indexPathForItem(at: point)
+        guard let collectionView = longPressGesture.view as? UICollectionView else { return }
+        
+        let point = longPressGesture.location(in: collectionView)
+        let indexPath = collectionView.indexPathForItem(at: point)
         
         if let indexPath = indexPath
         {
@@ -93,7 +93,7 @@ class MainViewController: BaseUiNavigationBarAppearance, UIScrollViewDelegate, U
                     } else {
                         print("Document deleted.")
                         self.dataSource.remove(at: indexPath.row)
-                        self.gamingView.collectionView.reloadData()
+                        collectionView.reloadData()
                     }
                 }
             })
@@ -121,18 +121,24 @@ class MainViewController: BaseUiNavigationBarAppearance, UIScrollViewDelegate, U
     }
     
     func addBlog(_ blog: Blog, image: UIImage?, _ collectionView: UICollectionView?) {
+        guard let collectionView = collectionView else {
+            return
+        }
         if blog.category == "gaming" {
             DispatchQueue.main.async {
                 self.dataSource.insert(blog, at: 0)
-                collectionView!.reloadData()
+                collectionView.reloadData()
             }
         }
     }
     
     func didUpdateBlog(_ blog: Blog, _ collectionView: UICollectionView?) {
+        guard let collectionView = collectionView else {
+            return
+        }
         if let index = dataSource.firstIndex(where: { $0.image == blog.image }) {
             dataSource[index] = blog
-            collectionView!.reloadItems(at: [IndexPath(item: index, section: 0)])
+            collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
             
         }
     }

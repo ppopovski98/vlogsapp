@@ -27,14 +27,14 @@ class RacingScreenViewController: MainViewController {
         racingView.collectionView.dataSource = self
         racingView.collectionView.delegate = self
         
+        longPressDelete(for: racingView.collectionView)
+        
         guard let blog = self.blog else {
             return
         }
         
         didUpdateBlog(blog, racingView.collectionView)
         addBlog(blog, image: nil, racingView.collectionView)
-        
-//        longPressDelete(collectionView: racingScreenView.collectionView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,13 +42,5 @@ class RacingScreenViewController: MainViewController {
         
         getDataFromFirebase(category: "racing", collectionView: racingView.collectionView)
     }
-    
-//    override func longPressDelete() {
-//        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(popUpActionCell(longPressGesture:)))
-//        lpgr.minimumPressDuration = 0.5
-//        lpgr.delaysTouchesBegan = true
-//        lpgr.delegate = self
-//        self.racingScreenView.collectionView.addGestureRecognizer(lpgr)
-//    }
 }
 
