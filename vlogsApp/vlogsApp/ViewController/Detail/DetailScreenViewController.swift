@@ -10,7 +10,7 @@ import SnapKit
 import SDWebImage
 
 protocol DetailScreenViewControllerDelegate: AnyObject {
-    func didUpdateBlog(_ blog: Blog)
+    func didUpdateBlog(_ blog: Blog, _ collectionView: UICollectionView?)
 }
 
 class DetailScreenViewController: UIViewController {
@@ -87,7 +87,8 @@ class DetailScreenViewController: UIViewController {
                             guard let selectedBlog = self.detailScreenView.blog else {
                                 return
                             }
-                            self.delegate?.didUpdateBlog(selectedBlog)
+                            
+                            self.delegate?.didUpdateBlog(selectedBlog, nil)
                             print("Blog updated successfully.")
                         }
                     })

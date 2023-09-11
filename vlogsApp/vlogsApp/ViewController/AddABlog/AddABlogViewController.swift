@@ -13,7 +13,7 @@ import FirebaseFirestore
 import FirebaseStorage
 
 protocol AddABlogDelegate: AnyObject {
-    func addBlog(_ blog: Blog, image: UIImage)
+    func addBlog(_ blog: Blog, image: UIImage?, _ collectionView: UICollectionView?)
 }
 
 class AddABlogViewController: UIViewController {
@@ -99,7 +99,7 @@ extension AddABlogViewController: AddABlogProtocol {
                     if success {
                         guard let selectedImage = self.selectedImage else { return }
                         let newBlog = Blog(title: title, description: description, image: imageURL, isFavourite: false, category: self.selectedCategory, timestamp: self.selectedDate!.timeIntervalSince1970)
-                        self.delegate?.addBlog(newBlog, image: selectedImage)
+                        self.delegate?.addBlog(newBlog, image: selectedImage, nil)
                         DispatchQueue.main.async {
                             self.navigationController?.popViewController(animated: true)
                         }

@@ -8,12 +8,6 @@
 import UIKit
 import SnapKit
 
-extension String {
-    func localized() -> String {
-        return NSLocalizedString(self, tableName: "Localizable", bundle: .main, value: self, comment: self)
-    }
-}
-
 class GamingScreenView: UIView {
     
     lazy var collectionView: UICollectionView = {
