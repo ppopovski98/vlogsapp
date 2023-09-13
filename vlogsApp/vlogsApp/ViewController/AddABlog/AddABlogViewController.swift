@@ -72,10 +72,14 @@ class AddABlogViewController: UIViewController {
 extension AddABlogViewController: AddABlogProtocol {
     
     @objc func datePickerValueChange() {
+        var currentDate = Date()
         selectedDate = addABlogView.datePicker.date
         
         if let selectedDate = selectedDate {
-            lazy var formattedDate = addABlogView.dateFormatter.string(from: selectedDate)
+            if selectedDate < currentDate {
+                addABlogView.datePicker.date = currentDate
+            }
+            let formattedDate = addABlogView.dateFormatter.string(from: selectedDate)
         } else {
             return
         }
@@ -85,10 +89,10 @@ extension AddABlogViewController: AddABlogProtocol {
         
         guard let title = addABlogView.titleTextField.text,
               let description = addABlogView.descriptionTextField.text,
-                  let imageURL = selectedImageURL
-                   else {
-                return
-            }
+              let imageURL = selectedImageURL
+        else {
+            return
+        }
         
         if selectedDate == nil {
             selectedDate = Date()
@@ -96,16 +100,16 @@ extension AddABlogViewController: AddABlogProtocol {
         
         if let selectedDate = selectedDate {
             firebaseManager.uploadData(title: title, description: description, image: imageURL, isFavourite: false, category: selectedCategory, timestamp: selectedDate.timeIntervalSince1970) { success in
-                    if success {
-                        guard let selectedImage = self.selectedImage else { return }
-                        let newBlog = Blog(title: title, description: description, image: imageURL, isFavourite: false, category: self.selectedCategory, timestamp: self.selectedDate!.timeIntervalSince1970)
-                        self.delegate?.addBlog(newBlog, image: selectedImage, nil)
-                        DispatchQueue.main.async {
-                            self.navigationController?.popViewController(animated: true)
-                        }
-                    } else {
-                        print("Failed to upload blog.")
+                if success {
+                    guard let selectedImage = self.selectedImage else { return }
+                    let newBlog = Blog(title: title, description: description, image: imageURL, isFavourite: false, category: self.selectedCategory, timestamp: self.selectedDate!.timeIntervalSince1970)
+                    self.delegate?.addBlog(newBlog, image: selectedImage, nil)
+                    DispatchQueue.main.async {
+                        self.navigationController?.popViewController(animated: true)
                     }
+                } else {
+                    print("Failed to upload blog.")
+                }
             }
         }
     }

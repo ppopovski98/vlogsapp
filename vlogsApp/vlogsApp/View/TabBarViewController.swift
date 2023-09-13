@@ -13,6 +13,7 @@ class TabBarViewController: UITabBarController {
     lazy var profileScreen = ProfileViewController()
     lazy var favouriteScreen = FavouritesScreenViewController(firebaseManager: FirebaseManager())
     lazy var gamingScreen = GamingScreenViewController(firebaseManager: FirebaseManager())
+    lazy var signInScreen = SignInViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,5 +69,9 @@ class TabBarViewController: UITabBarController {
         let gamingScreeenAlertButton = UIBarButtonItem(image: vlogImage, style: .done, target: gamingScreen, action: #selector(gamingScreen.alertButtonTapped))
         gamingScreen.navigationItem.leftBarButtonItem = gamingScreeenAlertButton
         gamingScreen.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "titleColor".localized())
+        
+        let profileSignOutButton = UIBarButtonItem(title: "Sign Out", style: .done, target: profileScreen, action: #selector(profileScreen.didTapLogOut))
+        profileScreen.navigationItem.rightBarButtonItem = profileSignOutButton
+        profileScreen.navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "titleColor".localized())
     }
 }

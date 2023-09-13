@@ -58,4 +58,8 @@ class NotificationsScreenViewController: BaseUiNavigationBarAppearance, UITableV
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 100
     }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return nil
+    }
 }

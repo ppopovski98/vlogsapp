@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import SafariServices
+import FirebaseAuth
 
 class ProfileViewController: BaseUiNavigationBarAppearance {
     
@@ -25,7 +26,19 @@ class ProfileViewController: BaseUiNavigationBarAppearance {
         profileView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
+    }
+    
+    @objc func didTapLogOut () {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            if let navController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
+                navController.isNavigationBarHidden = false
+                navController.popToRootViewController(animated: true)
+            }
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
     }
 }
 
