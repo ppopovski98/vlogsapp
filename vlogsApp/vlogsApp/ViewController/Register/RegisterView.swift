@@ -26,6 +26,7 @@ class RegisterView: UIView {
         textField.textColor = .black
         textField.layer.borderWidth = 0.5
         textField.frame = CGRect(x: 100, y: 100, width: 350, height: 50)
+        textField.autocapitalizationType = .none
         return textField
     }()
     
@@ -46,7 +47,7 @@ class RegisterView: UIView {
         let UIbutton = UIButton()
         UIbutton.setTitle("CREATE AN ACCOUNT", for: .normal)
         UIbutton.setTitleColor(.black, for: .normal)
-        UIbutton.backgroundColor = UIColor(named: "textFieldColor")
+        UIbutton.backgroundColor = UIColor(named: "textField".localized())
         UIbutton.layer.cornerRadius = 20
         UIbutton.frame = CGRect(x: 100, y: 100, width: 350, height: 50)
         UIbutton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
@@ -103,7 +104,7 @@ class RegisterView: UIView {
         addSubview(stackView)
         addSubview(registerButton)
         
-        backgroundColor = UIColor(named: "backgroundColor")
+        backgroundColor = UIColor(named: "background".localized())
         
         enterEmailLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()

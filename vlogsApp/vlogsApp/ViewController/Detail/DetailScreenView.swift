@@ -14,7 +14,7 @@ class DetailScreenView: UIView {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(named: "titleColor")
+        label.textColor = UIColor(named: "titleColor".localized())
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -23,7 +23,7 @@ class DetailScreenView: UIView {
     
     lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(named: "titleColor")
+        label.textColor = UIColor(named: "titleColor".localized())
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -56,7 +56,7 @@ class DetailScreenView: UIView {
     
     func configUI() {
         
-        backgroundColor = UIColor(named: "backgroundColor")
+        backgroundColor = UIColor(named: "background".localized())
         
         addSubview(titleLabel)
         addSubview(descriptionLabel)

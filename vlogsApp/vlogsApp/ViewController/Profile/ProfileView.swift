@@ -79,7 +79,7 @@ class ProfileView: UIView {
     
     func configUI() {
         
-        backgroundColor = UIColor(named: "backgroundColor")
+        backgroundColor = UIColor(named: "background".localized())
         
         addSubview(buttonStackView)
         addSubview(profilePic)

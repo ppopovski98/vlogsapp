@@ -20,7 +20,7 @@ class SignInView: UIView {
     lazy var loginButton: UIButton = {
         let button = UIButton(type: .roundedRect)
         button.setTitle("LOG IN", for: .normal)
-        button.backgroundColor = UIColor(named: "textFieldColor")
+        button.backgroundColor = UIColor(named: "textField".localized())
         button.layer.cornerRadius = 20
         button.tintColor = .black
         button.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
@@ -37,6 +37,7 @@ class SignInView: UIView {
         textField.layer.borderColor = UIColor.gray.cgColor
         textField.layer.borderWidth = 0.5
         textField.backgroundColor = .white
+        textField.autocapitalizationType = .none
         return textField
     }()
     
@@ -65,7 +66,7 @@ class SignInView: UIView {
     lazy var registerButton: UIButton = {
         let button = UIButton(type: .roundedRect)
         button.setTitle("CREATE AN ACCOUNT", for: .normal)
-        button.backgroundColor = UIColor(named: "textFieldColor")
+        button.backgroundColor = UIColor(named: "textField".localized())
         button.layer.cornerRadius = 20
         button.tintColor = .black
         button.frame = CGRect(x: 100, y: 100, width: 350, height: 50)
@@ -139,7 +140,7 @@ class SignInView: UIView {
         emailTextField.attributedPlaceholder = emailAttributedTextField
         passwordTextField.attributedPlaceholder = passwordAttributedTextField
         
-        backgroundColor = UIColor(named: "backgroundColor")
+        backgroundColor = UIColor(named: "background".localized())
         
         let emailPaddingView = UIView(frame: CGRectMake(0, 0, 15, self.emailTextField.frame.height))
         emailTextField.leftView = emailPaddingView

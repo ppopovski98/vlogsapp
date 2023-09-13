@@ -16,7 +16,7 @@ class GamingScreenViewController: MainViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Gaming"
+        title = "gamingTitle".localized()
         
         view.addSubview(gamingView)
         
@@ -32,7 +32,6 @@ class GamingScreenViewController: MainViewController {
         guard let blog = self.blog else {
             return
         }
-        
         didUpdateBlog(blog, gamingView.collectionView)
         addBlog(blog, image: nil, gamingView.collectionView)
         
@@ -41,6 +40,6 @@ class GamingScreenViewController: MainViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        getDataFromFirebase(category: "gaming", collectionView: gamingView.collectionView)
+        getDataFromFirebase(category: "gamingCategory".localized(), collectionView: gamingView.collectionView)
     }
 }

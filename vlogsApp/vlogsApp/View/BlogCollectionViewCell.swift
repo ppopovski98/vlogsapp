@@ -100,7 +100,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
         
         contentView.layer.cornerRadius = 20
-        contentView.backgroundColor = UIColor(named: "Text Field".localized())
+        contentView.backgroundColor = UIColor(named: "textField".localized())
 
         contentView.addSubview(postImageView)
         contentView.addSubview(dateAndTitleStackView)

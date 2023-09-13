@@ -28,7 +28,7 @@ class AddABlogViewController: UIViewController {
     var selectedImage: UIImage?
     var selectedImageURL: String?
     var selectedDate: Date?
-    var selectedCategory: String = "racing"
+    var selectedCategory: String = "racingCategory".localized()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,7 +121,7 @@ extension AddABlogViewController: AddABlogProtocol {
     }
     
     @objc func categorySwitchValue() {
-        selectedCategory = addABlogView.categorySwitch.isOn ? "gaming" : "racing"
+        selectedCategory = addABlogView.categorySwitch.isOn ? "gamingCategory".localized() : "racingCategory".localized()
     }
 }
 

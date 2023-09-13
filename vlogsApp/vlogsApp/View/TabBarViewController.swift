@@ -27,9 +27,9 @@ class TabBarViewController: UITabBarController {
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         
-        profileScreen.title = "Profile"
-        favouriteScreen.title = "Favourites"
-        gamingScreen.title = "Gaming"
+        profileScreen.title = "profileTitle".localized()
+        favouriteScreen.title = "favouritesTitle".localized()
+        gamingScreen.title = "gamingTitle".localized()
         
         let mainScreenNavController = UINavigationController(rootViewController: mainScreen)
         let profileScreenNavController = UINavigationController(rootViewController: profileScreen)
@@ -55,18 +55,18 @@ class TabBarViewController: UITabBarController {
         
         let mainScreenAddButton = UIBarButtonItem(barButtonSystemItem: .add, target: mainScreen, action: #selector(mainScreen.addButtonTapped))
         mainScreen.navigationItem.rightBarButtonItem = mainScreenAddButton
-        mainScreen.navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "titleColor")
+        mainScreen.navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "titleColor".localized())
         
         let mainScreenAlertButton = UIBarButtonItem(image: vlogImage, style: .done, target: mainScreen, action: #selector(mainScreen.alertButtonTapped))
         mainScreen.navigationItem.leftBarButtonItem = mainScreenAlertButton
-        mainScreen.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "titleColor")
+        mainScreen.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "titleColor".localized())
         
         let gamingScreenAddButton = UIBarButtonItem(barButtonSystemItem: .add, target: gamingScreen, action: #selector(gamingScreen.addButtonTapped))
         gamingScreen.navigationItem.rightBarButtonItem = gamingScreenAddButton
-        gamingScreen.navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "titleColor")
+        gamingScreen.navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "titleColor".localized())
         
         let gamingScreeenAlertButton = UIBarButtonItem(image: vlogImage, style: .done, target: gamingScreen, action: #selector(gamingScreen.alertButtonTapped))
         gamingScreen.navigationItem.leftBarButtonItem = gamingScreeenAlertButton
-        gamingScreen.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "titleColor")
+        gamingScreen.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "titleColor".localized())
     }
 }

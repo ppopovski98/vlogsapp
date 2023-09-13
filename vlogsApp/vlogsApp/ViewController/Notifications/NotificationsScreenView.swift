@@ -36,7 +36,7 @@ class NotificationsScreenView: UIView {
     
     func alertConfigUI() {
         
-        backgroundColor = UIColor(named: "backgroundColor")
+        backgroundColor = UIColor(named: "background".localized())
         
         addSubview(notifTableView)
 

@@ -16,7 +16,7 @@ class RacingScreenViewController: MainViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Racing"
+        title = "racingTitle".localized()
         
         view.addSubview(racingView)
         
@@ -32,7 +32,6 @@ class RacingScreenViewController: MainViewController {
         guard let blog = self.blog else {
             return
         }
-        
         didUpdateBlog(blog, racingView.collectionView)
         addBlog(blog, image: nil, racingView.collectionView)
     }
@@ -40,7 +39,7 @@ class RacingScreenViewController: MainViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        getDataFromFirebase(category: "racing", collectionView: racingView.collectionView)
+        getDataFromFirebase(category: "racingCategory".localized(), collectionView: racingView.collectionView)
     }
 }
 

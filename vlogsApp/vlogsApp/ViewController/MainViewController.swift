@@ -205,6 +205,7 @@ extension MainViewController: BlogCollectionViewCellDelegate {
             if success {
                 DispatchQueue.main.async {
                     self.gamingView.collectionView.reloadData()
+                    self.racingView.collectionView.reloadData()
                 }
             } else {
                 print("Failure")

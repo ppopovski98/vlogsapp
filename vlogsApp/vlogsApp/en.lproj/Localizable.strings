@@ -8,5 +8,18 @@
 
 //MARK: - Color Of The App
 
-"Background" = "backgroundColor";
-"Text Field" = "textFieldColor";
+"background" = "backgroundColor";
+"textField" = "textFieldColor";
+"titleColor" = "titleColor";
+
+//MARK: - Titles
+
+"gamingTitle" = "Gaming";
+"racingTitle" = "Racing";
+"profileTitle" = "Profile";
+
+//MARK: - Categories
+
+"gamingCategory" = "gaming";
+"racingCategory" = "racing";
+"favouritesCategory" = "favourites";

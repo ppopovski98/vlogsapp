@@ -17,14 +17,14 @@ class FavouritesScreenViewController: BaseUiNavigationBarAppearance {
     lazy var selectedBlogs: [Blog] = []
     lazy var filteredBlogs: [Blog] = []
     lazy var favouriteToggle = true
-    lazy var category = "favourites"
+    lazy var category = "favouritesCategory".localized()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Favourites"
         
-        favouritesScreenView.collectionView.backgroundColor = UIColor(named: "backgroundColor")
+        favouritesScreenView.collectionView.backgroundColor = UIColor(named: "background".localized())
         favouritesScreenView.collectionView.dataSource = self
         favouritesScreenView.collectionView.delegate = self
         

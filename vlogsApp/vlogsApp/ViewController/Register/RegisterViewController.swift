@@ -16,7 +16,7 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.tintColor = UIColor(named: "titleColor")
+        navigationController?.navigationBar.tintColor = UIColor(named: "titleColor".localized())
 
         view.addSubview(registerView)
         registerView.delegate = self

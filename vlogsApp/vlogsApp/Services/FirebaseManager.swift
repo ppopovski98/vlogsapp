@@ -85,7 +85,7 @@ class FirebaseManager {
     
     func addToFavourites(_ blog: Blog, completion: @escaping (Bool) -> Void) {
         
-        var query: Query = db.collection("Posts")
+        let query: Query = db.collection("Posts")
         
         if let blogId = blog.blogID {
             query.whereField("blogID", isEqualTo: blogId).getDocuments(completion: { querySnapshot, err in

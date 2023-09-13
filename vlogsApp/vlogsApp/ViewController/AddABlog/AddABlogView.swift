@@ -22,7 +22,7 @@ class AddABlogView: UIView {
     
     lazy var photoPickerButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(named: "textFieldColor")
+        button.backgroundColor = UIColor(named: "textField".localized())
         button.setTitle("UPLOAD A PHOTO", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 20
@@ -49,7 +49,7 @@ class AddABlogView: UIView {
     
     lazy var postButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(named: "textFieldColor")
+        button.backgroundColor = UIColor(named: "textField".localized())
         button.addTarget(self, action: #selector(postButtonTapped), for: .touchUpInside)
         button.setTitle("POST", for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -79,14 +79,14 @@ class AddABlogView: UIView {
     lazy var gamingLabel: UILabel = {
         let label = UILabel()
         label.text = "Gaming Category"
-        label.textColor = UIColor(named: "titleColor")
+        label.textColor = UIColor(named: "titleColor".localized())
         return label
     }()
     
     lazy var racingLabel: UILabel = {
         let label = UILabel()
         label.text = "Racing Category"
-        label.textColor = UIColor(named: "titleColor")
+        label.textColor = UIColor(named: "titleColor".localized())
         label.textAlignment = .right
         return label
     }()
@@ -124,7 +124,7 @@ class AddABlogView: UIView {
         descriptionTextField.leftView = descriptionPaddingView
         descriptionTextField.leftViewMode = UITextField.ViewMode.always
         
-        backgroundColor = UIColor(named: "backgroundColor")
+        backgroundColor = UIColor(named: "background".localized())
         
         addSubview(buttonAndTextFieldStackView)
         addSubview(categoryStackView)
