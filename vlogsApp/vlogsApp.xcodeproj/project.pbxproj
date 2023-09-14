@@ -8,8 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		5636EFEE2A406036005A3859 /* GamingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5636EFED2A406036005A3859 /* GamingScreenViewController.swift */; };
+		563D61402AA8972F001749F8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 563D61422AA8972F001749F8 /* Localizable.strings */; };
+		563D61442AA89E96001749F8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563D61432AA89E96001749F8 /* MainViewController.swift */; };
+		563D61462AA89EC0001749F8 /* Extension+LocalizableStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563D61452AA89EC0001749F8 /* Extension+LocalizableStrings.swift */; };
 		565B7CA82A4C47F40027947D /* NotifTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565B7CA72A4C47F40027947D /* NotifTableViewCell.swift */; };
 		565B7CAB2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */; };
+		565DFA822A9E23F800DE28B4 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565DFA812A9E23F800DE28B4 /* SignInView.swift */; };
+		565DFA852A9E241800DE28B4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565DFA842A9E241800DE28B4 /* SignInViewModel.swift */; };
+		566136072A9F4379008FB534 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566136062A9F4379008FB534 /* RegisterView.swift */; };
+		5661360B2A9F45D9008FB534 /* DetailScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5661360A2A9F45D9008FB534 /* DetailScreenView.swift */; };
+		5661360E2A9F4652008FB534 /* GamingScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5661360D2A9F4652008FB534 /* GamingScreenView.swift */; };
+		566F88492AAF50EB00AE315A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566F88482AAF50EB00AE315A /* MainView.swift */; };
+		566FD2DA2A9F4827005F8D2F /* FavouritesScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566FD2D92A9F4827005F8D2F /* FavouritesScreenView.swift */; };
+		566FD2E32A9F49D4005F8D2F /* RacingScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566FD2E22A9F49D4005F8D2F /* RacingScreenView.swift */; };
+		566FD2E62A9F4A62005F8D2F /* AddABlogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566FD2E52A9F4A62005F8D2F /* AddABlogView.swift */; };
+		566FD2E92A9F4AD1005F8D2F /* NotificationsScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566FD2E82A9F4AD1005F8D2F /* NotificationsScreenView.swift */; };
+		566FD2EC2A9F4B49005F8D2F /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566FD2EB2A9F4B49005F8D2F /* ProfileView.swift */; };
 		569D1D452A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569D1D442A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift */; };
 		569E82962A3B2FDE0014BF2B /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569E82952A3B2FDE0014BF2B /* FirebaseManager.swift */; };
 		56A160DA2A385B9700C0B0A9 /* Blog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A160D92A385B9700C0B0A9 /* Blog.swift */; };
@@ -40,8 +54,22 @@
 
 /* Begin PBXFileReference section */
 		5636EFED2A406036005A3859 /* GamingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamingScreenViewController.swift; sourceTree = "<group>"; };
+		563D61412AA8972F001749F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		563D61432AA89E96001749F8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		563D61452AA89EC0001749F8 /* Extension+LocalizableStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+LocalizableStrings.swift"; sourceTree = "<group>"; };
 		565B7CA72A4C47F40027947D /* NotifTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifTableViewCell.swift; sourceTree = "<group>"; };
 		565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+RoundedProfilePic.swift"; sourceTree = "<group>"; };
+		565DFA812A9E23F800DE28B4 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		565DFA842A9E241800DE28B4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		566136062A9F4379008FB534 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		5661360A2A9F45D9008FB534 /* DetailScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenView.swift; sourceTree = "<group>"; };
+		5661360D2A9F4652008FB534 /* GamingScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamingScreenView.swift; sourceTree = "<group>"; };
+		566F88482AAF50EB00AE315A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		566FD2D92A9F4827005F8D2F /* FavouritesScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesScreenView.swift; sourceTree = "<group>"; };
+		566FD2E22A9F49D4005F8D2F /* RacingScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RacingScreenView.swift; sourceTree = "<group>"; };
+		566FD2E52A9F4A62005F8D2F /* AddABlogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddABlogView.swift; sourceTree = "<group>"; };
+		566FD2E82A9F4AD1005F8D2F /* NotificationsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsScreenView.swift; sourceTree = "<group>"; };
+		566FD2EB2A9F4B49005F8D2F /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		569D1D442A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUiNavigationBarAppearance.swift; sourceTree = "<group>"; };
 		569E82952A3B2FDE0014BF2B /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		56A160D92A385B9700C0B0A9 /* Blog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blog.swift; sourceTree = "<group>"; };
@@ -101,6 +129,88 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		565DFA832A9E240200DE28B4 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				565DFA842A9E241800DE28B4 /* SignInViewModel.swift */,
+				56AB84AC2A28B1E400A3C54C /* SignInViewController.swift */,
+				565DFA812A9E23F800DE28B4 /* SignInView.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		566136052A9F3FFB008FB534 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				566136062A9F4379008FB534 /* RegisterView.swift */,
+				56B5F7722A2F5307006F3E49 /* RegisterViewController.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		566136092A9F45CB008FB534 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				5661360A2A9F45D9008FB534 /* DetailScreenView.swift */,
+				56AD9F3B2A373D3B001DA577 /* DetailScreenViewController.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		5661360C2A9F4642008FB534 /* Gaming */ = {
+			isa = PBXGroup;
+			children = (
+				5661360D2A9F4652008FB534 /* GamingScreenView.swift */,
+				5636EFED2A406036005A3859 /* GamingScreenViewController.swift */,
+			);
+			path = Gaming;
+			sourceTree = "<group>";
+		};
+		566FD2D82A9F4819005F8D2F /* Favourites */ = {
+			isa = PBXGroup;
+			children = (
+				566FD2D92A9F4827005F8D2F /* FavouritesScreenView.swift */,
+				56A29E102A30A62900D866F1 /* FavouritesScreenViewController.swift */,
+			);
+			path = Favourites;
+			sourceTree = "<group>";
+		};
+		566FD2E12A9F49C9005F8D2F /* Racing */ = {
+			isa = PBXGroup;
+			children = (
+				566FD2E22A9F49D4005F8D2F /* RacingScreenView.swift */,
+				56A29E052A309AB100D866F1 /* RacingScreenViewController.swift */,
+			);
+			path = Racing;
+			sourceTree = "<group>";
+		};
+		566FD2E42A9F4A53005F8D2F /* AddABlog */ = {
+			isa = PBXGroup;
+			children = (
+				566FD2E52A9F4A62005F8D2F /* AddABlogView.swift */,
+				56B81B8E2A320B55001341CF /* AddABlogViewController.swift */,
+			);
+			path = AddABlog;
+			sourceTree = "<group>";
+		};
+		566FD2E72A9F4AB5005F8D2F /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				566FD2E82A9F4AD1005F8D2F /* NotificationsScreenView.swift */,
+				56AD9F3D2A37463E001DA577 /* NotificationsScreenViewController.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		566FD2EA2A9F4B3E005F8D2F /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				566FD2EB2A9F4B49005F8D2F /* ProfileView.swift */,
+				56A29E172A30C72A00D866F1 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		569E82942A3B2FCF0014BF2B /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +267,7 @@
 		56AB84A72A28B1E400A3C54C /* vlogsApp */ = {
 			isa = PBXGroup;
 			children = (
+				563D61422AA8972F001749F8 /* Localizable.strings */,
 				2F8E690C2A793B3200EEC373 /* Core */,
 				569E82942A3B2FCF0014BF2B /* Services */,
 				56A160D82A385B8000C0B0A9 /* Model */,
@@ -173,6 +284,7 @@
 				56AD9F402A3751F3001DA577 /* Extension+UIStackView.swift */,
 				565B7CAA2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift */,
 				569D1D442A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift */,
+				563D61452AA89EC0001749F8 /* Extension+LocalizableStrings.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -180,15 +292,17 @@
 		56F61C192A28C45B00383821 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				56AB84AC2A28B1E400A3C54C /* SignInViewController.swift */,
-				56B5F7722A2F5307006F3E49 /* RegisterViewController.swift */,
-				5636EFED2A406036005A3859 /* GamingScreenViewController.swift */,
-				56A29E052A309AB100D866F1 /* RacingScreenViewController.swift */,
-				56B81B8E2A320B55001341CF /* AddABlogViewController.swift */,
-				56AD9F3D2A37463E001DA577 /* NotificationsScreenViewController.swift */,
-				56A29E102A30A62900D866F1 /* FavouritesScreenViewController.swift */,
-				56A29E172A30C72A00D866F1 /* ProfileViewController.swift */,
-				56AD9F3B2A373D3B001DA577 /* DetailScreenViewController.swift */,
+				563D61432AA89E96001749F8 /* MainViewController.swift */,
+				566F88482AAF50EB00AE315A /* MainView.swift */,
+				565DFA832A9E240200DE28B4 /* SignIn */,
+				566136052A9F3FFB008FB534 /* Register */,
+				5661360C2A9F4642008FB534 /* Gaming */,
+				566FD2E12A9F49C9005F8D2F /* Racing */,
+				566FD2E42A9F4A53005F8D2F /* AddABlog */,
+				566FD2E72A9F4AB5005F8D2F /* Notifications */,
+				566FD2D82A9F4819005F8D2F /* Favourites */,
+				566FD2EA2A9F4B3E005F8D2F /* Profile */,
+				566136092A9F45CB008FB534 /* Detail */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -266,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56AB84B52A28B1E500A3C54C /* LaunchScreen.storyboard in Resources */,
+				563D61402AA8972F001749F8 /* Localizable.strings in Resources */,
 				56B5F7752A2F670A006F3E49 /* GoogleService-Info.plist in Resources */,
 				56AB84B22A28B1E500A3C54C /* Assets.xcassets in Resources */,
 			);
@@ -279,30 +394,51 @@
 			buildActionMask = 2147483647;
 			files = (
 				56B81B8F2A320B55001341CF /* AddABlogViewController.swift in Sources */,
+				5661360B2A9F45D9008FB534 /* DetailScreenView.swift in Sources */,
+				566FD2E92A9F4AD1005F8D2F /* NotificationsScreenView.swift in Sources */,
+				5661360E2A9F4652008FB534 /* GamingScreenView.swift in Sources */,
 				565B7CA82A4C47F40027947D /* NotifTableViewCell.swift in Sources */,
 				56AD9F412A3751F3001DA577 /* Extension+UIStackView.swift in Sources */,
 				56AD9F3E2A37463E001DA577 /* NotificationsScreenViewController.swift in Sources */,
 				56A29E062A309AB100D866F1 /* RacingScreenViewController.swift in Sources */,
 				56AB84AD2A28B1E400A3C54C /* SignInViewController.swift in Sources */,
+				566F88492AAF50EB00AE315A /* MainView.swift in Sources */,
+				563D61442AA89E96001749F8 /* MainViewController.swift in Sources */,
 				56AB84A92A28B1E400A3C54C /* AppDelegate.swift in Sources */,
 				56AB84AB2A28B1E400A3C54C /* SceneDelegate.swift in Sources */,
+				565DFA852A9E241800DE28B4 /* SignInViewModel.swift in Sources */,
+				566136072A9F4379008FB534 /* RegisterView.swift in Sources */,
 				565B7CAB2A4C6B0E0027947D /* Extension+RoundedProfilePic.swift in Sources */,
 				56B81B8D2A31FDD6001341CF /* TabBarViewController.swift in Sources */,
 				56AD9F3C2A373D3B001DA577 /* DetailScreenViewController.swift in Sources */,
 				56A160DA2A385B9700C0B0A9 /* Blog.swift in Sources */,
 				5636EFEE2A406036005A3859 /* GamingScreenViewController.swift in Sources */,
 				56A29E112A30A62900D866F1 /* FavouritesScreenViewController.swift in Sources */,
+				565DFA822A9E23F800DE28B4 /* SignInView.swift in Sources */,
 				56A29E182A30C72A00D866F1 /* ProfileViewController.swift in Sources */,
+				566FD2EC2A9F4B49005F8D2F /* ProfileView.swift in Sources */,
 				569E82962A3B2FDE0014BF2B /* FirebaseManager.swift in Sources */,
+				566FD2DA2A9F4827005F8D2F /* FavouritesScreenView.swift in Sources */,
 				569D1D452A61452E0078FA14 /* BaseUiNavigationBarAppearance.swift in Sources */,
 				56B5F7732A2F5307006F3E49 /* RegisterViewController.swift in Sources */,
 				56A29E132A30AA4000D866F1 /* BlogCollectionViewCell.swift in Sources */,
+				563D61462AA89EC0001749F8 /* Extension+LocalizableStrings.swift in Sources */,
+				566FD2E62A9F4A62005F8D2F /* AddABlogView.swift in Sources */,
+				566FD2E32A9F49D4005F8D2F /* RacingScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		563D61422AA8972F001749F8 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				563D61412AA8972F001749F8 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		56AB84B32A28B1E500A3C54C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

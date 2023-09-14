@@ -15,7 +15,7 @@ class NotifTableViewCell: UITableViewCell {
     
     lazy var newsLabel: UILabel = {
         var label = UILabel()
-        label.textColor = UIColor(named: "titleColor")
+        label.textColor = UIColor(named: "titleColor".localized())
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -23,7 +23,7 @@ class NotifTableViewCell: UITableViewCell {
     }()
     
     lazy var whatsNewLabel: UILabel = {
-       var label = UILabel()
+        var label = UILabel()
         label.textColor = .systemRed
         label.font = .systemFont(ofSize: 9, weight: .bold)
         label.text = "NEW"
@@ -67,13 +67,13 @@ class NotifTableViewCell: UITableViewCell {
         contentView.addSubview(whatsNewLabel)
         contentView.addSubview(newsLabel)
         
-         newsLabel.snp.makeConstraints { make in
-             make.top.bottom.trailing.equalToSuperview().inset(10)
-             if newNotif {
-                 make.leading.equalToSuperview().inset(35)
-             } else {
-                 make.leading.equalToSuperview().inset(40)
-             }
+        newsLabel.snp.makeConstraints { make in
+            make.top.bottom.trailing.equalToSuperview().inset(10)
+            if newNotif {
+                make.leading.equalToSuperview().inset(35)
+            } else {
+                make.leading.equalToSuperview().inset(40)
+            }
         }
         whatsNewLabel.snp.makeConstraints { make in
             make.centerY.equalTo(contentView.snp.centerY).offset(-7)

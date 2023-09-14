@@ -1,0 +1,25 @@
+/* 
+  Localizable.strings
+  vlogsApp
+
+  Created by Petar Popovski on 6.9.23.
+  
+*/
+
+//MARK: - Color Of The App
+
+"background" = "backgroundColor";
+"textField" = "textFieldColor";
+"titleColor" = "titleColor";
+
+//MARK: - Titles
+
+"gamingTitle" = "Gaming";
+"racingTitle" = "Racing";
+"profileTitle" = "Profile";
+
+//MARK: - Categories
+
+"gamingCategory" = "gaming";
+"racingCategory" = "racing";
+"favouritesCategory" = "favourites";

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 protocol BlogCollectionViewCellDelegate: AnyObject {
     func didTapFavouritesButton(blog: Blog, indexPath: IndexPath)
@@ -19,6 +20,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
     
     var indexPath: IndexPath?
     var dataSource: Blog?
+    var firebaseManager: FirebaseManager?
     
     lazy var placeholderView: UIView = {
         let uiView = UIView()
@@ -57,7 +59,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.textColor = .systemBlue
-        label.textAlignment = .right
+        label.textAlignment = .center
         return label
     }()
     
@@ -72,7 +74,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
     
     lazy var favouritesButton: UIButton = {
         let button = UIButton()
-        button.tintColor = .red
+        button.tintColor = .white
         button.setImage(UIImage(systemName: "star"), for: .normal)
         button.addTarget(self, action: #selector(favouritesButtonTapped), for: .touchUpInside)
         return button
@@ -98,7 +100,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
         
         contentView.layer.cornerRadius = 20
-        contentView.backgroundColor = UIColor(named: "textFieldColor")
+        contentView.backgroundColor = UIColor(named: "textField".localized())
 
         contentView.addSubview(postImageView)
         contentView.addSubview(dateAndTitleStackView)
@@ -143,15 +145,7 @@ class BlogCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func blogCellConfigUI(title: String, description: String, image: Data) {
-        
-        self.titleLabel.text = title
-        self.descriptionLabel.text = description
-        self.postImageView.image = UIImage(data: image)
-    }
-    
     @objc func favouritesButtonTapped() {
-        
         guard let blog = dataSource else {
             return
         }
@@ -160,7 +154,6 @@ class BlogCollectionViewCell: UICollectionViewCell {
     }
     
     func updateCell(with blog: Blog) {
-        
         titleLabel.text = blog.title
         descriptionLabel.text = blog.description
         
@@ -176,10 +169,17 @@ class BlogCollectionViewCell: UICollectionViewCell {
         } else {
             favouritesButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
         }
-
+        
+        if let image = SDImageCache.shared.imageFromCache(forKey: blog.image) {
+            self.postImageView.image = image
+        } else {
+            firebaseManager?.downloadURL(path: blog.image ?? "", completion: { url in
+                self.postImageView.sd_setImage(with: url) { image, error, type, id  in
+                    SDImageCache.shared.store(image, forKey: blog.image ?? "")
+                }
+            })
+        }
     }
-    
-    
     
     override func prepareForReuse() {
         super.prepareForReuse()

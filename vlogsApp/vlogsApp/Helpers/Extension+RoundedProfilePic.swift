@@ -19,6 +19,6 @@ extension UIImageView {
         layer.cornerRadius = 95
         clipsToBounds = true
         layer.borderWidth = 3
-        layer.borderColor = UIColor(named: "textFieldColor")?.cgColor
+        layer.borderColor = UIColor(named: "textField".localized())?.cgColor
     }
 }
